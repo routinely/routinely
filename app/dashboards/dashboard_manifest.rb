@@ -12,6 +12,7 @@ class DashboardManifest
   DASHBOARDS = [
     :users,
     :routines,
+    :sensors,
   ]
 
   # `ROOT_DASHBOARD`
