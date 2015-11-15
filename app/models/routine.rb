@@ -1,4 +1,7 @@
 class Routine < ActiveRecord::Base
+  has_many :listeners, dependent: :destroy
+  has_many :sensors, through: :listeners
+
   bitmask :repeats_at, as: %i(mon tue wed thu fri sat sun) do
     def to_s
       map { |d| d.to_s.capitalize }.join("/")

@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115025449) do
+ActiveRecord::Schema.define(version: 20151115030053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "listeners", force: :cascade do |t|
+    t.integer  "routine_id", null: false
+    t.integer  "sensor_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "listeners", ["routine_id", "sensor_id"], name: "index_listeners_on_routine_id_and_sensor_id", unique: true, using: :btree
+  add_index "listeners", ["routine_id"], name: "index_listeners_on_routine_id", using: :btree
+  add_index "listeners", ["sensor_id"], name: "index_listeners_on_sensor_id", using: :btree
 
   create_table "routines", force: :cascade do |t|
     t.string   "name",                        null: false
@@ -49,4 +60,6 @@ ActiveRecord::Schema.define(version: 20151115025449) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
+  add_foreign_key "listeners", "routines", on_delete: :cascade
+  add_foreign_key "listeners", "sensors", on_delete: :cascade
 end

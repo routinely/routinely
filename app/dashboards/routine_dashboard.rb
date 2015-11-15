@@ -9,16 +9,17 @@ class RoutineDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
     name: Field::String,
     description: Field::Text,
     repeats_at: Field::Bitmask,
     starts_at: Field::Time,
     ends_at: Field::Time,
     duration: Field::Number,
+    sensors: Field::HasMany,
     active: Field::Boolean,
     once: Field::Boolean,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime,
   }
 
   # COLLECTION_ATTRIBUTES
@@ -48,6 +49,7 @@ class RoutineDashboard < Administrate::BaseDashboard
     :starts_at,
     :ends_at,
     :duration,
+    :sensors,
     :active,
     :once,
   ]
