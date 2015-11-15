@@ -16,6 +16,8 @@ class RoutineDashboard < Administrate::BaseDashboard
     ends_at: Field::Time,
     duration: Field::Number,
     sensors: Field::HasMany,
+    on_triggers: Field::HasMany,
+    on_exits: Field::HasMany,
     active: Field::Boolean,
     once: Field::Boolean,
     created_at: Field::DateTime,
@@ -50,6 +52,8 @@ class RoutineDashboard < Administrate::BaseDashboard
     :ends_at,
     :duration,
     :sensors,
+    :on_triggers,
+    :on_exits,
     :active,
     :once,
   ]

@@ -1,0 +1,2 @@
+class OnTrigger < Callback
+end

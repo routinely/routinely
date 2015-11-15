@@ -1,0 +1,2 @@
+class OnExit < Callback
+end

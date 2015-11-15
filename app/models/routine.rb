@@ -1,6 +1,8 @@
 class Routine < ActiveRecord::Base
   has_many :listeners, dependent: :destroy
   has_many :sensors, through: :listeners
+  has_many :on_triggers, dependent: :destroy
+  has_many :on_exits, dependent: :destroy
 
   bitmask :repeats_at, as: %i(mon tue wed thu fri sat sun) do
     def to_s

@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115030053) do
+ActiveRecord::Schema.define(version: 20151115052018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "callbacks", force: :cascade do |t|
+    t.string   "type",                        null: false
+    t.integer  "routine_id",                  null: false
+    t.integer  "target_id",                   null: false
+    t.string   "target_type",                 null: false
+    t.integer  "delay"
+    t.boolean  "once",        default: false, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "callbacks", ["routine_id"], name: "index_callbacks_on_routine_id", using: :btree
+  add_index "callbacks", ["target_type", "target_id"], name: "index_callbacks_on_target_type_and_target_id", using: :btree
+  add_index "callbacks", ["type", "routine_id", "target_type", "target_id"], name: "index_callbacks_on_type_and_routine_id_and_target", unique: true, using: :btree
+  add_index "callbacks", ["type"], name: "index_callbacks_on_type", using: :btree
 
   create_table "listeners", force: :cascade do |t|
     t.integer  "routine_id", null: false
@@ -60,6 +76,7 @@ ActiveRecord::Schema.define(version: 20151115030053) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
+  add_foreign_key "callbacks", "routines", on_delete: :cascade
   add_foreign_key "listeners", "routines", on_delete: :cascade
   add_foreign_key "listeners", "sensors", on_delete: :cascade
 end
