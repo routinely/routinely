@@ -1,4 +1,6 @@
 class Routine < ActiveRecord::Base
+  belongs_to :group, dependent: :destroy
+
   has_many :listeners, dependent: :destroy
   has_many :sensors, through: :listeners
   has_many :on_triggers, dependent: :destroy
@@ -10,7 +12,8 @@ class Routine < ActiveRecord::Base
     end
   end
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :group }
   validates :ends_at, numericality: { greater_than: :starts_at }, allow_nil: true, if: :starts_at?
   validates :duration, inclusion: { in: 0..24.hours }, allow_nil: true
+  validates :group, presence: true
 end

@@ -9,6 +9,7 @@ class SensorDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    group: Field::BelongsTo,
     name: Field::String,
     description: Field::Text,
     created_at: Field::DateTime,
@@ -22,6 +23,7 @@ class SensorDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :group,
     :name,
     :created_at,
   ]
@@ -34,14 +36,15 @@ class SensorDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :group,
     :name,
     :description,
   ]
 
   # Overwrite this method to customize how sensors are displayed
   # across all pages of the admin dashboard.
-  #
-  # def display_resource(sensor)
-  #   "Sensor ##{sensor.id}"
-  # end
+
+  def display_resource(sensor)
+    sensor.name
+  end
 end

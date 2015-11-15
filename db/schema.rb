@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115062632) do
+ActiveRecord::Schema.define(version: 20151115075450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,11 @@ ActiveRecord::Schema.define(version: 20151115062632) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "group_id",    null: false
   end
 
+  add_index "actors", ["group_id"], name: "index_actors_on_group_id", using: :btree
+  add_index "actors", ["name", "group_id"], name: "index_actors_on_name_and_group_id", unique: true, using: :btree
   add_index "actors", ["type"], name: "index_actors_on_type", using: :btree
 
   create_table "callbacks", force: :cascade do |t|
@@ -41,6 +44,12 @@ ActiveRecord::Schema.define(version: 20151115062632) do
   add_index "callbacks", ["target_type", "target_id"], name: "index_callbacks_on_target_type_and_target_id", using: :btree
   add_index "callbacks", ["type", "routine_id", "target_type", "target_id"], name: "index_callbacks_on_type_and_routine_id_and_target", unique: true, using: :btree
   add_index "callbacks", ["type"], name: "index_callbacks_on_type", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "listeners", force: :cascade do |t|
     t.integer  "routine_id", null: false
@@ -64,14 +73,22 @@ ActiveRecord::Schema.define(version: 20151115062632) do
     t.boolean  "once",        default: false, null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "group_id",                    null: false
   end
+
+  add_index "routines", ["group_id"], name: "index_routines_on_group_id", using: :btree
+  add_index "routines", ["name", "group_id"], name: "index_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "sensors", force: :cascade do |t|
     t.string   "name",        null: false
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "group_id",    null: false
   end
+
+  add_index "sensors", ["group_id"], name: "index_sensors_on_group_id", using: :btree
+  add_index "sensors", ["name", "group_id"], name: "index_sensors_on_name_and_group_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                                     null: false
@@ -81,12 +98,18 @@ ActiveRecord::Schema.define(version: 20151115062632) do
     t.string   "confirmation_token", limit: 128
     t.string   "remember_token",     limit: 128,                 null: false
     t.boolean  "admin",                          default: false, null: false
+    t.integer  "group_id",                                       null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
+  add_foreign_key "actors", "groups", on_delete: :cascade
   add_foreign_key "callbacks", "routines", on_delete: :cascade
   add_foreign_key "listeners", "routines", on_delete: :cascade
   add_foreign_key "listeners", "sensors", on_delete: :cascade
+  add_foreign_key "routines", "groups", on_delete: :cascade
+  add_foreign_key "sensors", "groups", on_delete: :cascade
+  add_foreign_key "users", "groups", on_delete: :cascade
 end

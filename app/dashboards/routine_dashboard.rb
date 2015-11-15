@@ -9,6 +9,7 @@ class RoutineDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    group: Field::BelongsTo,
     name: Field::String,
     description: Field::Text,
     repeats_at: Field::Bitmask,
@@ -31,6 +32,7 @@ class RoutineDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :group,
     :name,
     :repeats_at,
     :starts_at,
@@ -45,6 +47,7 @@ class RoutineDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :group,
     :name,
     :description,
     :repeats_at,
@@ -60,8 +63,8 @@ class RoutineDashboard < Administrate::BaseDashboard
 
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
-  #
-  # def display_resource(user)
-  #   "User ##{user.id}"
-  # end
+
+  def display_resource(routine)
+    routine.name
+  end
 end
