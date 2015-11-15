@@ -16,6 +16,7 @@ gem 'turbolinks'
 gem 'uglifier'
 
 gem 'administrate'
+gem 'bitmask_attributes'
 gem 'clearance'
 gem 'figaro'
 gem 'high_voltage'
