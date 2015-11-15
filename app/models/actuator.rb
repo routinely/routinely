@@ -1,0 +1,2 @@
+class Actuator < Actor
+end
