@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116153430) do
+ActiveRecord::Schema.define(version: 20151116160459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,11 @@ ActiveRecord::Schema.define(version: 20151116153430) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "group_id",    null: false
+    t.string   "guid"
   end
 
   add_index "actors", ["group_id"], name: "index_actors_on_group_id", using: :btree
+  add_index "actors", ["guid"], name: "index_actors_on_guid", unique: true, using: :btree
   add_index "actors", ["name", "group_id"], name: "index_actors_on_name_and_group_id", unique: true, using: :btree
   add_index "actors", ["type"], name: "index_actors_on_type", using: :btree
 
@@ -88,9 +90,11 @@ ActiveRecord::Schema.define(version: 20151116153430) do
     t.datetime "updated_at",  null: false
     t.integer  "group_id",    null: false
     t.integer  "kind",        null: false
+    t.string   "guid",        null: false
   end
 
   add_index "sensors", ["group_id"], name: "index_sensors_on_group_id", using: :btree
+  add_index "sensors", ["guid"], name: "index_sensors_on_guid", unique: true, using: :btree
   add_index "sensors", ["name", "group_id"], name: "index_sensors_on_name_and_group_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|

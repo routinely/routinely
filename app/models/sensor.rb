@@ -7,6 +7,7 @@ class Sensor < ActiveRecord::Base
   has_many :routines, through: :listeners
 
   validates :kind, presence: true
+  validates :guid, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :group, presence: true
 end
