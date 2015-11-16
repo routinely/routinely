@@ -11,6 +11,7 @@ class SensorDashboard < Administrate::BaseDashboard
     id: Field::Number,
     group: Field::BelongsTo,
     name: Field::String,
+    kind: Field::Enum,
     description: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -25,6 +26,7 @@ class SensorDashboard < Administrate::BaseDashboard
     :id,
     :group,
     :name,
+    :kind,
     :created_at,
   ]
 
@@ -38,6 +40,7 @@ class SensorDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :group,
     :name,
+    :kind,
     :description,
   ]
 
