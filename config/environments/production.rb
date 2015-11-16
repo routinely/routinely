@@ -76,4 +76,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    event.payload.slice(:remote_ip, :user_id, :params).tap do |payload|
+      payload[:params].except!('controller', 'action', 'format')
+    end
+  end
 end

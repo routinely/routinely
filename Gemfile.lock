@@ -145,6 +145,10 @@ GEM
       activesupport (>= 3.0.0)
     kgio (2.10.0)
     libv8 (3.16.14.13)
+    lograge (0.3.4)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -292,6 +296,7 @@ DEPENDENCIES
   high_voltage
   jquery-rails
   kaminari
+  lograge
   meta_request
   nprogress-rails
   pg

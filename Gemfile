@@ -28,6 +28,7 @@ gem 'sucker_punch'
 gem 'unicorn'
 
 group :production do
+  gem 'lograge'
   gem 'rails_12factor'
 end
 
