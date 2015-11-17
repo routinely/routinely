@@ -1,2 +1,2 @@
 <%= f.label field.attribute %>
-<%= f.text_field field.attribute %>
+<%= f.select field.attribute, f.object.class.send("#{field.attribute}".pluralize).keys %>
