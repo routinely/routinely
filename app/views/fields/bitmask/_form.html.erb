@@ -1,2 +1,4 @@
 <%= f.label field.attribute %>
-<%= f.text_field field.attribute %>
+<%= f.collection_check_boxes field.attribute, f.object.class.send("values_for_#{field.attribute}"), :itself, :itself do |b| %>
+  <%= b.label + b.check_box %>
+<% end %>
