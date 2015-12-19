@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.3.0'
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 gem 'pg'
 gem 'therubyracer', platforms: :ruby
 
@@ -37,7 +37,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
-  gem 'did_you_mean'
   gem 'meta_request' # https://github.com/dejan/rails_panel
   gem 'pry-rails'
   gem 'quiet_assets'
