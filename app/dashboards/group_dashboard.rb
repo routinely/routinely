@@ -10,6 +10,8 @@ class GroupDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    access_token: Field::String,
+    block_id: Field::String,
     users: Field::HasMany,
     routines: Field::HasMany,
     sensors: Field::HasMany,
@@ -38,6 +40,8 @@ class GroupDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :name,
+    :access_token,
+    :block_id,
     :users,
   ]
 

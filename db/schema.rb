@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116160459) do
+ActiveRecord::Schema.define(version: 20151219054716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,9 +48,11 @@ ActiveRecord::Schema.define(version: 20151116160459) do
   add_index "callbacks", ["type"], name: "index_callbacks_on_type", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",         null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "access_token"
+    t.string   "block_id"
   end
 
   create_table "listeners", force: :cascade do |t|
