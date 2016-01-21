@@ -1,5 +1,5 @@
 class Routine < ActiveRecord::Base
-  belongs_to :group, dependent: :destroy
+  belongs_to :group
 
   has_many :listeners, dependent: :destroy
   has_many :sensors, through: :listeners
