@@ -1,0 +1,13 @@
+= simple_form_for(@routine) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :description
+    = f.association :users, as: :check_boxes
+    = f.input :starts_at, as: :time
+    = f.input :ends_at, as: :time
+    = f.input :repeats_at, as: :bitmask
+
+  .form-actions
+    = f.button :submit
