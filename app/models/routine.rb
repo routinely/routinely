@@ -13,7 +13,8 @@ class Routine < ActiveRecord::Base
   end
 
   validates :name, presence: true, uniqueness: { scope: :group }
-  validates :ends_at, numericality: { greater_than: :starts_at }, allow_nil: true, if: :starts_at?
+  validates :starts_at, presence: true, if: :ends_at?
+  validate -> { errors.add(:ends_at, "should be greater than starts_at") if ends_at.try(:<=, starts_at) }, if: :starts_at?
   validates :duration, inclusion: { in: 0..24.hours }, allow_nil: true
   validates :group, presence: true
 end
