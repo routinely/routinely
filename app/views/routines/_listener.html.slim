@@ -1,0 +1,13 @@
+.listener-form.col-md-4 data={ listener_id: listener.id || "new" }
+  .panel.panel-default
+    .panel-body
+      = simple_form_for([@routine, listener], html: { class: "form-horizontal" }, wrapper: :horizontal, remote: true) do |f|
+        .form-inputs
+          = f.association :sensor, collection: current_user.group.sensors
+          = f.input :gt
+          = f.input :lt
+
+        .form-actions
+          = f.button :submit
+          - if listener.persisted?
+            = link_to "Destroy", [@routine, listener], class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true

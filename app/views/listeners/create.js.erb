@@ -1,0 +1,6 @@
+<% if @listener.persisted? %>
+  $(".listener-form[data-listener-id='new']").before("<%= j render('routines/listener', { listener: @listener }) %>");
+  $(".listener-form[data-listener-id='new'] form").trigger("reset");
+<% else %>
+  $(".listener-form[data-listener-id='new']").replaceWith("<%= j render('routines/listener', { listener: @listener }) %>");
+<% end %>
