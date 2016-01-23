@@ -4,22 +4,18 @@ table.table
   thead
     tr
       th Name
-      th Repeats At
-      th Starts At
-      th Ends At
-      th
-      th
+      th Sensors
+      th Users
 
   tbody
     - @routines.each do |routine|
       tr
         td.col-md-4
-          = link_to routine.name, routine
-        td.col-md-2 = routine.repeats_at
-        td.col-md-2 = routine.starts_at.to_formatted_s(:time)
-        td.col-md-2 = routine.ends_at.to_formatted_s(:time)
-        td.col-md-1 = link_to "Edit", edit_routine_path(routine)
-        td.col-md-1 = link_to "Destroy", routine, data: {:confirm => "Are you sure?"}, :method => :delete
+          p.lead = link_to routine.name, routine
+          p = "#{routine.starts_at.to_formatted_s(:time)} – #{routine.ends_at.to_formatted_s(:time)}"
+          p = routine.description
+        td.col-md-4 = routine.sensors.map(&:name).join(", ")
+        td.col-md-4 = routine.users.map(&:email).join(", ")
 
 br
 

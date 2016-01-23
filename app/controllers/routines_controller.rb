@@ -2,7 +2,7 @@ class RoutinesController < ApplicationController
   before_action :set_routine, only: [:show, :edit, :update, :destroy]
 
   def index
-    @routines = Routine.order(created_at: :desc)
+    @routines = Routine.order(created_at: :desc).includes(:users, :sensors)
   end
 
   def show
