@@ -9,6 +9,9 @@ class Routine < ActiveRecord::Base
   has_one :inverse_callback, -> { where(target_type: "Routine") }, foreign_key: :target_id, class_name: "Callback", dependent: :destroy
   has_one :lead, through: :inverse_callback, source: :routine
 
+  has_many :tags, dependent: :destroy
+  has_many :users, through: :tags
+
   bitmask :repeats_at, as: %i(mon tue wed thu fri sat sun) do
     def to_s
       map { |d| d.to_s.capitalize }.join("/")
