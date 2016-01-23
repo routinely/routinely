@@ -12,7 +12,7 @@ table.table
       tr
         td.col-md-4
           p.lead = link_to routine.name, routine
-          p = "#{routine.starts_at.to_formatted_s(:time)} – #{routine.ends_at.to_formatted_s(:time)}"
+          p = routine_schedule(routine)
           p = routine.description
         td.col-md-4 = routine.sensors.map(&:name).join(", ")
         td.col-md-4 = routine.users.map(&:email).join(", ")
