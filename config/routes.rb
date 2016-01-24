@@ -20,5 +20,8 @@ Rails.application.routes.draw do
 
   resources :routines do
     resources :listeners, only: [:create, :update, :destroy]
+    resources :callbacks, only: [:create, :update, :destroy]
+    resources :on_triggers, controller: :callbacks
+    resources :on_exits, controller: :callbacks
   end
 end

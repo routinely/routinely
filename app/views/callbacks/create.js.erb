@@ -1,0 +1,6 @@
+<% if @callback.persisted? %>
+  $(".<%= @callback.class.name.underscore.dasherize %>-form[data-<%= @callback.class.name.underscore.dasherize %>-id='new']").before("<%= j render('routines/callback', { callback: @callback }) %>");
+  $(".<%= @callback.class.name.underscore.dasherize %>-form[data-<%= @callback.class.name.underscore.dasherize %>-id='new'] form").trigger("reset");
+<% else %>
+  $(".<%= @callback.class.name.underscore.dasherize %>-form[data-<%= @callback.class.name.underscore.dasherize %>-id='new']").replaceWith("<%= j render('routines/callback', { callback: @callback }) %>");
+<% end %>

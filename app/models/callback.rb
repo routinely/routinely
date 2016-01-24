@@ -8,6 +8,12 @@ class Callback < ActiveRecord::Base
 
   validate :resursive?
 
+  def target_global_id
+    target.try(:to_global_id)
+  end
+
+  private
+
   def resursive?
     errors.add(:target, "can't call recursively") if routine == target
   end
