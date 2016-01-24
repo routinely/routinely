@@ -4,6 +4,7 @@ class Routine < ActiveRecord::Base
   has_many :listeners, dependent: :destroy
   has_many :sensors, through: :listeners
   has_many :callbacks, dependent: :destroy
+  has_many :callback_routines, through: :callbacks, source: :target, source_type: "Routine", class_name: "Routine"
   has_many :on_triggers, dependent: :destroy
   has_many :on_exits, dependent: :destroy
 

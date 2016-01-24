@@ -16,6 +16,17 @@ table.table
           p = routine.description
         td.col-md-4 = routine.sensors.map(&:name).join(", ")
         td.col-md-4 = routine.users.map(&:name).join(", ")
+      - routine.callback_routines.each do |callback_routine|
+        tr.info
+          td.col-md-4
+            p
+              span.label.label-default = callback_routine.inverse_callback.type
+            p = link_to callback_routine.name, callback_routine
+            p = callback_routine.duration
+            p = callback_routine.description
+          td.col-md-4 = callback_routine.sensors.map(&:name).join(", ")
+          td.col-md-4 = callback_routine.users.map(&:name).join(", ")
+
 
 h2 Orphaned routines
 
