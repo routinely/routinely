@@ -1,4 +1,5 @@
 class ListenersController < ApplicationController
+  before_action :require_login
   before_action :set_routine, only: [:create, :update]
   before_action :set_listener, only: [:update, :destroy]
 
