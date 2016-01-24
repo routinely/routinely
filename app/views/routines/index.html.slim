@@ -8,11 +8,30 @@ table.table
       th Users
 
   tbody
-    - @routines.each do |routine|
+    - @scheduled_routines.each do |routine|
       tr
         td.col-md-4
           p.lead = link_to routine.name, routine
           p = routine_schedule(routine)
+          p = routine.description
+        td.col-md-4 = routine.sensors.map(&:name).join(", ")
+        td.col-md-4 = routine.users.map(&:email).join(", ")
+
+h2 Orphaned routines
+
+table.table
+  thead
+    tr
+      th Name
+      th Sensors
+      th Users
+
+  tbody
+    - @orphaned_routines.each do |routine|
+      tr
+        td.col-md-4
+          p.lead = link_to routine.name, routine
+          p = routine.duration
           p = routine.description
         td.col-md-4 = routine.sensors.map(&:name).join(", ")
         td.col-md-4 = routine.users.map(&:email).join(", ")

@@ -23,4 +23,15 @@ class Routine < ActiveRecord::Base
   validate -> { errors.add(:ends_at, "should be greater than starts_at") if ends_at.try(:<=, starts_at) }, if: :starts_at?
   validates :duration, inclusion: { in: 0..24.hours }, allow_nil: true
   validates :group, presence: true
+
+  scope :scheduled, -> { where.not(starts_at: nil) }
+  scope :dependent, -> { where(starts_at: nil) }
+  scope :orphaned, -> { dependent.where(<<-SQL.squish
+    NOT EXISTS(
+      SELECT 1 FROM callbacks
+      WHERE callbacks.target_type = 'Routine'
+      AND callbacks.target_id = routines.id
+    )
+    SQL
+  )}
 end
