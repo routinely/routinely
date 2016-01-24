@@ -1,7 +1,7 @@
 .listener-form.col-md-4 data={ listener_id: listener.id || "new" }
   .panel.panel-default
     .panel-body
-      = simple_form_for([@routine, listener], html: { class: "form-horizontal" }, wrapper: :horizontal, remote: true) do |f|
+      = simple_form_for([@routine, listener], html: { class: "form-horizontal" }, wrapper: :horizontal_form, remote: true) do |f|
         .form-inputs
           = f.association :sensor, collection: current_user.group.sensors
           = f.input :gt
