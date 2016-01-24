@@ -3,7 +3,11 @@
     .panel-body
       = simple_form_for([@routine, listener], html: { class: "form-horizontal" }, wrapper: :horizontal_form, remote: true) do |f|
         .form-inputs
-          = f.association :sensor, collection: current_user.group.sensors
+          - if listener.persisted?
+            = f.input :sensor do
+              p.form-control-static = listener.sensor.name
+          - else
+            = f.association :sensor, collection: current_user.group.sensors - @routine.sensors
           = f.input :gt
           = f.input :lt
 
