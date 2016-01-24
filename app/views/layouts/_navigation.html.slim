@@ -9,8 +9,8 @@ nav.navbar.navbar-default.navbar-fixed-top
       = link_to 'Home', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       - if signed_in?
-        / ul.nav.navbar-nav
-        /   li = link_to 'Routines', routines_path
+        ul.nav.navbar-nav
+          li = link_to 'Routines', routines_path
         ul.nav.navbar-nav.navbar-right
           li = link_to 'Sign out', sign_out_path, method: 'delete'
       - else
