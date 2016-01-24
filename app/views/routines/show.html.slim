@@ -1,6 +1,6 @@
 h1 = @routine.name
 p = @routine.description
-p = @routine.users.map(&:email)
+p = @routine.users.map(&:name).join(", ")
 p = @routine.starts_at
 p = @routine.ends_at
 p = @routine.duration

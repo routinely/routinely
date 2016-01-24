@@ -15,7 +15,7 @@ table.table
           p = routine_schedule(routine)
           p = routine.description
         td.col-md-4 = routine.sensors.map(&:name).join(", ")
-        td.col-md-4 = routine.users.map(&:email).join(", ")
+        td.col-md-4 = routine.users.map(&:name).join(", ")
 
 h2 Orphaned routines
 
@@ -34,7 +34,7 @@ table.table
           p = routine.duration
           p = routine.description
         td.col-md-4 = routine.sensors.map(&:name).join(", ")
-        td.col-md-4 = routine.users.map(&:email).join(", ")
+        td.col-md-4 = routine.users.map(&:name).join(", ")
 
 br
 
