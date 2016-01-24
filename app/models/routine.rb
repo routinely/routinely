@@ -36,4 +36,5 @@ class Routine < ActiveRecord::Base
     )
     SQL
   )}
+  scope :callable, -> { dependent }
 end

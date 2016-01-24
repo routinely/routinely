@@ -6,4 +6,6 @@ class Actor < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :group, presence: true
+
+  scope :callable, -> { all }
 end
