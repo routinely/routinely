@@ -6,4 +6,6 @@ class Listener < ActiveRecord::Base
   validates :sensor, presence: true, uniqueness: { scope: :routine }
   validates :gt, absence: true, unless: -> { sensor.digital? }
   validates :lt, absence: true, unless: -> { sensor.digital? }
+
+  delegate :binary?, :digital?, to: :sensor
 end

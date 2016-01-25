@@ -1,6 +1,6 @@
 class RoutinesController < ApplicationController
   before_action :require_login
-  before_action :set_routine, only: [:show, :edit, :update, :destroy]
+  before_action :set_routine, only: [:edit, :update, :destroy]
 
   def index
     @scheduled_routines = Routine.scheduled.order(starts_at: :asc).includes(:users, :sensors, :callback_routines, callbacks: [:target])
@@ -8,6 +8,7 @@ class RoutinesController < ApplicationController
   end
 
   def show
+    @routine = Routine.includes(listeners: [:sensor]).find(params[:id])
   end
 
   def new

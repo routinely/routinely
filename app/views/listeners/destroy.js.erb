@@ -1,1 +1,1 @@
-$(".listener-form[data-listener-id='<%= @listener.id %>']").remove();
+$(".listener-form[data-listener-id='<%= @listener.id %>']").replaceWith("<%= j render('routines/sensor', { sensor: @listener.sensor }) %>");

@@ -2,4 +2,4 @@ h2 Sensors
 
 .row
   == render partial: "routines/listener", collection: @routine.listeners
-  == render partial: "routines/listener", object: @routine.listeners.build
+  == render partial: "routines/sensor", collection: current_user.group.sensors - @routine.sensors
