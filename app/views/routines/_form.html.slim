@@ -10,6 +10,6 @@
     = f.input :repeats_at, as: :bitmask
 
   .form-actions
-    = f.button :submit, class: "btn-primary btn-lg"
+    = f.button :submit, class: "btn btn-primary btn-lg"
     - if @routine.persisted?
       = link_to "Destroy", @routine, class: "btn btn-lg", data: { confirm: "Are you sure?" }, method: :delete
