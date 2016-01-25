@@ -8,6 +8,9 @@ class Callback < ActiveRecord::Base
 
   validate :resursive?
 
+  scope :on_triggers, -> { where(type: OnTrigger.name) }
+  scope :on_exits, -> { where(type: OnExit.name) }
+
   def target_global_id
     target.try(:to_global_id)
   end

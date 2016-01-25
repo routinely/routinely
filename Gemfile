@@ -13,6 +13,7 @@ gem 'nprogress-rails'
 gem 'sass-rails'
 gem 'slim-rails'
 gem 'turbolinks'
+gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 
 gem 'administrate'

@@ -5,8 +5,6 @@ class Routine < ActiveRecord::Base
   has_many :sensors, through: :listeners
   has_many :callbacks, dependent: :destroy
   has_many :callback_routines, through: :callbacks, source: :target, source_type: "Routine", class_name: "Routine"
-  has_many :on_triggers, dependent: :destroy
-  has_many :on_exits, dependent: :destroy
 
   has_one :inverse_callback, -> { where(target_type: "Routine") }, foreign_key: :target_id, class_name: "Callback", dependent: :destroy
   has_one :lead, through: :inverse_callback, source: :routine

@@ -6,11 +6,12 @@ table.table
       th Name
       th Sensors
       th Users
+      th
 
   tbody
     - @scheduled_routines.each do |routine|
       tr
-        td.col-md-4
+        td.col-md-3
           p.lead = link_to routine.name, routine
           p = routine_schedule(routine)
           p = routine.description
@@ -18,9 +19,26 @@ table.table
           - routine.sensors.each do |sensor|
             = image_tag(sensor.icon, class: "sensor-icon", alt: sensor.name)
         td.col-md-4 = routine.users.map(&:name).join(", ")
+        td.col-md-1
+          a data={ toggle: "collapse" } href="#routine-#{routine.id}" Show
+      tr.collapse id="routine-#{routine.id}"
+        td.col-md-3
+          - routine.sensors.each do |sensor|
+            = image_tag(sensor.icon, class: "sensor-icon", alt: sensor.name)
+        td.col-md-4
+          p On Trigger Callbacks
+          ul
+            - routine.callbacks.on_triggers.each do |on_trigger|
+              li = on_trigger.target.name
+        td.col-md-4
+          p On Exit Callbacks
+          ul
+            - routine.callbacks.on_exits.each do |on_exit|
+              li = on_exit.target.name
+        td.col-md-1 = link_to "Edit", routine
       - routine.callback_routines.each do |callback_routine|
         tr.info
-          td.col-md-4
+          td.col-md-3
             p
               span.label.label-default = callback_routine.inverse_callback.type
             p = link_to callback_routine.name, callback_routine
@@ -28,6 +46,7 @@ table.table
             p = callback_routine.description
           td.col-md-4 = callback_routine.sensors.map(&:name).join(", ")
           td.col-md-4 = callback_routine.users.map(&:name).join(", ")
+          td.col-md-1
 
 
 h2 Orphaned routines

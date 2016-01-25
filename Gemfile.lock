@@ -101,6 +101,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    commonjs (0.2.7)
     concurrent-ruby (1.0.0)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
@@ -137,6 +138,13 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.10.0)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
+    less-rails (2.7.1)
+      actionpack (>= 4.0)
+      less (~> 2.6.0)
+      sprockets (> 2, < 4)
+      tilt
     libv8 (3.16.14.13)
     lograge (0.3.5)
       actionpack (>= 3)
@@ -261,6 +269,11 @@ GEM
       hitimes
     turbolinks (2.5.3)
       coffee-rails
+    twitter-bootstrap-rails (3.2.2)
+      actionpack (>= 3.1)
+      execjs (>= 2.2.2, >= 2.2)
+      less-rails (>= 2.5.0)
+      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -307,6 +320,7 @@ DEPENDENCIES
   sucker_punch
   therubyracer
   turbolinks
+  twitter-bootstrap-rails
   uglifier
   unicorn
 

@@ -1,11 +1,11 @@
 h2 On Trigger Callbacks
 
 .row
-  == render partial: "routines/callback", collection: @routine.on_triggers
-  == render partial: "routines/callback", object: @routine.on_triggers.build
+  == render partial: "routines/callback", collection: @routine.callbacks.on_triggers
+  == render partial: "routines/callback", object: @routine.callbacks.on_triggers.build
 
 h2 On Exit Callbacks
 
 .row
-  == render partial: "routines/callback", collection: @routine.on_exits
-  == render partial: "routines/callback", object: @routine.on_exits.build
+  == render partial: "routines/callback", collection: @routine.callbacks.on_exits
+  == render partial: "routines/callback", object: @routine.callbacks.on_exits.build

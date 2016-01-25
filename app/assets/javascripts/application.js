@@ -16,4 +16,6 @@
 //= require bootstrap-sprockets
 //= require nprogress
 //= require nprogress-turbolinks
+//= require twitter/bootstrap/transition
+//= require twitter/bootstrap/collapse
 //= require_tree .
