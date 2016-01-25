@@ -5,8 +5,8 @@
     = f.input :name
     = f.input :description
     = f.association :users, as: :check_boxes
-    = f.input :starts_at, as: :time
-    = f.input :ends_at, as: :time
+    = f.input :starts_at, as: :time, include_blank: true, minute_step: 5
+    = f.input :ends_at, as: :time, include_blank: true, minute_step: 5
     = f.input :repeats_at, as: :bitmask
 
   .form-actions
