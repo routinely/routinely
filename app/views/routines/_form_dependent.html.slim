@@ -1,0 +1,30 @@
+= simple_form_for(@routine) do |f|
+  = f.error_notification
+  p = @routine.errors.full_messages.join(", ")
+
+  .form-inputs
+    = f.input :name
+    = f.input :description
+    = f.association :users, as: :check_boxes
+    = f.input :duration
+    = f.simple_fields_for :inverse_callback do |c|
+      = c.association :routine, collection: current_user.group.routines
+      = c.input :delay
+
+  .form-actions
+    = f.button :submit, class: "btn btn-primary btn-lg"
+
+
+/ = simple_form_for(@routine) do |f|
+/   = f.error_notification
+
+/   .form-inputs
+/     = f.input :name
+/     = f.input :description
+/     = f.association :users, as: :check_boxes
+/     = f.input :duration
+
+/   .form-actions
+/     = f.button :submit, class: "btn btn-primary btn-lg"
+/     - if @routine.persisted?
+/       = link_to "Destroy", @routine, class: "btn btn-lg", data: { confirm: "Are you sure?" }, method: :delete

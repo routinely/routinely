@@ -1,3 +1,13 @@
 h1 New routine
 
-== render "form"
+ul.nav.nav-tabs
+  li class=("active" if @routine.scheduled?)
+    a href="#form-for-scheduled" data={ toggle: "tab" } Scheduled
+  li class=("active" if @routine.dependent?)
+    a href="#form-for-dependent" data={ toggle: "tab" } Dependent
+
+.tab-content
+  .tab-pane#form-for-scheduled class=("active" if @routine.scheduled?)
+    == render "form"
+  .tab-pane#form-for-dependent class=("active" if @routine.dependent?)
+    == render "form_dependent"

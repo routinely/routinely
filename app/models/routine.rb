@@ -12,6 +12,8 @@ class Routine < ActiveRecord::Base
   has_many :tags, dependent: :destroy
   has_many :users, through: :tags
 
+  accepts_nested_attributes_for :inverse_callback
+
   bitmask :repeats_at, as: %i(mon tue wed thu fri sat sun) do
     def to_s
       map { |d| d.to_s.capitalize }.join("/")
@@ -35,4 +37,16 @@ class Routine < ActiveRecord::Base
     SQL
   )}
   scope :callable, -> { dependent }
+
+  def scheduled?
+    starts_at.present?
+  end
+
+  def dependent?
+    !scheduled?
+  end
+
+  def orphan?
+    dependent? && lead.nil?
+  end
 end

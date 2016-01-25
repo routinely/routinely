@@ -2,4 +2,7 @@ h1.header
   | Editing routine
   = link_to "Show", @routine, class: "btn btn-primary btn-lg pull-right"
 
-== render "form"
+- if @routine.scheduled?
+  == render "form"
+- else
+  == render "form_dependent"
