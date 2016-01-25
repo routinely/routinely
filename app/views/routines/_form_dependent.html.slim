@@ -3,13 +3,16 @@
   p = @routine.errors.full_messages.join(", ")
 
   .form-inputs
-    = f.input :name
-    = f.input :description
-    = f.association :users, as: :check_boxes
-    = f.input :duration
-    = f.simple_fields_for :inverse_callback do |c|
-      = c.association :routine, collection: current_user.group.routines
-      = c.input :delay
+    .row
+      .col-md-6
+        = f.input :name, label: false, input_html: { class: "input-lg" }
+        = f.input :description, label: false
+        = f.association :users, as: :check_boxes
+      .col-md-6
+        = f.simple_fields_for :inverse_callback do |c|
+          = c.association :routine, collection: current_user.group.routines
+          = c.input :delay
+        = f.input :duration
 
   .form-actions
     = f.button :submit, class: "btn btn-primary btn-lg"
