@@ -14,6 +14,7 @@ class SensorDashboard < Administrate::BaseDashboard
     kind: Field::Enum,
     description: Field::Text,
     guid: Field::String,
+    icon: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -44,6 +45,7 @@ class SensorDashboard < Administrate::BaseDashboard
     :kind,
     :description,
     :guid,
+    :icon,
   ]
 
   # Overwrite this method to customize how sensors are displayed

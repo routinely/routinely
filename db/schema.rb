@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160124112232) do
+ActiveRecord::Schema.define(version: 20160125073333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160124112232) do
     t.datetime "updated_at",  null: false
     t.integer  "group_id",    null: false
     t.string   "guid"
+    t.string   "icon"
   end
 
   add_index "actors", ["group_id"], name: "index_actors_on_group_id", using: :btree
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160124112232) do
     t.integer  "group_id",    null: false
     t.integer  "kind",        null: false
     t.string   "guid",        null: false
+    t.string   "icon"
   end
 
   add_index "sensors", ["group_id"], name: "index_sensors_on_group_id", using: :btree

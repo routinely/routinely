@@ -14,7 +14,9 @@ table.table
           p.lead = link_to routine.name, routine
           p = routine_schedule(routine)
           p = routine.description
-        td.col-md-4 = routine.sensors.map(&:name).join(", ")
+        td.col-md-4
+          - routine.sensors.each do |sensor|
+            = image_tag(sensor.icon, class: "sensor-icon", alt: sensor.name)
         td.col-md-4 = routine.users.map(&:name).join(", ")
       - routine.callback_routines.each do |callback_routine|
         tr.info

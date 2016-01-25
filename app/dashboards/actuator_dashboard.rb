@@ -13,6 +13,7 @@ class ActuatorDashboard < Administrate::BaseDashboard
     name: Field::String,
     description: Field::Text,
     guid: Field::String,
+    icon: Field::String,
     routines: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -42,6 +43,7 @@ class ActuatorDashboard < Administrate::BaseDashboard
     :name,
     :description,
     :guid,
+    :icon,
   ]
 
   # Overwrite this method to customize how actuators are displayed
