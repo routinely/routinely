@@ -13,7 +13,7 @@ class ActuatorDashboard < Administrate::BaseDashboard
     name: Field::String,
     description: Field::Text,
     guid: Field::String,
-    icon: Field::String,
+    icon: Field::Asset,
     routines: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -27,6 +27,7 @@ class ActuatorDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :group,
+    :icon,
     :name,
     :created_at,
   ]

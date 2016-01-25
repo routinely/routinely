@@ -14,7 +14,7 @@ class SensorDashboard < Administrate::BaseDashboard
     kind: Field::Enum,
     description: Field::Text,
     guid: Field::String,
-    icon: Field::String,
+    icon: Field::Asset,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -27,6 +27,7 @@ class SensorDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :group,
+    :icon,
     :name,
     :kind,
     :created_at,
