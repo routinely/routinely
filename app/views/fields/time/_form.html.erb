@@ -2,5 +2,5 @@
   <%= f.label field.attribute %>
 </div>
 <div class="field-unit__field">
-  <%= f.text_field field.attribute %>
+  <%= f.time_select field.attribute, { include_blank: true, minute_step: 5 }, { style: "display: inline-block; width: auto" } %>
 </div>
