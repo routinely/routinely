@@ -1,17 +1,10 @@
-h1 = @routine.name
+h1.header
+  = @routine.name
+  = link_to "Edit", edit_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
 p = @routine.description
+p = routine_schedule(@routine)
 p = @routine.users.map(&:name).join(", ")
-p = @routine.starts_at
-p = @routine.ends_at
-p = @routine.duration
-p = @routine.repeats_at
-p = @routine.active
-p = @routine.once
 
 == render "listeners"
 
 == render "callbacks"
-
-= link_to "Edit", edit_routine_path(@routine)
-'|
-= link_to "Back", routines_path

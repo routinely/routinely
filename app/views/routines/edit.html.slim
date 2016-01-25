@@ -1,7 +1,5 @@
-h1 Editing routine
+h1.header
+  | Editing routine
+  = link_to "Show", @routine, class: "btn btn-primary btn-lg pull-right"
 
 == render "form"
-
-= link_to "Show", @routine
-'|
-= link_to "Back", routines_path
