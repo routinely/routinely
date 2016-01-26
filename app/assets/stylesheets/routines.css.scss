@@ -1,3 +1,5 @@
+@import "bootstrap";
+
 h1.header {
   display: flex;
   justify-content: space-between;
@@ -8,4 +10,20 @@ h1.header {
 .actor-icon {
   display: inline-block;
   width: 50px;
+}
+
+.repeats-at {
+  @extend .btn;
+  @extend .btn-default;
+  display: inline-block;
+  text-transform: uppercase;
+  width: 2.5em;
+
+  & + & {
+    margin-left: 3px;
+  }
+
+  &.on {
+    @extend .btn-success;
+  }
 }

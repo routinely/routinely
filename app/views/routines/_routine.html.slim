@@ -2,6 +2,9 @@ tr
   td.col-md-3
     p.lead = link_to routine.name, routine
     p = routine_schedule(routine)
+    p
+      - Routine.values_for_repeats_at.each do |v|
+        span.repeats-at class=("on" if routine.repeats_at.include?(v) ) = v.to_s.first
     p = routine.description
   td.col-md-4
     - routine.sensors.each do |sensor|
