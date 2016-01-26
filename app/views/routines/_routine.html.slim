@@ -6,6 +6,9 @@ tr
   td.col-md-4
     - routine.sensors.each do |sensor|
       = image_tag(sensor.icon, class: "sensor-icon", alt: sensor.name)
+    = glyph "triangle-right"
+    - routine.actors.each do |actor|
+      = image_tag(actor.icon, class: "actor-icon", alt: actor.name)
   td.col-md-4 = routine.users.map(&:name).join(", ")
   td.col-md-1
     a data={ toggle: "collapse" } href="#routine-#{routine.id}" Show
@@ -15,14 +18,12 @@ tr.collapse id="routine-#{routine.id}"
       = image_tag(sensor.icon, class: "sensor-icon", alt: sensor.name)
   td.col-md-4
     p On Trigger Callbacks
-    ul
-      - routine.callbacks.on_triggers.each do |on_trigger|
-        li = on_trigger.target.name
+    - routine.actors.merge(Callback.on_triggers).each do |actor|
+      = image_tag(actor.icon, class: "actor-icon", alt: actor.name)
   td.col-md-4
     p On Exit Callbacks
-    ul
-      - routine.callbacks.on_exits.each do |on_exit|
-        li = on_exit.target.name
+    - routine.actors.merge(Callback.on_exits).each do |actor|
+      = image_tag(actor.icon, class: "actor-icon", alt: actor.name)
   td.col-md-1 = link_to "Edit", routine
 - routine.callback_routines.each do |callback_routine|
   tr.info
