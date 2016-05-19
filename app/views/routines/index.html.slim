@@ -1,26 +1,2 @@
-h1.header
-  | Listing routines
-  = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
-
-table.table
-  thead
-    tr
-      th Name
-      th Sensors
-      th Users
-      th
-
-  tbody
-    == render partial: "routine", collection: @scheduled_routines
-
-h2 Orphaned routines
-
-table.table
-  thead
-    tr
-      th Name
-      th Sensors
-      th Users
-
-  tbody
-    == render partial: "routine", collection: @orphaned_routines
+#application
+== javascript_include_tag 'http://localhost:4001/static/bundle.js'
