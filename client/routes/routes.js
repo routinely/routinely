@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
-import App from 'components/App';
+import RoutinesListPage from 'containers/RoutinesListPage';
 
 module.exports = (
-  <Route path="/routines" component={App}>
+  <Route path="/routines" component={RoutinesListPage}>
   </Route>
 )
