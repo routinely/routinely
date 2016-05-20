@@ -1,14 +1,44 @@
 import React from 'react';
+import moment from 'moment';
+import classNames from 'classnames';
 
-export default function Routine({ name, description }) {
+export default function Routine({
+  id,
+  name,
+  description,
+  startsAt,
+  endsAt,
+  repeatsAt,
+  sensors,
+  actors,
+  users,
+}) {
   return (
     <tr>
       <td className=".col-md-3">
-        <p className="lead">{name}</p>
+        <p className="lead">
+          <a href={`/routines/${id}`}>{name}</a>
+        </p>
+        <p>{moment(startsAt).format('hh:mm')} – {moment(endsAt).format('hh:mm')}</p>
+        <p>
+          {Object.keys(repeatsAt).map(day =>
+            <span className={classNames("repeats-at", { on: repeatsAt[day] })}>{day.charAt(0)}</span>
+          )}
+        </p>
         <p>{description}</p>
       </td>
-      <td className=".col-md-4"></td>
-      <td className=".col-md-4"></td>
+      <td className=".col-md-4">
+        {sensors.map(sensor =>
+          <img className="sensor-icon" src={`/assets/${sensor.icon}`} alt={sensor.name} />
+        )}
+        <i className="glyphicon glyphicon-triangle-right" />
+        {actors.map(actor =>
+          <img className="actor-icon" src={`/assets/${actor.icon}`} alt={actor.name} />
+        )}
+      </td>
+      <td className=".col-md-4">
+        {users.map(user => user.name).join(', ')}
+      </td>
       <td className=".col-md-1"></td>
     </tr>
   );

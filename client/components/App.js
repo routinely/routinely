@@ -43,7 +43,6 @@ class App extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <Routine />
           </tbody>
         </table>
       </div>
