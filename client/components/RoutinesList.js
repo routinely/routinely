@@ -20,3 +20,7 @@ export default function RoutinesList({ routines }) {
     </table>
   );
 }
+
+RoutinesList.propTypes = {
+  routines: React.PropTypes.array.isRequired,
+};

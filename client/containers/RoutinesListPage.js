@@ -4,6 +4,11 @@ import RoutinesList from 'components/RoutinesList';
 import { fetchRoutines } from 'actions';
 
 class RoutinesListPage extends React.Component {
+  static propTypes = {
+    routines: React.PropTypes.array.isRequired,
+    fetchRoutines: React.PropTypes.func.isRequired,
+  }
+
   componentDidMount() {
     this.props.fetchRoutines();
   }
@@ -29,6 +34,6 @@ const mapStateToProps = (state) => {
   return {
     routines,
   };
-}
+};
 
-export default connect(mapStateToProps, { fetchRoutines })(RoutinesListPage)
+export default connect(mapStateToProps, { fetchRoutines })(RoutinesListPage);
