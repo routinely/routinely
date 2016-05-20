@@ -3,6 +3,5 @@ import { Route } from 'react-router';
 import RoutinesListPage from 'containers/RoutinesListPage';
 
 module.exports = (
-  <Route path="/routines" component={RoutinesListPage}>
-  </Route>
-)
+  <Route path="/routines" component={RoutinesListPage} />
+);

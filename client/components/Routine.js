@@ -22,7 +22,9 @@ export default function Routine({
         <p>{moment(startsAt).format('hh:mm')} – {moment(endsAt).format('hh:mm')}</p>
         <p>
           {Object.keys(repeatsAt).map(day =>
-            <span className={classNames("repeats-at", { on: repeatsAt[day] })}>{day.charAt(0)}</span>
+            <span className={classNames('repeats-at', { on: repeatsAt[day] })}>
+              {day.charAt(0)}
+            </span>
           )}
         </p>
         <p>{description}</p>
@@ -43,3 +45,15 @@ export default function Routine({
     </tr>
   );
 }
+
+Routine.propTypes = {
+  id: React.PropTypes.number.isRequired,
+  name: React.PropTypes.string.isRequired,
+  description: React.PropTypes.string.isRequired,
+  startsAt: React.PropTypes.string.isRequired,
+  endsAt: React.PropTypes.string.isRequired,
+  repeatsAt: React.PropTypes.object.isRequired,
+  sensors: React.PropTypes.array.isRequired,
+  actors: React.PropTypes.array.isRequired,
+  users: React.PropTypes.array.isRequired,
+};
