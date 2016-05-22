@@ -1,2 +1,6 @@
 #application
-== javascript_include_tag 'http://localhost:4001/static/bundle.js'
+- if Rails.env.production?
+  == javascript_include_tag webpack_asset_path("vendor")
+  == javascript_include_tag webpack_asset_path("main")
+- else
+  == javascript_include_tag "http://localhost:4001/static/bundle.js"
