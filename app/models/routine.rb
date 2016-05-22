@@ -1,4 +1,6 @@
 class Routine < ActiveRecord::Base
+  has_paper_trail
+
   belongs_to :group
 
   has_many :listeners, dependent: :destroy
