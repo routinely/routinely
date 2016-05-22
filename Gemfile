@@ -16,6 +16,7 @@ gem 'turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 
+gem 'active_model_serializers'
 gem 'administrate'
 gem 'bitmask_attributes'
 gem 'clearance'

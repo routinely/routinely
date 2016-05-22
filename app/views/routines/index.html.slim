@@ -1,26 +1,6 @@
-h1.header
-  | Listing routines
-  = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
-
-table.table
-  thead
-    tr
-      th Name
-      th Sensors
-      th Users
-      th
-
-  tbody
-    == render partial: "routine", collection: @scheduled_routines
-
-h2 Orphaned routines
-
-table.table
-  thead
-    tr
-      th Name
-      th Sensors
-      th Users
-
-  tbody
-    == render partial: "routine", collection: @orphaned_routines
+#application
+- if Rails.env.production?
+  == javascript_include_tag webpack_asset_path("vendor")
+  == javascript_include_tag webpack_asset_path("main")
+- else
+  == javascript_include_tag "http://localhost:4001/static/bundle.js"
