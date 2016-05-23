@@ -177,6 +177,9 @@ GEM
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
+    paper_trail-globalid (0.2.0)
+      globalid
+      paper_trail (>= 3.0.0)
     pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -311,6 +314,7 @@ DEPENDENCIES
   meta_request
   nprogress-rails
   paper_trail
+  paper_trail-globalid
   pg
   pry-rails
   quiet_assets

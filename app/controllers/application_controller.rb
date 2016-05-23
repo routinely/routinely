@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
     payload[:remote_ip] = request.remote_ip
     payload[:user_id] = current_user.id if signed_in?
   end
+
+  private
+
+  def set_paper_trail_whodunnit
+    PaperTrail.whodunnit = current_user
+  end
 end

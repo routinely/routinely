@@ -23,5 +23,7 @@ Rails.application.routes.draw do
     resources :callbacks, only: [:create, :update, :destroy]
     resources :on_triggers, controller: :callbacks
     resources :on_exits, controller: :callbacks
+
+    get :history, on: :member
   end
 end

@@ -1,6 +1,6 @@
 class RoutinesController < ApplicationController
   before_action :require_login
-  before_action :set_routine, only: [:edit, :update, :destroy]
+  before_action :set_routine, only: [:edit, :update, :destroy, :history]
 
   def index
     @scheduled_routines = Routine.scheduled.order(starts_at: :asc).includes(:users, :sensors, :callback_routines, callbacks: [:target])
@@ -39,6 +39,9 @@ class RoutinesController < ApplicationController
   def destroy
     @routine.destroy
     redirect_to routines_url, notice: "Routine was successfully destroyed."
+  end
+
+  def history
   end
 
   private
