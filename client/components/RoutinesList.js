@@ -12,11 +12,9 @@ export default function RoutinesList({ routines }) {
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        {routines.map(routine =>
-          <Routine key={routine.id} {...routine} />
-        )}
-      </tbody>
+      {routines.map(routine =>
+        <Routine key={routine.id} {...routine} />
+      )}
     </table>
   );
 }

@@ -14,35 +14,55 @@ export default function Routine({
   users,
 }) {
   return (
-    <tr>
-      <td className=".col-md-3">
-        <p className="lead">
-          <a href={`/routines/${id}`}>{name}</a>
-        </p>
-        <p>{moment(startsAt).format('hh:mm')} – {moment(endsAt).format('hh:mm')}</p>
-        <p>
-          {Object.keys(repeatsAt).map(day =>
-            <span className={classNames('repeats-at', { on: repeatsAt[day] })}>
-              {day.charAt(0)}
-            </span>
+    <tbody>
+      <tr>
+        <td className=".col-md-3">
+          <p className="lead">
+            <a href={`/routines/${id}`}>{name}</a>
+          </p>
+          <p>{moment(startsAt).format('hh:mm')} – {moment(endsAt).format('hh:mm')}</p>
+          <p>
+            {Object.keys(repeatsAt).map(day =>
+              <span className={classNames('repeats-at', { on: repeatsAt[day] })}>
+                {day.charAt(0)}
+              </span>
+            )}
+          </p>
+          <p>{description}</p>
+        </td>
+        <td className=".col-md-4">
+          {sensors.map(sensor =>
+            <img className="sensor-icon" src={sensor.icon} alt={sensor.name} />
           )}
-        </p>
-        <p>{description}</p>
-      </td>
-      <td className=".col-md-4">
-        {sensors.map(sensor =>
-          <img className="sensor-icon" src={sensor.icon} alt={sensor.name} />
-        )}
-        <i className="glyphicon glyphicon-triangle-right" />
-        {actors.map(actor =>
-          <img className="actor-icon" src={actor.icon} alt={actor.name} />
-        )}
-      </td>
-      <td className=".col-md-4">
-        {users.map(user => user.name).join(', ')}
-      </td>
-      <td className=".col-md-1"></td>
-    </tr>
+          <i className="glyphicon glyphicon-triangle-right" />
+          {actors.map(actor =>
+            <img className="actor-icon" src={actor.icon} alt={actor.name} />
+          )}
+        </td>
+        <td className=".col-md-4">
+          {users.map(user => user.name).join(', ')}
+        </td>
+        <td className=".col-md-1">
+          <a data-toggle="collapse" href={`#routine-${id}`}>Show</a>
+        </td>
+      </tr>
+      <tr className="collapse" id={`routine-${id}`}>
+        <td className=".col-md-3">
+          {sensors.map(sensor =>
+            <img className="sensor-icon" src={sensor.icon} alt={sensor.name} />
+          )}
+        </td>
+        <td className=".col-md-4">
+          <p>On Trigger Actors</p>
+        </td>
+        <td className=".col-md-4">
+          <p>On Exit Actors</p>
+        </td>
+        <td className=".col-md-1">
+          <a href={`/routines/${id}/edit`}>Edit</a>
+        </td>
+      </tr>
+    </tbody>
   );
 }
 
