@@ -31,11 +31,11 @@ export default function Routine({
       </td>
       <td className=".col-md-4">
         {sensors.map(sensor =>
-          <img className="sensor-icon" src={`/assets/${sensor.icon}`} alt={sensor.name} />
+          <img className="sensor-icon" src={sensor.icon} alt={sensor.name} />
         )}
         <i className="glyphicon glyphicon-triangle-right" />
         {actors.map(actor =>
-          <img className="actor-icon" src={`/assets/${actor.icon}`} alt={actor.name} />
+          <img className="actor-icon" src={actor.icon} alt={actor.name} />
         )}
       </td>
       <td className=".col-md-4">
