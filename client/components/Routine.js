@@ -9,8 +9,8 @@ export default function Routine({
   startsAt,
   endsAt,
   repeatsAt,
-  sensors,
-  actors,
+  listeners,
+  callbacks,
   users,
 }) {
   return (
@@ -31,35 +31,16 @@ export default function Routine({
           <p>{description}</p>
         </td>
         <td className=".col-md-4">
-          {sensors.map(sensor =>
-            <img className="sensor-icon" src={sensor.icon} alt={sensor.name} />
+          {listeners.map(listener =>
+            <img className="sensor-icon" src={listener.icon} alt={listener.name} />
           )}
           <i className="glyphicon glyphicon-triangle-right" />
-          {actors.map(actor =>
+          {callbacks.filter(callback => callback.type === 'Actor').map(actor =>
             <img className="actor-icon" src={actor.icon} alt={actor.name} />
           )}
         </td>
         <td className=".col-md-4">
           {users.map(user => user.name).join(', ')}
-        </td>
-        <td className=".col-md-1">
-          <a data-toggle="collapse" href={`#routine-${id}`}>Show</a>
-        </td>
-      </tr>
-      <tr className="collapse" id={`routine-${id}`}>
-        <td className=".col-md-3">
-          {sensors.map(sensor =>
-            <img className="sensor-icon" src={sensor.icon} alt={sensor.name} />
-          )}
-        </td>
-        <td className=".col-md-4">
-          <p>On Trigger Actors</p>
-        </td>
-        <td className=".col-md-4">
-          <p>On Exit Actors</p>
-        </td>
-        <td className=".col-md-1">
-          <a href={`/routines/${id}/edit`}>Edit</a>
         </td>
       </tr>
     </tbody>
@@ -73,7 +54,7 @@ Routine.propTypes = {
   startsAt: React.PropTypes.string.isRequired,
   endsAt: React.PropTypes.string.isRequired,
   repeatsAt: React.PropTypes.object.isRequired,
-  sensors: React.PropTypes.array.isRequired,
-  actors: React.PropTypes.array.isRequired,
+  listeners: React.PropTypes.array.isRequired,
+  callbacks: React.PropTypes.array.isRequired,
   users: React.PropTypes.array.isRequired,
 };

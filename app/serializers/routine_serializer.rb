@@ -1,8 +1,8 @@
 class RoutineSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :starts_at, :ends_at, :repeats_at
 
-  has_many :sensors
-  has_many :actors
+  has_many :listeners
+  has_many :callbacks
   has_many :users
 
   def repeats_at
