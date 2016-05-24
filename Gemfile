@@ -17,6 +17,8 @@ gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 
 gem 'administrate'
+gem 'axlsx'
+gem 'axlsx_rails'
 gem 'bitmask_attributes'
 gem 'clearance'
 gem 'figaro'

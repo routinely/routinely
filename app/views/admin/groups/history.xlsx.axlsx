@@ -1,0 +1,52 @@
+xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
+
+  sheet.add_row([
+    "",
+    "",
+    "",
+    "Name",
+    "Description",
+    "Starts at",
+    "Ends at",
+    "Duration",
+    "Repeats at",
+    "Active",
+    "Once",
+  ])
+
+  @routines.each do |routine|
+    sheet.add_row([
+      routine.versions.last.try(:created_at),
+      routine.versions.last.try(:event),
+      routine.id,
+      routine.name,
+      routine.description,
+      routine.starts_at.try(:to_formatted_s, :time),
+      routine.ends_at.try(:to_formatted_s, :time),
+      routine.duration,
+      routine.repeats_at,
+      routine.active,
+      routine.once,
+    ])
+
+    routine.versions.reverse.each_cons(2) do |to, from|
+      changed = to.reify
+
+      sheet.add_row([
+        from.created_at,
+        from.event,
+        routine.id,
+        changed.name,
+        changed.description,
+        changed.starts_at.try(:to_formatted_s, :time),
+        changed.ends_at.try(:to_formatted_s, :time),
+        changed.duration,
+        changed.repeats_at,
+        changed.active,
+        changed.once,
+      ])
+    end
+
+    sheet.add_row
+  end
+end

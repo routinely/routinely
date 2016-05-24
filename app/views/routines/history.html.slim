@@ -1,8 +1,0 @@
-h1 Routine history
-.well
-  p = @routine.to_json
-- @routine.versions.reverse_each do |version|
-  .well
-    p = version.reify.to_json
-    p = "#{version.event} by #{version.actor} on #{version.created_at}"
-

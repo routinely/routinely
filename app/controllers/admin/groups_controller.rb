@@ -15,5 +15,11 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def history
+      @group = Group.find(params[:id])
+      @routines = @group.routines
+      render xlsx: "history"
+    end
   end
 end
