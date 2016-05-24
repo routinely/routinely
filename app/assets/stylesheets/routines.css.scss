@@ -1,9 +1,17 @@
+@import "bootstrap-sprockets";
 @import "bootstrap";
 
 h1.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.listener {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  width: 50px;
 }
 
 .sensor-icon,

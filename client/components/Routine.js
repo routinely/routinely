@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import classNames from 'classnames';
+import Listener from 'components/Listener';
 
 export default function Routine({
   id,
@@ -32,10 +33,10 @@ export default function Routine({
         </td>
         <td className=".col-md-4">
           {listeners.map(listener =>
-            <img className="sensor-icon" src={listener.icon} alt={listener.name} />
+            <Listener key={listener.id} {...listener} />
           )}
           <i className="glyphicon glyphicon-triangle-right" />
-          {callbacks.filter(callback => callback.type === 'Actor').map(actor =>
+          {callbacks.filter(callback => callback.condition === 'OnTrigger' && callback.type === 'Actor').map(actor =>
             <img className="actor-icon" src={actor.icon} alt={actor.name} />
           )}
         </td>
