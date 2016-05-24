@@ -19,7 +19,7 @@ class RoutinesListPage extends React.Component {
     return (
       <div>
         <h1 className="header">
-          Listing routines
+          Routines
           <a className="btn btn-primary btn-lg pull-right" href="/routines/new">New Routine</a>
         </h1>
         <RoutinesList routines={routines} />

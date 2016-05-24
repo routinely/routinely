@@ -8,12 +8,13 @@ export default function Listener({
   icon,
 }) {
   return (
-    <span className="listener">
-      <img className="sensor-icon" src={icon} alt={name} />
+    <div className="listener">
+      <img className="listener__icon" src={icon} alt={name} />
+      <span className="listener__name">{name}</span>
       {kind === 'digital' &&
-        <span>{gt}~{lt}</span>
+        <span className="listener__condition">{gt}~{lt}</span>
       }
-    </span>
+    </div>
   );
 }
 

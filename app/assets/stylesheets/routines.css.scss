@@ -7,31 +7,62 @@ h1.header {
   align-items: center;
 }
 
-.listener {
+.routines-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.routine {
+  @extend .clearfix;
+  margin-bottom: 14px;
+}
+
+.routine__header {
+  small {
+    padding-left: 10px;
+  }
+}
+
+.routine__status {
+  @extend .btn;
+  @extend .btn-success;
+  @extend .btn-sm;
+  @extend .pull-right;
+}
+
+.routine__on-triggers,
+.routine__callbacks {
+  @extend .pull-left
+}
+
+.listener,
+.callback {
   display: inline-block;
   vertical-align: top;
   text-align: center;
+  width: 100px;
+  height: 120px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+
+  &:not(:first-of-type) {
+    margin-left: 10px;
+  }
+}
+
+.listener__icon,
+.callback__icon {
+  margin: auto;
   width: 50px;
 }
 
-.sensor-icon,
-.actor-icon {
+.listener__name,
+.callback__name {
   display: inline-block;
-  width: 50px;
 }
 
-.repeats-at {
-  @extend .btn;
-  @extend .btn-default;
-  display: inline-block;
-  text-transform: uppercase;
-  width: 2.5em;
-
-  & + & {
-    margin-left: 3px;
-  }
-
-  &.on {
-    @extend .btn-success;
-  }
+.divider {
+  @extend .pull-left;
+  padding: 28px;
 }
