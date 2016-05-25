@@ -15,7 +15,7 @@ class Routine < ActiveRecord::Base
   has_many :tags, dependent: :destroy
   has_many :users, through: :tags
 
-  has_many :triggers, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   accepts_nested_attributes_for :inverse_callback
 

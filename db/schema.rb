@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525073600) do
+ActiveRecord::Schema.define(version: 20160525085950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 20160525073600) do
   add_index "callbacks", ["type", "routine_id", "target_type", "target_id"], name: "index_callbacks_on_type_and_routine_id_and_target", unique: true, using: :btree
   add_index "callbacks", ["type"], name: "index_callbacks_on_type", using: :btree
 
+  create_table "events", force: :cascade do |t|
+    t.integer  "routine_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "kind",       null: false
+  end
+
+  add_index "events", ["routine_id"], name: "index_events_on_routine_id", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.string   "name",         null: false
     t.datetime "created_at",   null: false
@@ -71,18 +80,18 @@ ActiveRecord::Schema.define(version: 20160525073600) do
   add_index "listeners", ["sensor_id"], name: "index_listeners_on_sensor_id", using: :btree
 
   create_table "routines", force: :cascade do |t|
-    t.string   "name",                           null: false
+    t.string   "name",                         null: false
     t.text     "description"
     t.time     "starts_at"
     t.time     "ends_at"
     t.integer  "duration"
     t.integer  "repeats_at"
-    t.boolean  "active",         default: true,  null: false
-    t.boolean  "once",           default: false, null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "group_id",                       null: false
-    t.integer  "triggers_count", default: 0,     null: false
+    t.boolean  "active",       default: true,  null: false
+    t.boolean  "once",         default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "group_id",                     null: false
+    t.integer  "events_count", default: 0,     null: false
   end
 
   add_index "routines", ["group_id"], name: "index_routines_on_group_id", using: :btree
@@ -113,15 +122,6 @@ ActiveRecord::Schema.define(version: 20160525073600) do
   add_index "tags", ["routine_id", "user_id"], name: "index_tags_on_routine_id_and_user_id", unique: true, using: :btree
   add_index "tags", ["routine_id"], name: "index_tags_on_routine_id", using: :btree
   add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
-
-  create_table "triggers", force: :cascade do |t|
-    t.integer  "routine_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "kind",       null: false
-  end
-
-  add_index "triggers", ["routine_id"], name: "index_triggers_on_routine_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                                     null: false
