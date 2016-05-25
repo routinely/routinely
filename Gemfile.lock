@@ -176,7 +176,6 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     normalize-rails (3.0.3)
-    nprogress-rails (0.1.6.7)
     paper_trail (5.1.0)
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
@@ -314,7 +313,6 @@ DEPENDENCIES
   kaminari
   lograge
   meta_request
-  nprogress-rails
   paper_trail
   pg
   pry-rails

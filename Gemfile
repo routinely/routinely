@@ -9,7 +9,6 @@ gem 'therubyracer', platforms: :ruby
 gem 'bootstrap-sass'
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'nprogress-rails'
 gem 'sass-rails'
 gem 'slim-rails'
 gem 'turbolinks'
