@@ -15,6 +15,8 @@ class Routine < ActiveRecord::Base
   has_many :tags, dependent: :destroy
   has_many :users, through: :tags
 
+  has_many :triggers, dependent: :destroy
+
   accepts_nested_attributes_for :inverse_callback
 
   bitmask :repeats_at, as: %i(mon tue wed thu fri sat sun) do
