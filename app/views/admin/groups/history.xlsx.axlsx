@@ -12,12 +12,17 @@ xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
     "Repeats at",
     "Active",
     "Once",
+    "Triggers(started) count",
+    "Triggers(triggered) count",
+    "Triggers(ended) count",
   ])
 
   @routines.each do |routine|
+    previous_version = routine.versions.last
+
     sheet.add_row([
-      routine.versions.last.try(:created_at),
-      routine.versions.last.try(:event),
+      previous_version.created_at,
+      previous_version.event,
       routine.id,
       routine.name,
       routine.description,
@@ -27,6 +32,9 @@ xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
       routine.repeats_at,
       routine.active,
       routine.once,
+      routine.triggers.started.where("created_at >= ?", previous_version.created_at).count,
+      routine.triggers.triggered.where("created_at >= ?", previous_version.created_at).count,
+      routine.triggers.ended.where("created_at >= ?", previous_version.created_at).count,
     ])
 
     routine.versions.reverse.each_cons(2) do |to, from|
@@ -44,9 +52,10 @@ xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
         changed.repeats_at,
         changed.active,
         changed.once,
+        changed.triggers.started.where(created_at: from.created_at..to.created_at).count,
+        changed.triggers.triggered.where(created_at: from.created_at..to.created_at).count,
+        changed.triggers.ended.where(created_at: from.created_at..to.created_at).count,
       ])
     end
-
-    sheet.add_row
   end
 end
