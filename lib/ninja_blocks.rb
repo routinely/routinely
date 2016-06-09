@@ -24,6 +24,16 @@ module NinjaBlocks
       self.class.get("/devices")
     end
 
+    def add_subdevice(device_id:, category:, type:, name:, data:, url:)
+      self.class.post("/device/#{device_id}/subdevice", body: {
+        category: category,
+        type: type,
+        shortName: name,
+        data: data,
+        url: url
+      })
+    end
+
     def data(device_id)
       self.class.get("/device/#{device_id}/data")
     end
