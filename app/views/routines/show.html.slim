@@ -3,7 +3,6 @@ h1.header
   = link_to "Edit", edit_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
 p = @routine.description
 p = routine_schedule(@routine)
-p = @routine.users.map(&:name).join(", ")
 
 == render "listeners"
 

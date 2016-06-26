@@ -12,9 +12,6 @@ class Routine < ActiveRecord::Base
   has_one :inverse_callback, -> { where(target_type: "Routine") }, foreign_key: :target_id, class_name: "Callback", dependent: :destroy
   has_one :lead, through: :inverse_callback, source: :routine
 
-  has_many :tags, dependent: :destroy
-  has_many :users, through: :tags
-
   has_many :events, dependent: :destroy
 
   accepts_nested_attributes_for :inverse_callback

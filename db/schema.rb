@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625122340) do
+ActiveRecord::Schema.define(version: 20160626091014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,17 +111,6 @@ ActiveRecord::Schema.define(version: 20160625122340) do
   add_index "sensors", ["guid"], name: "index_sensors_on_guid", unique: true, using: :btree
   add_index "sensors", ["name", "group_id"], name: "index_sensors_on_name_and_group_id", unique: true, using: :btree
 
-  create_table "tags", force: :cascade do |t|
-    t.integer  "routine_id", null: false
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "tags", ["routine_id", "user_id"], name: "index_tags_on_routine_id_and_user_id", unique: true, using: :btree
-  add_index "tags", ["routine_id"], name: "index_tags_on_routine_id", using: :btree
-  add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
@@ -155,7 +144,5 @@ ActiveRecord::Schema.define(version: 20160625122340) do
   add_foreign_key "listeners", "sensors", on_delete: :cascade
   add_foreign_key "routines", "groups", on_delete: :cascade
   add_foreign_key "sensors", "groups", on_delete: :cascade
-  add_foreign_key "tags", "routines", on_delete: :cascade
-  add_foreign_key "tags", "users", on_delete: :cascade
   add_foreign_key "users", "groups", on_delete: :cascade
 end

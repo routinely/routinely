@@ -3,8 +3,8 @@ class RoutinesController < ApplicationController
   before_action :set_routine, only: [:edit, :update, :destroy]
 
   def index
-    @scheduled_routines = Routine.scheduled.order(starts_at: :asc).includes(:users, :sensors, :callback_routines, callbacks: [:target])
-    @orphaned_routines = Routine.orphaned.order(created_at: :desc).includes(:users, :sensors)
+    @scheduled_routines = Routine.scheduled.order(starts_at: :asc).includes(:sensors, :callback_routines, callbacks: [:target])
+    @orphaned_routines = Routine.orphaned.order(created_at: :desc).includes(:sensors)
   end
 
   def show

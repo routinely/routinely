@@ -6,7 +6,6 @@
       .col-md-6
         = f.input :name, label: false, input_html: { class: "input-lg" }
         = f.input :description, label: false
-        = f.association :users, as: :check_boxes
       .col-md-6
         = f.input :starts_at, as: :time, include_blank: true, minute_step: 5
         = f.input :ends_at, as: :time, include_blank: true, minute_step: 5
