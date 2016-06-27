@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626091014) do
+ActiveRecord::Schema.define(version: 20160627092552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160626091014) do
     t.datetime "updated_at",                   null: false
     t.integer  "group_id",                     null: false
     t.integer  "events_count", default: 0,     null: false
+    t.boolean  "all_day",      default: false, null: false
   end
 
   add_index "routines", ["group_id"], name: "index_routines_on_group_id", using: :btree
