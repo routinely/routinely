@@ -9,6 +9,18 @@ module Nodered
     def flows
       self.class.get("/flows")
     end
+
+    def add_flow(flow)
+      self.class.post("/flow", body: flow)
+    end
+
+    def update_flow(id, flow)
+      self.class.put("/flow/#{id}", body: flow)
+    end
+
+    def remove_flow(id)
+      self.class.delete("/flow/#{id}")
+    end
   end
 
   def self.client(host)

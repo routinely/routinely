@@ -51,4 +51,11 @@ class Routine < ActiveRecord::Base
   def orphan?
     dependent? && lead.nil?
   end
+
+  def to_flow
+    {
+      label: name,
+      nodes: []
+    }
+  end
 end
