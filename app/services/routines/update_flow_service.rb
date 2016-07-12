@@ -6,10 +6,12 @@ module Routines
     end
 
     def run!
-      response = if @routine.flow_id
-        @client.update_flow(@routine.flow_id, @routine.to_flow)
+      flow = BuildFlowService.new(@routine).run!
+
+      response = if @routine.flow_id.present?
+        @client.update_flow(@routine.flow_id, flow)
       else
-        @client.add_flow(@routine.to_flow)
+        @client.add_flow(flow)
       end
 
       @routine.update(flow_id: response["id"]) if response.ok? # TODO: error handling
