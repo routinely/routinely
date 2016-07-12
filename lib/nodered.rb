@@ -11,11 +11,11 @@ module Nodered
     end
 
     def add_flow(flow)
-      self.class.post("/flow", body: flow)
+      self.class.post("/flow", body: flow.to_json, headers: { "Content-Type" => "application/json" })
     end
 
     def update_flow(id, flow)
-      self.class.put("/flow/#{id}", body: flow)
+      self.class.put("/flow/#{id}", body: flow.to_json, headers: { "Content-Type" => "application/json" })
     end
 
     def remove_flow(id)
