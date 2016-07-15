@@ -13,7 +13,6 @@ class SensorDashboard < Administrate::BaseDashboard
     name: Field::String,
     kind: Field::Enum,
     description: Field::Text,
-    guid: Field::String,
     icon: Field::Asset,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -45,7 +44,6 @@ class SensorDashboard < Administrate::BaseDashboard
     :name,
     :kind,
     :description,
-    :guid,
     :icon,
   ]
 

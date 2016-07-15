@@ -10,4 +10,10 @@ class Sensor < ActiveRecord::Base
   validates :guid, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :group, presence: true
+
+  class << self
+    def store_full_sti_class
+      false
+    end
+  end
 end

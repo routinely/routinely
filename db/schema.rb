@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715072048) do
+ActiveRecord::Schema.define(version: 20160715074319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,12 +106,11 @@ ActiveRecord::Schema.define(version: 20160715072048) do
     t.datetime "updated_at",  null: false
     t.integer  "group_id",    null: false
     t.integer  "kind",        null: false
-    t.string   "guid",        null: false
     t.string   "icon"
+    t.string   "type",        null: false
   end
 
   add_index "sensors", ["group_id"], name: "index_sensors_on_group_id", using: :btree
-  add_index "sensors", ["guid"], name: "index_sensors_on_guid", unique: true, using: :btree
   add_index "sensors", ["name", "group_id"], name: "index_sensors_on_name_and_group_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
