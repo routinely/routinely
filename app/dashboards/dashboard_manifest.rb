@@ -14,7 +14,7 @@ class DashboardManifest
     :users,
     :routines,
     :sensors,
-    :actuators,
+    :actors,
   ]
 
   # `ROOT_DASHBOARD`

@@ -14,7 +14,7 @@ class GroupDashboard < Administrate::BaseDashboard
     users: Field::HasMany,
     routines: Field::HasMany,
     sensors: Field::HasMany,
-    actuators: Field::HasMany,
+    actors: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711062549) do
+ActiveRecord::Schema.define(version: 20160715072048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,11 @@ ActiveRecord::Schema.define(version: 20160711062549) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "group_id",    null: false
-    t.string   "guid"
     t.string   "icon"
+    t.hstore   "config"
   end
 
   add_index "actors", ["group_id"], name: "index_actors_on_group_id", using: :btree
-  add_index "actors", ["guid"], name: "index_actors_on_guid", unique: true, using: :btree
   add_index "actors", ["name", "group_id"], name: "index_actors_on_name_and_group_id", unique: true, using: :btree
   add_index "actors", ["type"], name: "index_actors_on_type", using: :btree
 

@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class ActuatorDashboard < Administrate::BaseDashboard
+class ActorDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -12,7 +12,6 @@ class ActuatorDashboard < Administrate::BaseDashboard
     group: Field::BelongsTo,
     name: Field::String,
     description: Field::Text,
-    guid: Field::String,
     icon: Field::Asset,
     routines: Field::HasMany,
     created_at: Field::DateTime,
@@ -43,14 +42,13 @@ class ActuatorDashboard < Administrate::BaseDashboard
     :group,
     :name,
     :description,
-    :guid,
     :icon,
   ]
 
   # Overwrite this method to customize how actuators are displayed
   # across all pages of the admin dashboard.
 
-  def display_resource(actuator)
-    actuator.name
+  def display_resource(actor)
+    actor.name
   end
 end
