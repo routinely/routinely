@@ -1,8 +1,8 @@
 class Callback < ActiveRecord::Base
-  belongs_to :routine
+  belongs_to :routine, polymorphic: true
   belongs_to :target, polymorphic: true
 
-  validates :routine, presence: true, uniqueness: { scope: [:type, :target_type, :target_id] }
+  validates :routine, presence: true
   validates :target, presence: true
   validates :delay, numericality: { greater_than: 0 }, allow_nil: true
 
