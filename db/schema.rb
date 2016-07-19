@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719042106) do
+ActiveRecord::Schema.define(version: 20160719064146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,23 @@ ActiveRecord::Schema.define(version: 20160719042106) do
 
   add_index "listeners", ["routine_type", "routine_id"], name: "index_listeners_on_routine_type_and_routine_id", using: :btree
   add_index "listeners", ["sensor_id"], name: "index_listeners_on_sensor_id", using: :btree
+
+  create_table "periodic_routines", force: :cascade do |t|
+    t.string   "name",                        null: false
+    t.text     "description"
+    t.time     "starts_at",                   null: false
+    t.time     "ends_at",                     null: false
+    t.integer  "repeats_at"
+    t.boolean  "active",      default: true,  null: false
+    t.boolean  "once",        default: false, null: false
+    t.integer  "group_id",                    null: false
+    t.string   "flow_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "periodic_routines", ["group_id"], name: "index_periodic_routines_on_group_id", using: :btree
+  add_index "periodic_routines", ["name", "group_id"], name: "index_periodic_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "routines", force: :cascade do |t|
     t.string   "name",                         null: false
@@ -171,6 +188,7 @@ ActiveRecord::Schema.define(version: 20160719042106) do
 
   add_foreign_key "actors", "groups", on_delete: :cascade
   add_foreign_key "listeners", "sensors", on_delete: :cascade
+  add_foreign_key "periodic_routines", "groups", on_delete: :cascade
   add_foreign_key "routines", "groups", on_delete: :cascade
   add_foreign_key "rule_based_routines", "groups", on_delete: :cascade
   add_foreign_key "sensors", "groups", on_delete: :cascade
