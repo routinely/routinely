@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719035825) do
+ActiveRecord::Schema.define(version: 20160719042106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,16 +67,16 @@ ActiveRecord::Schema.define(version: 20160719035825) do
   end
 
   create_table "listeners", force: :cascade do |t|
-    t.integer  "routine_id", null: false
-    t.integer  "sensor_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "sensor_id",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.float    "gt"
     t.float    "lt"
+    t.integer  "routine_id",   null: false
+    t.string   "routine_type", null: false
   end
 
-  add_index "listeners", ["routine_id", "sensor_id"], name: "index_listeners_on_routine_id_and_sensor_id", unique: true, using: :btree
-  add_index "listeners", ["routine_id"], name: "index_listeners_on_routine_id", using: :btree
+  add_index "listeners", ["routine_type", "routine_id"], name: "index_listeners_on_routine_type_and_routine_id", using: :btree
   add_index "listeners", ["sensor_id"], name: "index_listeners_on_sensor_id", using: :btree
 
   create_table "routines", force: :cascade do |t|
@@ -98,6 +98,20 @@ ActiveRecord::Schema.define(version: 20160719035825) do
 
   add_index "routines", ["group_id"], name: "index_routines_on_group_id", using: :btree
   add_index "routines", ["name", "group_id"], name: "index_routines_on_name_and_group_id", unique: true, using: :btree
+
+  create_table "rule_based_routines", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.text     "description"
+    t.integer  "repeats_at"
+    t.boolean  "active",      default: true, null: false
+    t.integer  "group_id",                   null: false
+    t.string   "flow_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "rule_based_routines", ["group_id"], name: "index_rule_based_routines_on_group_id", using: :btree
+  add_index "rule_based_routines", ["name", "group_id"], name: "index_rule_based_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "sensors", force: :cascade do |t|
     t.string   "name",        null: false
@@ -156,9 +170,9 @@ ActiveRecord::Schema.define(version: 20160719035825) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "actors", "groups", on_delete: :cascade
-  add_foreign_key "listeners", "routines", on_delete: :cascade
   add_foreign_key "listeners", "sensors", on_delete: :cascade
   add_foreign_key "routines", "groups", on_delete: :cascade
+  add_foreign_key "rule_based_routines", "groups", on_delete: :cascade
   add_foreign_key "sensors", "groups", on_delete: :cascade
   add_foreign_key "time_based_routines", "groups", on_delete: :cascade
   add_foreign_key "users", "groups", on_delete: :cascade
