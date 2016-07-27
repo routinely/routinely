@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719070151) do
+ActiveRecord::Schema.define(version: 20160727165017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,15 +50,14 @@ ActiveRecord::Schema.define(version: 20160719070151) do
   add_index "callbacks", ["type"], name: "index_callbacks_on_type", using: :btree
 
   create_table "dependent_routines", force: :cascade do |t|
-    t.string   "name",                        null: false
+    t.string   "name",                       null: false
     t.text     "description"
     t.integer  "duration"
-    t.boolean  "active",      default: true,  null: false
-    t.boolean  "once",        default: false, null: false
-    t.integer  "group_id",                    null: false
+    t.boolean  "active",      default: true, null: false
+    t.integer  "group_id",                   null: false
     t.string   "flow_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "dependent_routines", ["group_id"], name: "index_dependent_routines_on_group_id", using: :btree
@@ -95,17 +94,16 @@ ActiveRecord::Schema.define(version: 20160719070151) do
   add_index "listeners", ["sensor_id"], name: "index_listeners_on_sensor_id", using: :btree
 
   create_table "periodic_routines", force: :cascade do |t|
-    t.string   "name",                        null: false
+    t.string   "name",                       null: false
     t.text     "description"
-    t.time     "starts_at",                   null: false
-    t.time     "ends_at",                     null: false
+    t.time     "starts_at",                  null: false
+    t.time     "ends_at",                    null: false
     t.integer  "repeats_at"
-    t.boolean  "active",      default: true,  null: false
-    t.boolean  "once",        default: false, null: false
-    t.integer  "group_id",                    null: false
+    t.boolean  "active",      default: true, null: false
+    t.integer  "group_id",                   null: false
     t.string   "flow_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "periodic_routines", ["group_id"], name: "index_periodic_routines_on_group_id", using: :btree
