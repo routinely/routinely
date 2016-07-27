@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715074319) do
+ActiveRecord::Schema.define(version: 20160727165017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,21 +33,35 @@ ActiveRecord::Schema.define(version: 20160715074319) do
   add_index "actors", ["type"], name: "index_actors_on_type", using: :btree
 
   create_table "callbacks", force: :cascade do |t|
-    t.string   "type",                        null: false
-    t.integer  "routine_id",                  null: false
-    t.integer  "target_id",                   null: false
-    t.string   "target_type",                 null: false
+    t.string   "type",                         null: false
+    t.integer  "target_id",                    null: false
+    t.string   "target_type",                  null: false
     t.integer  "delay"
-    t.boolean  "once",        default: false, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "once",         default: false, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.json     "payload"
+    t.integer  "routine_id",                   null: false
+    t.string   "routine_type",                 null: false
   end
 
-  add_index "callbacks", ["routine_id"], name: "index_callbacks_on_routine_id", using: :btree
+  add_index "callbacks", ["routine_type", "routine_id"], name: "index_callbacks_on_routine_type_and_routine_id", using: :btree
   add_index "callbacks", ["target_type", "target_id"], name: "index_callbacks_on_target_type_and_target_id", using: :btree
-  add_index "callbacks", ["type", "routine_id", "target_type", "target_id"], name: "index_callbacks_on_type_and_routine_id_and_target", unique: true, using: :btree
   add_index "callbacks", ["type"], name: "index_callbacks_on_type", using: :btree
+
+  create_table "dependent_routines", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.text     "description"
+    t.integer  "duration"
+    t.boolean  "active",      default: true, null: false
+    t.integer  "group_id",                   null: false
+    t.string   "flow_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "dependent_routines", ["group_id"], name: "index_dependent_routines_on_group_id", using: :btree
+  add_index "dependent_routines", ["name", "group_id"], name: "index_dependent_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
     t.integer  "routine_id", null: false
@@ -67,17 +81,33 @@ ActiveRecord::Schema.define(version: 20160715074319) do
   end
 
   create_table "listeners", force: :cascade do |t|
-    t.integer  "routine_id", null: false
-    t.integer  "sensor_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "sensor_id",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.float    "gt"
     t.float    "lt"
+    t.integer  "routine_id",   null: false
+    t.string   "routine_type", null: false
   end
 
-  add_index "listeners", ["routine_id", "sensor_id"], name: "index_listeners_on_routine_id_and_sensor_id", unique: true, using: :btree
-  add_index "listeners", ["routine_id"], name: "index_listeners_on_routine_id", using: :btree
+  add_index "listeners", ["routine_type", "routine_id"], name: "index_listeners_on_routine_type_and_routine_id", using: :btree
   add_index "listeners", ["sensor_id"], name: "index_listeners_on_sensor_id", using: :btree
+
+  create_table "periodic_routines", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.text     "description"
+    t.time     "starts_at",                  null: false
+    t.time     "ends_at",                    null: false
+    t.integer  "repeats_at"
+    t.boolean  "active",      default: true, null: false
+    t.integer  "group_id",                   null: false
+    t.string   "flow_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "periodic_routines", ["group_id"], name: "index_periodic_routines_on_group_id", using: :btree
+  add_index "periodic_routines", ["name", "group_id"], name: "index_periodic_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "routines", force: :cascade do |t|
     t.string   "name",                         null: false
@@ -99,6 +129,20 @@ ActiveRecord::Schema.define(version: 20160715074319) do
   add_index "routines", ["group_id"], name: "index_routines_on_group_id", using: :btree
   add_index "routines", ["name", "group_id"], name: "index_routines_on_name_and_group_id", unique: true, using: :btree
 
+  create_table "rule_based_routines", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.text     "description"
+    t.integer  "repeats_at"
+    t.boolean  "active",      default: true, null: false
+    t.integer  "group_id",                   null: false
+    t.string   "flow_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "rule_based_routines", ["group_id"], name: "index_rule_based_routines_on_group_id", using: :btree
+  add_index "rule_based_routines", ["name", "group_id"], name: "index_rule_based_routines_on_name_and_group_id", unique: true, using: :btree
+
   create_table "sensors", force: :cascade do |t|
     t.string   "name",        null: false
     t.text     "description"
@@ -112,6 +156,21 @@ ActiveRecord::Schema.define(version: 20160715074319) do
 
   add_index "sensors", ["group_id"], name: "index_sensors_on_group_id", using: :btree
   add_index "sensors", ["name", "group_id"], name: "index_sensors_on_name_and_group_id", unique: true, using: :btree
+
+  create_table "time_based_routines", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.text     "description"
+    t.time     "triggers_at",                null: false
+    t.integer  "repeats_at"
+    t.boolean  "active",      default: true, null: false
+    t.integer  "group_id",                   null: false
+    t.string   "flow_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "time_based_routines", ["group_id"], name: "index_time_based_routines_on_group_id", using: :btree
+  add_index "time_based_routines", ["name", "group_id"], name: "index_time_based_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                                     null: false
@@ -141,10 +200,12 @@ ActiveRecord::Schema.define(version: 20160715074319) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "actors", "groups", on_delete: :cascade
-  add_foreign_key "callbacks", "routines", on_delete: :cascade
-  add_foreign_key "listeners", "routines", on_delete: :cascade
+  add_foreign_key "dependent_routines", "groups", on_delete: :cascade
   add_foreign_key "listeners", "sensors", on_delete: :cascade
+  add_foreign_key "periodic_routines", "groups", on_delete: :cascade
   add_foreign_key "routines", "groups", on_delete: :cascade
+  add_foreign_key "rule_based_routines", "groups", on_delete: :cascade
   add_foreign_key "sensors", "groups", on_delete: :cascade
+  add_foreign_key "time_based_routines", "groups", on_delete: :cascade
   add_foreign_key "users", "groups", on_delete: :cascade
 end
