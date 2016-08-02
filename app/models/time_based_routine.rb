@@ -3,7 +3,8 @@ class TimeBasedRoutine < ActiveRecord::Base
 
   belongs_to :group
 
-  has_many :callbacks, as: :routine, dependent: :destroy
+  has_one :callback, as: :routine, dependent: :destroy
+  has_one :actor, through: :callback, source: :target, source_type: "Actor"
 
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :triggers_at, presence: true
