@@ -1,5 +1,45 @@
 module Actors
   class Sms < Actor
-    store_accessor :config, :receipient
+    store_accessor :config, :twilio_api, :receipient
+
+    def to_nodes(payload, x = 100, y = 100)
+      actor_id = SecureRandom.uuid
+      twilio_id = SecureRandom.uuid
+
+      return actor_id, [
+        {
+          id: actor_id,
+          x: x += 200,
+          y: y,
+          type: "change",
+          rules: [
+            {
+              t: "set",
+              p: "payload",
+              pt: "msg",
+              to: payload["message"]
+              tot: "str"
+            }
+          ],
+          action: "",
+          property: "",
+          from: "",
+          to: "",
+          reg: false,
+          wires: [[twilio_id]]
+        },
+        {
+          id: twilio_id,
+          x: x += 200,
+          y: y,
+          type: "twilio out",
+          twilio: twilio_api,
+          twilioType: "sms",
+          url: "",
+          number: receipient,
+          wires: []
+        }
+      ]
+    end
   end
 end
