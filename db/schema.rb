@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727165017) do
+ActiveRecord::Schema.define(version: 20160729072729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 20160727165017) do
     t.text     "description"
     t.time     "starts_at",                  null: false
     t.time     "ends_at",                    null: false
-    t.integer  "repeats_at"
+    t.integer  "repeats_at",                 null: false
     t.boolean  "active",      default: true, null: false
     t.integer  "group_id",                   null: false
     t.string   "flow_id"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20160727165017) do
   create_table "rule_based_routines", force: :cascade do |t|
     t.string   "name",                       null: false
     t.text     "description"
-    t.integer  "repeats_at"
+    t.integer  "repeats_at",                 null: false
     t.boolean  "active",      default: true, null: false
     t.integer  "group_id",                   null: false
     t.string   "flow_id"
@@ -161,7 +161,7 @@ ActiveRecord::Schema.define(version: 20160727165017) do
     t.string   "name",                       null: false
     t.text     "description"
     t.time     "triggers_at",                null: false
-    t.integer  "repeats_at"
+    t.integer  "repeats_at",                 null: false
     t.boolean  "active",      default: true, null: false
     t.integer  "group_id",                   null: false
     t.string   "flow_id"
