@@ -1,4 +1,6 @@
 class TimeBasedRoutine < ActiveRecord::Base
+  include Repeatable
+
   belongs_to :group
 
   has_many :callbacks, as: :routine, dependent: :destroy

@@ -1,4 +1,6 @@
 class PeriodicRoutine < ActiveRecord::Base
+  include Repeatable
+
   belongs_to :group
 
   has_many :listeners, as: :routine, dependent: :destroy
