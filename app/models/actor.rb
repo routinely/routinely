@@ -8,10 +8,4 @@ class Actor < ActiveRecord::Base
   validates :group, presence: true
 
   scope :callable, -> { all }
-
-  class << self
-    def store_full_sti_class
-      false
-    end
-  end
 end
