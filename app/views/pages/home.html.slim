@@ -1,1 +1,10 @@
 h1 routine.ly
+
+- if signed_in?
+  #calendar
+  coffee:
+    $("#calendar").fullCalendar({
+      defaultView: "agendaWeek",
+      events: "/api/calendar",
+      defaultTimedEventDuration: "01:00:00"
+    })

@@ -18,6 +18,7 @@ gem 'turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 
+gem 'active_model_serializers'
 gem 'administrate'
 gem 'axlsx'
 gem 'axlsx_rails'

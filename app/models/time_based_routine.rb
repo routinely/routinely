@@ -11,16 +11,7 @@ class TimeBasedRoutine < ActiveRecord::Base
   validates :group, presence: true
 
   def crontab
-    days = []
-    days << 0 if repeats_at? :sun
-    days << 1 if repeats_at? :mon
-    days << 2 if repeats_at? :tue
-    days << 3 if repeats_at? :wed
-    days << 4 if repeats_at? :thu
-    days << 5 if repeats_at? :fri
-    days << 6 if repeats_at? :sat
-
-    "#{triggers_at.min} #{triggers_at.hour} * * #{days.join(',')}"
+    "#{triggers_at.min} #{triggers_at.hour} * * #{repeats_at.to_days_of_week.join(',')}"
   end
 
   def to_flow
