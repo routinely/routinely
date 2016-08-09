@@ -3,7 +3,7 @@ module Api
     before_action :require_login
 
     def show
-      render json: current_user.group.time_based_routines
+      render json: (current_user.group.time_based_routines + current_user.group.rule_based_routines)
     end
   end
 end
