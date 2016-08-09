@@ -18,4 +18,6 @@
 //= require nprogress-turbolinks
 //= require twitter/bootstrap/transition
 //= require twitter/bootstrap/collapse
+//= require moment
+//= require fullcalendar
 //= require_tree .
