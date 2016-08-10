@@ -2,8 +2,8 @@ class Listener < ActiveRecord::Base
   belongs_to :routine, polymorphic: true
   belongs_to :sensor
 
-  # validates :routine, presence: true, uniqueness: { scope: :sensor }
-  # validates :sensor, presence: true, uniqueness: { scope: :routine }
+  validates :routine, presence: true
+  validates :sensor, presence: true
   validates :gt, absence: true, unless: -> { sensor.digital? }
   validates :lt, absence: true, unless: -> { sensor.digital? }
   validate -> {
@@ -20,4 +20,7 @@ class Listener < ActiveRecord::Base
   }, unless: -> { [gt, lt].none? }
 
   delegate :binary?, :digital?, to: :sensor
+
+  scope :rf, -> { joins(:sensor).merge(Sensor.binary) }
+  scope :non_rf, -> { joins(:sensor).merge(Sensor.digital) }
 end
