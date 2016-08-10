@@ -1,1 +1,14 @@
 h1 routine.ly
+
+- if signed_in?
+  #calendar
+  coffee:
+    $("#calendar").fullCalendar({
+      defaultView: "agendaWeek",
+      events: (start, end, timezone, callback) ->
+        $.ajax({
+          url: "/api/calendar",
+          success: (data) -> callback(data.events)
+        })
+      defaultTimedEventDuration: "01:00:00"
+    })

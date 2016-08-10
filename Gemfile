@@ -8,7 +8,9 @@ gem 'therubyracer', platforms: :ruby
 # asset pipeline
 gem 'bootstrap-sass'
 gem 'coffee-rails'
+gem 'fullcalendar-rails'
 gem 'jquery-rails'
+gem 'momentjs-rails'
 gem 'nprogress-rails'
 gem 'sass-rails'
 gem 'slim-rails'
@@ -16,6 +18,7 @@ gem 'turbolinks'
 gem 'twitter-bootstrap-rails'
 gem 'uglifier'
 
+gem 'active_model_serializers'
 gem 'administrate'
 gem 'axlsx'
 gem 'axlsx_rails'
