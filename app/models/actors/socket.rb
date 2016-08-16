@@ -11,6 +11,7 @@ module Actors
           id: actor_id,
           x: x += 200,
           y: y,
+          name: "Turn socket #{payload["da"] == "0xdadada" ? "on" : "off"}",
           type: "ninja-send",
           d: "rf",
           da: payload["da"], # 0xdadada for on, 0xdadad2 for off

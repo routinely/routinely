@@ -11,6 +11,7 @@ module Actors
           id: actor_id,
           x: x += 200,
           y: y,
+          name: "Set SMS fields",
           type: "change",
           rules: [
             {
@@ -32,6 +33,7 @@ module Actors
           id: twilio_id,
           x: x += 200,
           y: y,
+          name: "Send to #{receipient}",
           type: "twilio out",
           twilio: twilio_api,
           twilioType: "sms",

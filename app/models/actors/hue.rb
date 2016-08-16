@@ -11,6 +11,7 @@ module Actors
           id: actor_id,
           x: x += 200,
           y: y,
+          name: "Set Hue parameters",
           type: "change",
           rules: [
             {

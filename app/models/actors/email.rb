@@ -11,6 +11,7 @@ module Actors
           id: actor_id,
           x: x += 200,
           y: y,
+          name: "Set email fields",
           type: "change",
           rules: [
             {
@@ -46,10 +47,10 @@ module Actors
           id: email_id,
           x: x += 200,
           y: y,
+          name: "Send to #{receipient}",
           type: "e-mail",
           server: "smtp.gmail.com",
           port: "465",
-          name: "",
           dname: "",
           credentials: {
             userid: credentials_id,
