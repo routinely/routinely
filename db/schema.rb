@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729072729) do
+ActiveRecord::Schema.define(version: 20160816053705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,10 +84,9 @@ ActiveRecord::Schema.define(version: 20160729072729) do
     t.integer  "sensor_id",    null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.float    "gt"
-    t.float    "lt"
     t.integer  "routine_id",   null: false
     t.string   "routine_type", null: false
+    t.json     "conditions"
   end
 
   add_index "listeners", ["routine_type", "routine_id"], name: "index_listeners_on_routine_type_and_routine_id", using: :btree

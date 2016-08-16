@@ -1,11 +1,13 @@
 class Listener < ActiveRecord::Base
+  store_accessor :conditions, :lt, :gt
+
   belongs_to :routine, polymorphic: true
   belongs_to :sensor
 
   validates :routine, presence: true
   validates :sensor, presence: true
-  validates :gt, absence: true, unless: -> { sensor.digital? }
-  validates :lt, absence: true, unless: -> { sensor.digital? }
+  validates :gt, absence: true, unless: :digital?
+  validates :lt, absence: true, unless: :digital?
   validate -> {
     unless [gt, lt].any?
       errors.add(:gt, "digital sensors require at least one numeric conditions")
@@ -17,7 +19,7 @@ class Listener < ActiveRecord::Base
       errors.add(:gt, "gt should be less than lt")
       errors.add(:lt, "gt should be less than lt")
     end
-  }, unless: -> { [gt, lt].none? }
+  }, if: -> { [gt, lt].all? }
 
   delegate :binary?, :digital?, to: :sensor
 
