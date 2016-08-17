@@ -2,14 +2,14 @@ module Actors
   class Eye < Actor
     store_accessor :config, :tx_subflow
 
-    def to_nodes(payload, x = 100, y = 100)
+    def to_nodes(payload, x, y)
       actor_id = SecureRandom.uuid
       tx_id = SecureRandom.uuid
 
       return actor_id, [
         {
           id: actor_id,
-          x: x += 200,
+          x: x,
           y: y,
           name: "Set eyes color",
           type: "ninja-send",

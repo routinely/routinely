@@ -15,28 +15,6 @@ class TimeBasedRoutine < ActiveRecord::Base
   end
 
   def to_flow
-    inject_id = SecureRandom.uuid
-
-    actor_id, actor_nodes = actor.to_nodes(callback.payload)
-
-    {
-      label: name,
-      nodes: [
-        {
-          id: inject_id,
-          x: 100,
-          y: 100,
-          type: "inject",
-          topic: "",
-          payload: "",
-          payloadType: "date",
-          repeat: "",
-          crontab: crontab,
-          once: false,
-          wires: [[actor_id]]
-        },
-        *actor_nodes
-      ]
-    }
+    Nodered::TimeBasedRoutineSerializer.new(self).as_json
   end
 end

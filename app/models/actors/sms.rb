@@ -2,14 +2,14 @@ module Actors
   class Sms < Actor
     store_accessor :config, :twilio_api, :receipient
 
-    def to_nodes(payload, x = 100, y = 100)
+    def to_nodes(payload, x, y)
       actor_id = SecureRandom.uuid
       twilio_id = SecureRandom.uuid
 
       return actor_id, [
         {
           id: actor_id,
-          x: x += 200,
+          x: x,
           y: y,
           name: "Set SMS fields",
           type: "change",

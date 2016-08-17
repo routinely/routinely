@@ -2,14 +2,14 @@ module Actors
   class Hue < Actor
     store_accessor :config, :device_id, :server_id
 
-    def to_nodes(payload, x = 100, y = 100)
+    def to_nodes(payload, x, y)
       actor_id = SecureRandom.uuid
       hue_id = SecureRandom.uuid
 
       return actor_id, [
         {
           id: actor_id,
-          x: x += 200,
+          x: x,
           y: y,
           name: "Set Hue parameters",
           type: "change",

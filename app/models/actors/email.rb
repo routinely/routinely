@@ -2,14 +2,14 @@ module Actors
   class Email < Actor
     store_accessor :config, :receipient, :credentials_id, :credentials_pw
 
-    def to_nodes(payload, x = 100, y = 100)
+    def to_nodes(payload, x, y)
       actor_id = SecureRandom.uuid
       email_id = SecureRandom.uuid
 
       return actor_id, [
         {
           id: actor_id,
-          x: x += 200,
+          x: x,
           y: y,
           name: "Set email fields",
           type: "change",
