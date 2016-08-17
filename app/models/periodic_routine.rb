@@ -3,11 +3,22 @@ class PeriodicRoutine < ActiveRecord::Base
 
   belongs_to :group
 
-  has_many :listeners, as: :routine, dependent: :destroy
+  has_one :rf_listener, -> { rf }, as: :routine, class_name: "Listener"
+  has_one :rf_sensor, through: :rf_listener, source: :sensor
+
+  has_many :listeners, -> { non_rf }, as: :routine, dependent: :destroy
+  has_many :sensors, through: :listeners, source: :sensor
+
   has_many :callbacks, as: :routine, dependent: :destroy
+  has_many :actors, through: :callbacks, source: :target, source_type: "Actor"
 
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :starts_at, presence: true
   validates :ends_at, presence: true
   validates :group, presence: true
+  validates :sensors, length: { maximum: 2 }
+
+  def to_flow
+    Nodered::PeriodicRoutineSerializer.new(self).as_json
+  end
 end
