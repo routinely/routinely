@@ -8,6 +8,6 @@ class DependentRoutine < ActiveRecord::Base
   has_many :callbacks, as: :routine, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :group }
-  validates :duration, inclusion: { in: 0..24.hours }, allow_nil: true
+  validates :duration, inclusion: { in: 0..24.hours }
   validates :group, presence: true
 end
