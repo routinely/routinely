@@ -16,7 +16,12 @@ class Callback < ActiveRecord::Base
   end
 
   def to_nodes(x, y)
-    target.to_nodes(payload, x, y) # TODO implement #to_nodes for non-Actor targets
+    case target
+    when Actor
+      target.to_nodes(payload, x, y)
+    else
+      return nil, []
+    end
   end
 
   private

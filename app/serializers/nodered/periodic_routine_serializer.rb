@@ -11,6 +11,8 @@ module Nodered
         actor_nodes += nodes
       end
 
+      actor_ids.compact!
+
       listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, object, 300, 100)
 
       [
