@@ -4,6 +4,7 @@ module Nodered
       inject_id = SecureRandom.uuid
 
       actor_id, actor_nodes = object.actor.to_nodes(object.callback.payload, 300, 100)
+      actor_id, actor_nodes = object.callback.to_nodes(300, 100)
 
       [
         {

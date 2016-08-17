@@ -15,6 +15,10 @@ class Callback < ActiveRecord::Base
     target.try(:to_global_id)
   end
 
+  def to_nodes(x, y)
+    target.to_nodes(payload, x, y) # TODO implement #to_nodes for non-Actor targets
+  end
+
   private
 
   def resursive?
