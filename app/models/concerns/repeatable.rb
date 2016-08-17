@@ -14,6 +14,10 @@ module Repeatable
         days << 6 if include? :sat
         days
       end
+
+      def to_s
+        map { |d| d.to_s.capitalize }.join("/")
+      end
     end
 
     validates :repeats_at, presence: true, numericality: { greater_than: 0 }

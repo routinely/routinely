@@ -25,4 +25,8 @@ class Listener < ActiveRecord::Base
 
   scope :rf, -> { joins(:sensor).merge(Sensor.binary) }
   scope :non_rf, -> { joins(:sensor).merge(Sensor.digital) }
+
+  def to_node(x, y)
+    sensor.to_node(conditions, x, y)
+  end
 end
