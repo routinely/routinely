@@ -3,8 +3,13 @@ module Nodered
     def nodes
       inject_id = SecureRandom.uuid
 
-      actor_id, actor_nodes = object.actor.to_nodes(object.callback.payload, 300, 100)
-      actor_id, actor_nodes = object.callback.to_nodes(300, 100)
+      actor_ids, actor_nodes = [], []
+
+      object.callbacks.each_with_index do |callback, y|
+        actor_id, nodes = callback.to_nodes(300, 100 + 100 * y)
+        actor_ids << actor_id
+        actor_nodes += nodes
+      end
 
       [
         {
@@ -19,7 +24,7 @@ module Nodered
           repeat: "",
           crontab: object.crontab,
           once: false,
-          wires: [[actor_id, event_id]]
+          wires: [actor_ids]
         },
         *actor_nodes
       ]
