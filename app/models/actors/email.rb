@@ -1,6 +1,6 @@
 module Actors
   class Email < Actor
-    store_accessor :config, :receipient, :credentials_id, :credentials_pw
+    store_accessor :config, :credentials_id, :credentials_pw
 
     def to_nodes(payload, x, y)
       actor_id = SecureRandom.uuid
@@ -32,7 +32,7 @@ module Actors
               t: "set",
               p: "to",
               pt: "msg",
-              to: receipient,
+              to: payload["receipient"],
               tot: "str"
             }
           ],
@@ -47,7 +47,7 @@ module Actors
           id: email_id,
           x: x += 200,
           y: y,
-          name: "Send to #{receipient}",
+          name: "Send to #{payload["receipient"]}",
           type: "e-mail",
           server: "smtp.gmail.com",
           port: "465",

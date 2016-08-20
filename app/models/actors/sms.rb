@@ -1,6 +1,6 @@
 module Actors
   class Sms < Actor
-    store_accessor :config, :twilio_api, :receipient
+    store_accessor :config, :twilio_api
 
     def to_nodes(payload, x, y)
       actor_id = SecureRandom.uuid
@@ -33,12 +33,12 @@ module Actors
           id: twilio_id,
           x: x += 200,
           y: y,
-          name: "Send to #{receipient}",
+          name: "Send to #{payload["receipient"]}",
           type: "twilio out",
           twilio: twilio_api,
           twilioType: "sms",
           url: "",
-          number: receipient,
+          number: payload["receipient"],
           wires: []
         }
       ]
