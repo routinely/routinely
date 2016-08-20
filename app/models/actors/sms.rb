@@ -18,7 +18,7 @@ module Actors
               t: "set",
               p: "payload",
               pt: "msg",
-              to: payload["message"]
+              to: payload["message"],
               tot: "str"
             }
           ],
