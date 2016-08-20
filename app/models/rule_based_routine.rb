@@ -1,5 +1,6 @@
 class RuleBasedRoutine < ActiveRecord::Base
   include Repeatable
+  include Flowable
 
   belongs_to :group
 
@@ -15,8 +16,4 @@ class RuleBasedRoutine < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :group, presence: true
   validates :sensors, length: { maximum: 2 }
-
-  def to_flow
-    Nodered::RuleBasedRoutineSerializer.new(self).as_json
-  end
 end

@@ -1,5 +1,6 @@
 class PeriodicRoutine < ActiveRecord::Base
   include Repeatable
+  include Flowable
 
   belongs_to :group
 
@@ -21,9 +22,5 @@ class PeriodicRoutine < ActiveRecord::Base
 
   def once?
     dependent_routines.any?
-  end
-
-  def to_flow
-    Nodered::PeriodicRoutineSerializer.new(self).as_json
   end
 end

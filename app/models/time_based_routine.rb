@@ -1,5 +1,6 @@
 class TimeBasedRoutine < ActiveRecord::Base
   include Repeatable
+  include Flowable
 
   belongs_to :group
 
@@ -12,9 +13,5 @@ class TimeBasedRoutine < ActiveRecord::Base
 
   def crontab
     "#{triggers_at.min} #{triggers_at.hour} * * #{repeats_at.to_days_of_week.join(',')}"
-  end
-
-  def to_flow
-    Nodered::TimeBasedRoutineSerializer.new(self).as_json
   end
 end
