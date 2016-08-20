@@ -11,12 +11,17 @@ class PeriodicRoutine < ActiveRecord::Base
 
   has_many :callbacks, as: :routine, dependent: :destroy
   has_many :actors, through: :callbacks, source: :target, source_type: "Actor"
+  has_many :dependent_routines, through: :callbacks, source: :target, source_type: "DependentRoutine", dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :starts_at, presence: true
   validates :ends_at, presence: true
   validates :group, presence: true
   validates :sensors, length: { maximum: 2 }
+
+  def once?
+    dependent_routines.any?
+  end
 
   def to_flow
     Nodered::PeriodicRoutineSerializer.new(self).as_json

@@ -51,6 +51,7 @@ module Nodered
           thu: schedule.repeats_at?(:thu),
           fri: schedule.repeats_at?(:fri),
           sat: schedule.repeats_at?(:sat),
+          once: schedule.once?,
           wires: [[], [], []]
         }
 
