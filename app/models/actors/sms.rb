@@ -33,12 +33,12 @@ module Actors
           id: twilio_id,
           x: x += 200,
           y: y,
-          name: "Send to #{payload["receipient"]}",
+          name: "Send to #{payload["recipient"]}",
           type: "twilio out",
           twilio: twilio_api,
           twilioType: "sms",
           url: "",
-          number: payload["receipient"],
+          number: payload["recipient"],
           wires: []
         }
       ]

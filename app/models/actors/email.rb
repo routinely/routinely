@@ -32,7 +32,7 @@ module Actors
               t: "set",
               p: "to",
               pt: "msg",
-              to: payload["receipient"],
+              to: payload["recipient"],
               tot: "str"
             }
           ],
@@ -47,7 +47,7 @@ module Actors
           id: email_id,
           x: x += 200,
           y: y,
-          name: "Send to #{payload["receipient"]}",
+          name: "Send to #{payload["recipient"]}",
           type: "e-mail",
           server: "smtp.gmail.com",
           port: "465",
