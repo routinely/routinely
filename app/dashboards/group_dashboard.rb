@@ -11,8 +11,10 @@ class GroupDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     nodered_host: Field::String,
+    mqtt_broker: Field::String,
+    rx_subflow: Field::String,
+    tx_subflow: Field::String,
     users: Field::HasMany,
-    routines: Field::HasMany,
     sensors: Field::HasMany,
     actors: Field::HasMany,
     created_at: Field::DateTime,
@@ -40,6 +42,9 @@ class GroupDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :name,
     :nodered_host,
+    :mqtt_broker,
+    :rx_subflow,
+    :tx_subflow,
     :users,
   ]
 
