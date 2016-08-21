@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  store_accessor :nodered_config, :mqtt_broker, :twilio_api, :google_api, :rx_subflow, :tx_subflow, :hue_server
+  store_accessor :nodered_config, :mqtt_broker, :rx_subflow, :tx_subflow
 
   has_many :users, dependent: :destroy
   has_many :routines, dependent: :destroy
