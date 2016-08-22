@@ -4,13 +4,14 @@ class CallbacksController < ApplicationController
   before_action :set_callback, only: [:update, :destroy]
 
   def create
-    @callback = @routine.callbacks.build(callback_params.except(:target_global_id))
+    @callback = @routine.callbacks.build(callback_params.except(:routine_id, :target_global_id))
 
     unless @callback.target.present?
-      @callback.target = GlobalID::Locator.locate callback_params[:target_global_id]
+      @callback.target = GlobalID::Locator.locate(callback_params[:target_global_id])
     end
 
     @callback.save
+    Flows::SyncService.new(@routine).run!
 
     respond_to do |format|
       format.js
@@ -18,7 +19,8 @@ class CallbacksController < ApplicationController
   end
 
   def update
-    @callback.update(callback_params.except(:target_global_id))
+    @callback.update(callback_params.except(:routine_id, :target_global_id))
+    Flows::SyncService.new(@routine).run!
 
     respond_to do |format|
       format.js
@@ -27,6 +29,7 @@ class CallbacksController < ApplicationController
 
   def destroy
     @callback.destroy
+    Flows::SyncService.new(@callback.routine).run!
 
     respond_to do |format|
       format.js
@@ -36,7 +39,7 @@ class CallbacksController < ApplicationController
   private
 
   def set_routine
-    @routine = Routine.find(params[:routine_id])
+    @routine = GlobalID::Locator.locate(callback_params[:routine_id])
   end
 
   def set_callback
@@ -44,6 +47,6 @@ class CallbacksController < ApplicationController
   end
 
   def callback_params
-    params.require(:callback).permit(:type, :target_global_id, :delay, :once, :payload)
+    params.require(:callback).permit(:routine_id, :type, :target_global_id, :delay, :once, :payload)
   end
 end

@@ -3,8 +3,10 @@ class RoutinesController < ApplicationController
   before_action :set_routine, only: [:edit, :update, :destroy]
 
   def index
-    @scheduled_routines = Routine.scheduled.order(starts_at: :asc).includes(:sensors, :callback_routines, callbacks: [:target])
-    @orphaned_routines = Routine.orphaned.order(created_at: :desc).includes(:sensors)
+    @time_based_routines = current_user.group.time_based_routines.order(triggers_at: :asc).includes(:actors)
+    @rule_based_routines = current_user.group.rule_based_routines
+    @periodic_routines = current_user.group.periodic_routines.order(starts_at: :asc)
+    @dependent_routines = current_user.group.dependent_routines # TODO order by leading routine's starts_at
   end
 
   def show
@@ -12,16 +14,17 @@ class RoutinesController < ApplicationController
   end
 
   def new
-    @routine = Routine.new
+    @routine = TimeBasedRoutine.new
   end
 
   def edit
   end
 
   def create
-    @routine = current_user.group.routines.build(routine_params)
+    @routine = current_user.group.time_based_routines.build(routine_params)
 
     if @routine.save
+      # Flows::SyncService.new(@routine).run!
       redirect_to @routine, notice: "Routine was successfully created."
     else
       render :new
@@ -30,6 +33,7 @@ class RoutinesController < ApplicationController
 
   def update
     if @routine.update(routine_params)
+      # Flows::SyncService.new(@routine).run!
       redirect_to @routine, notice: "Routine was successfully updated."
     else
       render :edit
@@ -38,6 +42,7 @@ class RoutinesController < ApplicationController
 
   def destroy
     @routine.destroy
+    # Flows::SyncService.new(@routine).run!
     redirect_to routines_url, notice: "Routine was successfully destroyed."
   end
 
@@ -45,9 +50,17 @@ class RoutinesController < ApplicationController
 
   def set_routine
     @routine = Routine.find(params[:id])
+    # @routine = GlobalID::Locator.locate(params[:id])
   end
 
   def routine_params
-    params.require(:routine).permit(:name, :description, :starts_at, :ends_at, repeats_at: [], user_ids: [])
+    params.require(:time_based_routine).permit(:name, :description, :triggers_at, repeats_at: [])
+
+    # params.permit([
+    #   TimeBasedRoutine,
+    #   RuleBasedRoutine,
+    #   PeriodicRoutine,
+    #   DependentRoutine
+    # ].flat_map(&:attribute_names) - %w(created_at updated_at))
   end
 end

@@ -9,5 +9,7 @@ class Group < ActiveRecord::Base
   has_many :rule_based_routines, dependent: :destroy
   has_many :time_based_routines, dependent: :destroy
   has_many :periodic_routines, dependent: :destroy
+  has_many :dependent_routines, dependent: :destroy
+
   validates :name, presence: true, uniqueness: true
 end

@@ -1,24 +1,69 @@
 h1.header
-  | Listing routines
-  = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
+  | Routines
+/   = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
 
-table.table
-  thead
-    tr
-      th Name
-      th Sensors
-      th
+/ table.table
+/   thead
+/     tr
+/       th Name
+/       th Sensors
+/       th
 
-  tbody
-    == render partial: "routine", collection: @scheduled_routines
+/   tbody
+/     == render partial: "routine", collection: @scheduled_routines
 
-h2 Orphaned routines
+ul.nav.nav-tabs
+  li.active
+    a href="#list-for-time-based" data={ toggle: "tab" } Time-based
+  li
+    a href="#list-for-rule-based" data={ toggle: "tab" } Rule-based
+  li
+    a href="#list-for-periodic" data={ toggle: "tab" } Periodic
+  li
+    a href="#list-for-dependent" data={ toggle: "tab" } Dependent
 
-table.table
-  thead
-    tr
-      th Name
-      th Sensors
-
-  tbody
-    == render partial: "routine", collection: @orphaned_routines
+.tab-content
+  .tab-pane#list-for-time-based.active
+    = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
+    table.table
+      thead
+        tr
+          th Name
+          th Actor
+          th
+          th
+      tbody
+        == render partial: "time_based_routine", collection: @time_based_routines, as: :routine
+  .tab-pane#list-for-rule-based
+    = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
+    table.table
+      thead
+        tr
+          th Name
+          th Sensors to Actors
+          th
+          th
+      tbody
+        == render partial: "rule_based_routine", collection: @rule_based_routines, as: :routine
+  .tab-pane#list-for-periodic
+    = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
+    table.table
+      thead
+        tr
+          th Name
+          th Sensors to Actors
+          th
+          th
+      tbody
+        == render partial: "periodic_routine", collection: @periodic_routines, as: :routine
+  .tab-pane#list-for-dependent
+    = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
+    table.table
+      thead
+        tr
+          th Name
+          th
+          th
+          th
+      tbody
+        == render partial: "dependent_routine", collection: @dependent_routines, as: :routine

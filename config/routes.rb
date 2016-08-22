@@ -33,4 +33,10 @@ Rails.application.routes.draw do
     resources :on_triggers, controller: :callbacks
     resources :on_exits, controller: :callbacks
   end
+
+  resources :time_based_routines do
+    resources :on_triggers, controller: :callbacks
+  end
+
+  resources :callbacks, only: [:create, :update, :destroy]
 end

@@ -46,4 +46,6 @@ Rails.application.configure do
   Bullet.console = true
   Bullet.rails_logger = true
   Bullet.add_footer = true
+
+  Rails.application.routes.default_url_options = { host: "localhost:3000" }
 end

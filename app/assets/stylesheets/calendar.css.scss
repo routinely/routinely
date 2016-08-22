@@ -1,5 +1,16 @@
 .fc-time-based-routine {
+  border-color: transparent;
+  background-color: transparent;
+  color: #3a87ad;
 
+  &:hover {
+    color: #3a87ad;
+  }
+
+  .fc-time,
+  .fc-title {
+    display: inline;
+  }
 }
 
 .fc-rule-based-routine {

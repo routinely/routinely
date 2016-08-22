@@ -83,4 +83,6 @@ Rails.application.configure do
       payload[:params].except!('controller', 'action', 'format')
     end
   end
+
+  Rails.application.routes.default_url_options = { host: "routinely.herokuapp.com" }
 end

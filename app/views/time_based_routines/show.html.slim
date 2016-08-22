@@ -1,0 +1,11 @@
+h1.header
+  = @routine.name
+  = link_to "Edit", edit_time_based_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
+p = @routine.description
+p = @routine.triggers_at.to_s(:time)
+
+h2 On Trigger Callbacks
+
+.row
+  == render partial: "callbacks/callback", collection: @routine.callbacks
+  == render partial: "callbacks/callback", object: @routine.callbacks.build.becomes(OnTrigger)

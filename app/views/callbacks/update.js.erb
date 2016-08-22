@@ -1,1 +1,1 @@
-$(".<%= @callback.class.name.underscore.dasherize %>-form[data-<%= @callback.class.name.underscore.dasherize %>-id='<%= @callback.id %>']").replaceWith("<%= j render('routines/callback', { callback: @callback }) %>");
+$(".<%= @callback.class.name.underscore.dasherize %>-form[data-<%= @callback.class.name.underscore.dasherize %>-id='<%= @callback.id %>']").replaceWith("<%= j render('callback', { callback: @callback }) %>");

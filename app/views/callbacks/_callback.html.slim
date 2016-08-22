@@ -1,0 +1,19 @@
+.col-md-4 class="#{callback.class.name.underscore.dasherize}-form" data={ "#{callback.class.name.underscore}_id" => callback.id || "new" }
+  .panel.panel-default
+    .panel-body
+      = simple_form_for(callback, as: :callback, html: { class: "form-horizontal" }, wrapper: :horizontal_form, wrapper_mappings: { boolean: :horizontal_boolean }, remote: true) do |f|
+        .form-inputs
+          = f.input :routine_id, as: :hidden, input_html: { value: @routine.to_global_id }
+          = f.input :type, as: :hidden, input_html: { value: callback.class.name }
+          - if callback.persisted?
+            = f.input :target do
+              p.form-control-static = link_to_callback_target(callback)
+          - else
+            = f.input :target_global_id, label: "Target", collection: current_user.group.actors, as: :select, value_method: :to_global_id, disabled: callback.persisted?
+          = f.input :delay
+          = f.input :payload, as: :string
+
+        .form-actions
+          = f.button :submit
+          - if callback.persisted?
+            = link_to "Destroy", callback, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true
