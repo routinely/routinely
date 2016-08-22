@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resource :calendar, only: [:show]
+    resources :events, only: [:create]
   end
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
