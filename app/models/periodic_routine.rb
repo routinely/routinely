@@ -23,4 +23,8 @@ class PeriodicRoutine < ActiveRecord::Base
   def once?
     dependent_routines.any?
   end
+
+  def valid_flow?
+    (rf_listener.present? || listeners.any?) && (callbacks.any? || dependent_routines.any?)
+  end
 end

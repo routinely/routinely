@@ -16,4 +16,8 @@ class TimeBasedRoutine < ActiveRecord::Base
   def crontab
     "#{triggers_at.min} #{triggers_at.hour} * * #{repeats_at.to_days_of_week.join(',')}"
   end
+
+  def valid_flow?
+    callbacks.any?
+  end
 end

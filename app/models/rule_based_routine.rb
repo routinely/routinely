@@ -16,4 +16,8 @@ class RuleBasedRoutine < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :group, presence: true
   validates :sensors, length: { maximum: 2 }
+
+  def valid_flow?
+    (rf_listener.present? || listeners.any?) && callbacks.any?
+  end
 end
