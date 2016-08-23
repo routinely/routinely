@@ -26,11 +26,6 @@ module Actors
               tot: "json"
             }
           ],
-          action: "",
-          property: "",
-          from: "",
-          to: "",
-          reg: false,
           wires: [[hue_id]]
         },
         {

@@ -36,11 +36,6 @@ module Actors
               tot: "str"
             }
           ],
-          action: "",
-          property: "",
-          from: "",
-          to: "",
-          reg: false,
           wires: [[email_id]]
         },
         {

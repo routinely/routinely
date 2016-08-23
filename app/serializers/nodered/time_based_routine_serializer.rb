@@ -60,11 +60,6 @@ module Nodered
               tot: "json"
             }
           ],
-          action: "",
-          property: "",
-          from: "",
-          to: "",
-          reg: false,
           wires: [[http_id]]
         },
         {

@@ -22,11 +22,6 @@ module Actors
               tot: "str"
             }
           ],
-          action: "",
-          property: "",
-          from: "",
-          to: "",
-          reg: false,
           wires: [[twilio_id]]
         },
         {

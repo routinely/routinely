@@ -9,12 +9,12 @@ module Nodered
       actor_ids, actor_nodes = [], []
 
       object.callbacks.each_with_index do |callback, y|
-        actor_id, nodes = callback.to_nodes(500, 300 + 100 * y)
+        actor_id, nodes = callback.to_nodes(500, 400 + 100 * y)
         actor_ids << actor_id
         actor_nodes += nodes
       end
 
-      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, 500, 100)
+      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, 300, 200)
 
       [
         {
@@ -100,11 +100,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {
@@ -122,11 +117,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {
@@ -178,11 +168,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {
@@ -200,11 +185,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {

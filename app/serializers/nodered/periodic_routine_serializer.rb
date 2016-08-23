@@ -118,11 +118,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {
@@ -140,11 +135,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {
@@ -201,11 +191,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {
@@ -223,11 +208,6 @@ module Nodered
                     tot: "bool"
                   }
                 ],
-                action: "",
-                property: "",
-                from: "",
-                to: "",
-                reg: false,
                 wires: [[rbe_id]]
               },
               {
