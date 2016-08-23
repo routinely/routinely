@@ -193,7 +193,6 @@ module Nodered
                 y: y,
                 type: "rbe",
                 func: "rbe",
-                gap: "",
                 wires: [[check_id]]
               },
               {
