@@ -1,0 +1,16 @@
+.listener-form.col-md-4 data={ listener_id: listener.id }
+  .panel class=(listener.errors.any? ? 'panel-warning' : 'panel-primary')
+    .panel-body
+      = simple_form_for(listener, as: :listener, html: { class: "form-horizontal" }, wrapper: :horizontal_form, remote: true) do |f|
+        .form-inputs
+          = f.input :routine_id, as: :hidden, input_html: { value: @routine.to_global_id }
+          = f.input :sensor do
+            p.form-control-static = listener.sensor.name
+          - if listener.digital?
+            = f.input :gt
+            = f.input :lt
+
+        .form-actions
+          - if listener.digital?
+            = f.button :submit, "Update Sensor"
+          = link_to "Remove", listener, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true

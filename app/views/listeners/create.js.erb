@@ -1,5 +1,5 @@
 <% if @listener.persisted? %>
-  $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('routines/listener', { listener: @listener }) %>");
+  $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('listener', { listener: @listener }) %>");
 <% else %>
-  $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('routines/sensor', { sensor: @listener.sensor }) %>");
+  $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('sensor', { sensor: @listener.sensor }) %>");
 <% end %>

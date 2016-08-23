@@ -1,13 +1,13 @@
-class TimeBasedRoutinesController < ApplicationController
+class RuleBasedRoutinesController < ApplicationController
   before_action :require_login
   before_action :set_routine, only: [:edit, :update, :destroy]
 
   def show
-    @routine = TimeBasedRoutine.find(params[:id])
+    @routine = RuleBasedRoutine.find(params[:id])
   end
 
   def new
-    @routine = TimeBasedRoutine.new
+    @routine = RuleBasedRoutine.new
   end
 
   def edit
@@ -26,10 +26,10 @@ class TimeBasedRoutinesController < ApplicationController
   private
 
   def set_routine
-    @routine = TimeBasedRoutine.find(params[:id])
+    @routine = RuleBasedRoutine.find(params[:id])
   end
 
   def routine_params
-    params.require(:time_based_routine).permit(:name, :description, :triggers_at, repeats_at: [])
+    params.require(:rule_based_routine).permit(:name, :description, repeats_at: [])
   end
 end

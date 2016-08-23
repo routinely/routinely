@@ -1,0 +1,17 @@
+h1.header
+  = @routine.name
+  = link_to "Edit", edit_rule_based_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
+p = @routine.description
+p = @routine.repeats_at.to_s
+
+h2 Listeners
+
+.row
+  == render partial: "listeners/listener", collection: @routine.listeners
+  == render partial: "listeners/sensor", collection: current_user.group.sensors - @routine.sensors
+
+h2 On Trigger Callbacks
+
+.row
+  == render partial: "callbacks/callback", collection: @routine.callbacks
+  == render partial: "callbacks/callback", object: @routine.callbacks.build.becomes(OnTrigger)

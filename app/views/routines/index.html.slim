@@ -24,7 +24,7 @@ ul.nav.nav-tabs
 
 .tab-content
   .tab-pane#list-for-time-based.active
-    = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
+    = link_to "New Routine", new_time_based_routine_path, class: "btn btn-primary btn-lg pull-right"
     table.table
       thead
         tr
@@ -35,7 +35,7 @@ ul.nav.nav-tabs
       tbody
         == render partial: "time_based_routine", collection: @time_based_routines, as: :routine
   .tab-pane#list-for-rule-based
-    = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
+    = link_to "New Routine", new_rule_based_routine_path, class: "btn btn-primary btn-lg pull-right"
     table.table
       thead
         tr

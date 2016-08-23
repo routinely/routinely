@@ -1,0 +1,15 @@
+.listener-form.col-md-4 data={ sensor_id: sensor.id }
+  .panel class=(@listener&.errors&.any? ? "panel-warning" : "panel-default")
+    .panel-body
+      = simple_form_for(@listener || @routine.listeners.build(sensor: sensor), as: :listener, html: { class: "form-horizontal" }, wrapper: :horizontal_form, remote: true) do |f|
+        .form-inputs
+          = f.input :routine_id, as: :hidden, input_html: { value: @routine.to_global_id }
+          = f.input :sensor do
+            p.form-control-static = sensor.name
+          = f.input :sensor_id, value: sensor.id, as: :hidden
+          - if sensor.digital?
+            = f.input :gt
+            = f.input :lt
+
+        .form-actions
+          = f.button :submit, "Add Sensor"
