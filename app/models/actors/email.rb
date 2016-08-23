@@ -42,11 +42,10 @@ module Actors
           id: email_id,
           x: x += 200,
           y: y,
-          name: "Send to #{payload["recipient"]}",
+          dname: "Send to #{payload["recipient"]}",
           type: "e-mail",
           server: "smtp.gmail.com",
           port: "465",
-          dname: "",
           credentials: {
             userid: credentials_id,
             password: credentials_pw
