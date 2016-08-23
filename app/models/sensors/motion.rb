@@ -2,7 +2,7 @@ module Sensors
   class Motion < Sensor
     validate -> { errors.add(:kind, "motion sensors are binary") unless binary? }
 
-    def to_nodes(conditions, x, y)
+    def to_node(conditions, x, y)
       sensor_id = SecureRandom.uuid
 
       return sensor_id, {
