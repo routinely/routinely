@@ -6,20 +6,14 @@ class Listener < ActiveRecord::Base
 
   validates :routine, presence: true
   validates :sensor, presence: true
-  validates :gt, absence: true, unless: :digital?
-  validates :lt, absence: true, unless: :digital?
+  validates :gt, absence: true, if: :binary?
+  validates :lt, absence: true, if: :binary?
   validate -> {
     unless [gt, lt].any?
       errors.add(:gt, "digital sensors require at least one numeric conditions")
       errors.add(:lt, "digital sensors require at least one numeric conditions")
     end
   }, if: :digital?
-  validate -> {
-    unless gt < lt
-      errors.add(:gt, "gt should be less than lt")
-      errors.add(:lt, "gt should be less than lt")
-    end
-  }, if: -> { [gt, lt].all? }
 
   delegate :binary?, :digital?, to: :sensor
 
