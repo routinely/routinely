@@ -1,0 +1,16 @@
+= simple_form_for @routine do |f|
+  = f.error_notification
+  p = @routine.errors.full_messages.join(", ")
+
+  .form-inputs
+    .row
+      .col-md-6
+        = f.input :name, label: false, input_html: { class: "input-lg", placeholder: "Name" }
+        = f.input :description, label: false, input_html: { rows: 10, placeholder: "Description" }
+      .col-md-6
+        = f.input :repeats_at, as: :bitmask
+
+  .form-actions
+    = f.button :submit, class: "btn btn-primary btn-lg"
+    - if @routine.persisted?
+      = link_to "Destroy", @routine, class: "btn btn-lg", data: { confirm: "Are you sure?" }, method: :delete

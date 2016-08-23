@@ -23,6 +23,14 @@ class RuleBasedRoutinesController < ApplicationController
     end
   end
 
+  def update
+    if @routine.update(routine_params)
+      redirect_to @routine, notice: "Routine was successfully updated."
+    else
+      render :edit
+    end
+  end
+
   private
 
   def set_routine
