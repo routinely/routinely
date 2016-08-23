@@ -14,7 +14,7 @@ class TimeBasedRoutinesController < ApplicationController
   end
 
   def create
-    @routine = current_user.group.rule_based_routines.build(routine_params)
+    @routine = current_user.group.time_based_routines.build(routine_params)
 
     if @routine.save
       redirect_to @routine, notice: "Routine was successfully created."
