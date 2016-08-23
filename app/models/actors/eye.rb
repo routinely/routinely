@@ -1,6 +1,6 @@
 module Actors
   class Eye < Actor
-    store_accessor :config, :tx_subflow
+    delegate :tx_subflow, to: :group
 
     def to_nodes(payload, x, y)
       actor_id = SecureRandom.uuid
