@@ -18,7 +18,7 @@ class Callback < ActiveRecord::Base
   def to_nodes(x, y)
     case target
     when Actor
-      target.to_nodes(payload, x, y)
+      delayed(*target.to_nodes(payload, x, y))
     else
       return nil, []
     end
@@ -28,5 +28,29 @@ class Callback < ActiveRecord::Base
 
   def resursive?
     errors.add(:target, "can't call recursively") if routine == target
+  end
+
+  def delayed(actor_id, actor_nodes)
+    if delay.try(&:positive?)
+      delay_id = SecureRandom.uuid
+
+      delay_node = {
+        id: delay_id,
+        x: actor_nodes.first[:x],
+        y: actor_nodes.first[:y],
+        type: "delay",
+        pauseType: "delay",
+        timeout: delay,
+        timeoutUnits: "seconds",
+        wires: [[actor_id]]
+      }
+
+      actor_nodes.each { |node| node[:x] += 200 }
+
+      return delay_id, [delay_node, *actor_nodes]
+
+    else
+      return actor_id, actor_nodes
+    end
   end
 end
