@@ -21,7 +21,7 @@ module Actors
               to: {
                 on: [payload["on"]], # true, false
                 bri: [payload["bri"]], # 0-255
-                hue: [payload["r"], payload["g"], payload["b"]] # 0-255
+                rgb: [payload["r"], payload["g"], payload["b"]] # 0-255
               }.to_json,
               tot: "json"
             }
