@@ -1,0 +1,9 @@
+ko:
+  labels:
+    triggers_at: 시각
+  simple_form:
+    labels:
+      defaults:
+        triggers_at: 시각
+        repeats_at: 반복일
+        sensor: 센서

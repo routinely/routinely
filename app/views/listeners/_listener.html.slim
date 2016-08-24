@@ -12,5 +12,5 @@
 
         .form-actions
           - if listener.digital?
-            = f.button :submit, "Update Sensor"
-          = link_to "Remove", listener, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true
+            = f.button :submit
+          = link_to t("helpers.submit.destroy"), listener, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true

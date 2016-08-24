@@ -11,5 +11,5 @@
           = f.input :payload, as: :string
 
         .form-actions
-          = f.button :submit, "Update Actor"
-          = link_to "Destroy", callback, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true
+          = f.button :submit
+          = link_to t("helpers.submit.destroy"), callback, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true

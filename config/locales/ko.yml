@@ -1,0 +1,28 @@
+ko:
+  activerecord:
+    models:
+      time_based_routine: 특정시각 규칙
+      rule_based_routine: 24시간 규칙
+      periodic_routine: 시간 규칙
+      dependent_routine: 종속 규칙
+    attributes:
+      name: 이름
+      triggers_at: 시각
+      repeats_at: 요일별 반복
+  helpers:
+    submit:
+      create: "%{model} 만들기"
+      update: 수정
+      destroy: 삭제
+      listener:
+        create: 센서 추가
+      callback:
+        create: 추가
+    link:
+      back: 돌아가기
+      edit: 편집
+      new:
+        routine: 새 규칙 만들기
+    title:
+      new:
+        routine: 새 규칙 만들기

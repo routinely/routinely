@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Clearance::Controller
+  before_action :set_locale, if: :signed_in?
   before_action :set_paper_trail_whodunnit
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_locale
+    I18n.locale = current_user.locale || I18n.default_locale
+  end
 
   def set_paper_trail_whodunnit
     PaperTrail.whodunnit = current_user

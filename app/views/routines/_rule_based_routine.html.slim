@@ -12,4 +12,4 @@ tr
     - routine.actors.each do |actor|
       = image_tag(actor.icon, class: "actor-icon", alt: actor.name)
   td.col-md-4
-  td.col-md-1 = link_to "Edit", routine
+  td.col-md-1 = link_to t("helpers.link.edit"), routine
