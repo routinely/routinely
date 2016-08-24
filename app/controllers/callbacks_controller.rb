@@ -28,8 +28,9 @@ class CallbacksController < ApplicationController
   end
 
   def destroy
+    @routine = @callback.routine
     @callback.destroy
-    Flows::SyncService.new(@callback.routine).run!
+    Flows::SyncService.new(@routine).run!
 
     respond_to do |format|
       format.js

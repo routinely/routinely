@@ -1,0 +1,15 @@
+.col-md-3 class="on-trigger-form" data={ target_id: actor.to_global_id }
+  .panel class=(@callback&.errors&.any? ? "panel-warning" : "panel-default")
+    .panel-body
+      = simple_form_for((@callback || @routine.callbacks.build(target: actor).becomes(OnTrigger)), as: :callback, html: { class: "form-horizontal" }, wrapper: :horizontal_form, wrapper_mappings: { boolean: :horizontal_boolean }, remote: true) do |f|
+        .form-inputs
+          = f.input :routine_id, as: :hidden, input_html: { value: @routine.to_global_id }
+          = f.input :type, as: :hidden, input_html: { value: "OnTrigger" }
+          = f.input :target do
+            p.form-control-static = actor.name
+          = f.input :target_global_id, value: actor.to_global_id, as: :hidden
+          = f.input :delay
+          = f.input :payload, as: :string
+
+        .form-actions
+          = f.button :submit, "Add Actor"
