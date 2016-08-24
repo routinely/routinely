@@ -25,10 +25,17 @@ class RuleBasedRoutinesController < ApplicationController
 
   def update
     if @routine.update(routine_params)
+      Flows::SyncService.new(@routine).run!
       redirect_to @routine, notice: "Routine was successfully updated."
     else
       render :edit
     end
+  end
+
+  def destroy
+    @routine.destroy
+    Flows::SyncService.new(@routine).run!
+    redirect_to routines_url, notice: "Routine was successfully destroyed."
   end
 
   private
