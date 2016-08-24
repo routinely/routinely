@@ -3,6 +3,12 @@ class BitmaskInput < SimpleForm::Inputs::CollectionCheckBoxesInput
     :check_boxes
   end
 
+  def input_options
+    options = super
+    options[:checked] = object.send(attribute_name)
+    options
+  end
+
   def collection
     klass = object.model_name.name.constantize
     klass.send("values_for_#{attribute_name}")
