@@ -1,7 +1,5 @@
 module Nodered
   class RuleBasedRoutineSerializer < FlowSerializer
-    include Rails.application.routes.url_helpers
-
     def nodes
       rx_id = SecureRandom.uuid
       dayfilter_id = SecureRandom.uuid
