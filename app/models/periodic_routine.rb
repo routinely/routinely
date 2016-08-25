@@ -12,7 +12,10 @@ class PeriodicRoutine < ActiveRecord::Base
 
   has_many :callbacks, as: :routine, dependent: :destroy
   has_many :actors, through: :callbacks, source: :target, source_type: "Actor"
-  has_many :dependent_routines, through: :callbacks, source: :target, source_type: "DependentRoutine", dependent: :destroy
+  has_many :dependent_routines, through: :callbacks, source: :target, source_type: "DependentRoutine", dependent: :destroy do
+    def on_triggers; merge(::Callback.on_triggers); end
+    def on_exits; merge(::Callback.on_exits); end
+  end
 
   has_many :events, as: :routine, dependent: :destroy
 
@@ -22,8 +25,10 @@ class PeriodicRoutine < ActiveRecord::Base
   validates :group, presence: true
   validates :sensors, length: { maximum: 2 }
 
-  def once?
-    dependent_routines.any?
+  delegate :mqtt_broker, to: :group
+
+  def mqtt_topic_for(event_type)
+    "#{model_name.name}/#{id}/#{event_type}"
   end
 
   def valid_flow?

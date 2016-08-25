@@ -23,14 +23,14 @@ module Nodered
         {
           id: rx_id,
           x: 100,
-          y: 300,
+          y: 200,
           type: "subflow:#{object.group.rx_subflow}",
           wires: [[listener_id]]
         },
         *listener_nodes,
         *actor_nodes,
         *event_nodes("triggered", event_ids[:triggered], 800, 20),
-        *event_nodes("started", event_ids[:started], 800, 60),
+        *event_nodes("started", event_ids[:started], 800, 60)
       ]
     end
 
@@ -57,11 +57,23 @@ module Nodered
           thu: schedule.repeats_at?(:thu),
           fri: schedule.repeats_at?(:fri),
           sat: schedule.repeats_at?(:sat),
-          once: schedule.once?,
+          once: schedule.dependent_routines.on_triggers.any?,
           wires: [[event_ids[:triggered]], [event_ids[:started]], []]
         }
 
         if @rf.present?
+          trigger_mqtt_nodes = if schedule.dependent_routines.on_triggers.any?
+            mqtt_id = SecureRandom.uuid
+            timefilter_node[:wires][0] << mqtt_id
+            mqtt_nodes_for("OnTrigger", mqtt_id, schedule, x + 500, y + 100)
+          end
+
+          exit_mqtt_nodes = if schedule.dependent_routines.on_exits.any?
+            mqtt_id = SecureRandom.uuid
+            timefilter_node[:wires][2] << mqtt_id
+            mqtt_nodes_for("OnExit", mqtt_id, schedule, x + 500, y + 140)
+          end
+
           case @nrf.length
           when 0
             rf_id, rf_node = @rf.to_node(x, y)
@@ -69,7 +81,12 @@ module Nodered
             timefilter_node[:x] = x + 200
             timefilter_node[:y] = y
             timefilter_node[:wires][0] += actor_ids
-            return rf_id, [rf_node, timefilter_node]
+            return rf_id, [
+              rf_node,
+              timefilter_node,
+              *trigger_mqtt_nodes,
+              *exit_mqtt_nodes
+            ]
           when 1
             nrf_id, nrf_node = @nrf.first.to_node(x + 150, y)
             nrf_node[:wires] = [[timefilter_id], []]
@@ -78,7 +95,13 @@ module Nodered
             timefilter_node[:x] = x + 300
             timefilter_node[:y] = y
             timefilter_node[:wires][0] += actor_ids
-            return rf_id, [rf_node, nrf_node, timefilter_node]
+            return rf_id, [
+              rf_node,
+              nrf_node,
+              timefilter_node,
+              *trigger_mqtt_nodes,
+              *exit_mqtt_nodes
+            ]
           when 2
             nrf_1_id, nrf_1_node = @nrf.first.to_node(x + 150, y)
             nrf_2_id, nrf_2_node = @nrf.second.to_node(x + 300, y)
@@ -89,10 +112,29 @@ module Nodered
             timefilter_node[:x] = x + 450
             timefilter_node[:y] = y
             timefilter_node[:wires][0] += actor_ids
-            return rf_id, [rf_node, nrf_1_node, nrf_2_node, timefilter_node]
+            return rf_id, [
+              rf_node,
+              nrf_1_node,
+              nrf_2_node,
+              timefilter_node,
+              *trigger_mqtt_nodes,
+              *exit_mqtt_nodes
+            ]
           end
 
         else
+          trigger_mqtt_nodes = if schedule.dependent_routines.on_triggers.any?
+            mqtt_id = SecureRandom.uuid
+            actor_ids << mqtt_id
+            mqtt_nodes_for("OnTrigger", mqtt_id, schedule, x + 500, y + 100)
+          end
+
+          exit_mqtt_nodes = if schedule.dependent_routines.on_exits.any?
+            mqtt_id = SecureRandom.uuid
+            timefilter_node[:wires][2] << mqtt_id
+            mqtt_nodes_for("OnExit", mqtt_id, schedule, x + 500, y + 140)
+          end
+
           if_match_id = SecureRandom.uuid
           else_id = SecureRandom.uuid
           rbe_id = SecureRandom.uuid
@@ -166,7 +208,9 @@ module Nodered
                 checkall: "true",
                 outputs: 1,
                 wires: [actor_ids]
-              }
+              },
+              *trigger_mqtt_nodes,
+              *exit_mqtt_nodes
             ]
           when 2
             sensor_1_id, sensor_1_node = @nrf.first.to_node(x, y)
@@ -239,10 +283,47 @@ module Nodered
                 checkall: "true",
                 outputs: 1,
                 wires: [actor_ids]
-              }
+              },
+              *trigger_mqtt_nodes,
+              *exit_mqtt_nodes
             ]
           end
         end
+      end
+
+      private
+
+      def mqtt_nodes_for(event_type, node_id, schedule, x, y)
+        mqtt_id = SecureRandom.uuid
+
+        [
+          {
+            id: node_id,
+            x: x,
+            y: y,
+            name: "Set MQTT params",
+            type: "change",
+            rules: [
+              {
+                t: "set",
+                p: "payload",
+                pt: "msg",
+                to: "",
+                tot: "date"
+              }
+            ],
+            wires: [[mqtt_id]]
+          },
+          {
+            id: mqtt_id,
+            x: x += 230,
+            y: y,
+            type: "mqtt out",
+            topic: schedule.mqtt_topic_for(event_type),
+            broker: schedule.mqtt_broker,
+            wires: []
+          }
+        ]
       end
     end
   end
