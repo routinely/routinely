@@ -9,8 +9,6 @@ class TimeBasedRoutine < ActiveRecord::Base
 
   has_many :events, as: :routine, dependent: :destroy
 
-  accepts_nested_attributes_for :callbacks
-
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :triggers_at, presence: true
   validates :group, presence: true
