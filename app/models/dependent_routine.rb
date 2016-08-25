@@ -7,6 +7,7 @@ class DependentRoutine < ActiveRecord::Base
   has_many :listeners, as: :routine, dependent: :destroy
   has_many :callbacks, as: :routine, dependent: :destroy
 
+
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :duration, inclusion: { in: 0..24.hours }
   validates :group, presence: true

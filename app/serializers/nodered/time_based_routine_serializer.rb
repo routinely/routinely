@@ -53,7 +53,8 @@ module Nodered
               pt: "msg",
               to: {
                 event: {
-                  type: "TimeBasedRoutine",
+                  kind: "triggered",
+                  routine_type: "TimeBasedRoutine",
                   routine_id: object.id
                 }
               }.to_json,

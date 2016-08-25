@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824214407) do
+ActiveRecord::Schema.define(version: 20160825072448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,13 +64,14 @@ ActiveRecord::Schema.define(version: 20160824214407) do
   add_index "dependent_routines", ["name", "group_id"], name: "index_dependent_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.integer  "routine_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "kind",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "kind",         null: false
+    t.integer  "routine_id",   null: false
+    t.string   "routine_type", null: false
   end
 
-  add_index "events", ["routine_id"], name: "index_events_on_routine_id", using: :btree
+  add_index "events", ["routine_type", "routine_id"], name: "index_events_on_routine_type_and_routine_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",           null: false

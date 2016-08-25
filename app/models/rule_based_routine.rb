@@ -13,6 +13,8 @@ class RuleBasedRoutine < ActiveRecord::Base
   has_many :callbacks, as: :routine, dependent: :destroy
   has_many :actors, through: :callbacks, source: :target, source_type: "Actor"
 
+  has_many :events, as: :routine, dependent: :destroy
+
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :group, presence: true
   validates :sensors, length: { maximum: 2 }
