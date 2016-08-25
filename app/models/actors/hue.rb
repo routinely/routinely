@@ -7,9 +7,9 @@ module Actors
       hue_id = SecureRandom.uuid
 
       params = {}
-      params[:on] = [payload["on"]] unless payload["on" ].blank? # true, false
-      params[:bri] = [payload["bri"]] unless payload["bri"].blank? # 0-255
-      params[:rgb] = [payload["rgb"]] unless payload["rgb"].blank? # 0-255
+      params[:on] = [payload["on"] == "true"] unless payload["on"].blank? # true, false
+      params[:bri] = [payload["bri"].to_i] unless payload["bri"].blank? # 0-255
+      params[:rgb] = [payload["rgb"].split(",").map(&:to_i)] unless payload["rgb"].blank? # 0-255
 
       return actor_id, [
         {
