@@ -6,6 +6,11 @@ module Actors
       actor_id = SecureRandom.uuid
       hue_id = SecureRandom.uuid
 
+      params = {}
+      params[:on] = [payload["on"]] unless payload["on" ].blank? # true, false
+      params[:bri] = [payload["bri"]] unless payload["bri"].blank? # 0-255
+      params[:rgb] = [payload["rgb"]] unless payload["rgb"].blank? # 0-255
+
       return actor_id, [
         {
           id: actor_id,
@@ -18,11 +23,7 @@ module Actors
               t: "set",
               p: "payload",
               pt: "msg",
-              to: {
-                on: [payload["on"]], # true, false
-                bri: [payload["bri"]], # 0-255
-                rgb: [payload["r"], payload["g"], payload["b"]] # 0-255
-              }.to_json,
+              to: params.to_json,
               tot: "json"
             }
           ],
