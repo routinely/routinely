@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 gem 'rails', '4.2.5'
+gem 'rails-i18n'
 gem 'pg'
 gem 'therubyracer', platforms: :ruby
 

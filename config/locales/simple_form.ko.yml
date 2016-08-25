@@ -7,3 +7,13 @@ ko:
         triggers_at: 시각
         repeats_at: 반복일
         sensor: 센서
+    options:
+      defaults:
+        repeats_at:
+          sun: 일
+          mon: 월
+          tue: 화
+          wed: 수
+          thu: 목
+          fri: 금
+          sat: 토

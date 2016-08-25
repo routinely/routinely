@@ -16,7 +16,7 @@ module Repeatable
       end
 
       def to_s
-        map { |d| d.to_s.capitalize }.join("/")
+        I18n.t("date.abbr_day_names").values_at(*to_days_of_week).join("/")
       end
     end
 

@@ -10,11 +10,9 @@ class BitmaskInput < SimpleForm::Inputs::CollectionCheckBoxesInput
   end
 
   def collection
-    klass = object.model_name.name.constantize
-    klass.send("values_for_#{attribute_name}")
-  end
-
-  def build_nested_boolean_style_item_tag(collection_builder)
-    collection_builder.check_box + collection_builder.text.capitalize
+    @collection ||= begin
+      klass = object.model_name.name.constantize
+      klass.send("values_for_#{attribute_name}")
+    end
   end
 end
