@@ -14,8 +14,14 @@ h2 Listeners
 h2 On Trigger Callbacks
 
 .row
-  == render partial: "callbacks/callback", collection: @routine.callbacks
-  == render partial: "callbacks/actor", collection: current_user.group.actors
+  == render partial: "callbacks/callback", collection: @routine.callbacks.on_triggers
+  == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnTrigger }
+
+h2 On Exit Callbacks
+
+.row
+  == render partial: "callbacks/callback", collection: @routine.callbacks.on_exits
+  == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnExit }
 
 h2 Events
 
