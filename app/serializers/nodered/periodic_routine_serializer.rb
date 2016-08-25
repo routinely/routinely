@@ -7,17 +7,27 @@ module Nodered
         triggered: SecureRandom.uuid
       }
 
-      actor_ids, actor_nodes = [], []
+      trigger_ids, trigger_nodes = [], []
 
-      object.callbacks.each_with_index do |callback, y|
+      object.callbacks.on_triggers.each_with_index do |callback, y|
         actor_id, nodes = callback.to_nodes(500, 400 + 100 * y)
-        actor_ids << actor_id
-        actor_nodes += nodes
+        trigger_ids << actor_id
+        trigger_nodes += nodes
       end
 
-      actor_ids.compact!
+      trigger_ids.compact!
 
-      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, event_ids, object, 300, 200)
+      exit_ids, exit_nodes = [], []
+
+      object.callbacks.on_exits.each_with_index do |callback, y|
+        actor_id, nodes = callback.to_nodes(500, 400 + 100 * (object.callbacks.on_triggers.count + y))
+        exit_ids << actor_id
+        exit_nodes += nodes
+      end
+
+      exit_ids.compact!
+
+      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(trigger_ids, exit_ids, event_ids, object, 300, 200)
 
       [
         {
@@ -28,7 +38,8 @@ module Nodered
           wires: [[listener_id]]
         },
         *listener_nodes,
-        *actor_nodes,
+        *trigger_nodes,
+        *exit_nodes,
         *event_nodes("triggered", event_ids[:triggered], 800, 20),
         *event_nodes("started", event_ids[:started], 800, 60)
       ]
@@ -40,7 +51,7 @@ module Nodered
         @nrf = nrf
       end
 
-      def to_nodes(actor_ids, event_ids, schedule, x, y)
+      def to_nodes(trigger_ids, exit_ids, event_ids, schedule, x, y)
         timefilter_id = SecureRandom.uuid
         timefilter_node = {
           id: timefilter_id,
@@ -58,7 +69,7 @@ module Nodered
           fri: schedule.repeats_at?(:fri),
           sat: schedule.repeats_at?(:sat),
           once: schedule.dependent_routines.on_triggers.any?,
-          wires: [[event_ids[:triggered]], [event_ids[:started]], []]
+          wires: [[event_ids[:triggered]], [event_ids[:started]], exit_ids]
         }
 
         if @rf.present?
@@ -80,7 +91,7 @@ module Nodered
             rf_node[:wires] = [[timefilter_id]]
             timefilter_node[:x] = x + 200
             timefilter_node[:y] = y
-            timefilter_node[:wires][0] += actor_ids
+            timefilter_node[:wires][0] += trigger_ids
             return rf_id, [
               rf_node,
               timefilter_node,
@@ -94,7 +105,7 @@ module Nodered
             rf_node[:wires] = [[nrf_id]]
             timefilter_node[:x] = x + 300
             timefilter_node[:y] = y
-            timefilter_node[:wires][0] += actor_ids
+            timefilter_node[:wires][0] += trigger_ids
             return rf_id, [
               rf_node,
               nrf_node,
@@ -111,7 +122,7 @@ module Nodered
             rf_node[:wires] = [[nrf_1_id]]
             timefilter_node[:x] = x + 450
             timefilter_node[:y] = y
-            timefilter_node[:wires][0] += actor_ids
+            timefilter_node[:wires][0] += trigger_ids
             return rf_id, [
               rf_node,
               nrf_1_node,
@@ -125,7 +136,7 @@ module Nodered
         else
           trigger_mqtt_nodes = if schedule.dependent_routines.on_triggers.any?
             mqtt_id = SecureRandom.uuid
-            actor_ids << mqtt_id
+            trigger_ids << mqtt_id
             mqtt_nodes_for("OnTrigger", mqtt_id, schedule, x + 500, y + 100)
           end
 
@@ -207,7 +218,7 @@ module Nodered
                 ],
                 checkall: "true",
                 outputs: 1,
-                wires: [actor_ids]
+                wires: [trigger_ids]
               },
               *trigger_mqtt_nodes,
               *exit_mqtt_nodes
@@ -282,7 +293,7 @@ module Nodered
                 ],
                 checkall: "true",
                 outputs: 1,
-                wires: [actor_ids]
+                wires: [trigger_ids]
               },
               *trigger_mqtt_nodes,
               *exit_mqtt_nodes
