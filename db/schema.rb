@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825072448) do
+ActiveRecord::Schema.define(version: 20160825181646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,16 +173,17 @@ ActiveRecord::Schema.define(version: 20160825072448) do
   add_index "time_based_routines", ["name", "group_id"], name: "index_time_based_routines_on_name_and_group_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.string   "email",                                          null: false
-    t.string   "encrypted_password", limit: 128,                 null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "email",                                            null: false
+    t.string   "encrypted_password", limit: 128,                   null: false
     t.string   "confirmation_token", limit: 128
-    t.string   "remember_token",     limit: 128,                 null: false
-    t.boolean  "admin",                          default: false, null: false
-    t.integer  "group_id",                                       null: false
+    t.string   "remember_token",     limit: 128,                   null: false
+    t.boolean  "admin",                          default: false,   null: false
+    t.integer  "group_id",                                         null: false
     t.string   "name"
     t.string   "locale",                         default: "ko"
+    t.string   "timezone",                       default: "Seoul"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

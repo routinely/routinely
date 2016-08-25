@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Clearance::Controller
+  around_action :set_timezone, if: :signed_in?
   before_action :set_locale, if: :signed_in?
   before_action :set_paper_trail_whodunnit
   # Prevent CSRF attacks by raising an exception.
@@ -13,6 +14,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_timezone
+    Time.use_zone(current_user.timezone) { yield }
+  end
 
   def set_locale
     I18n.locale = current_user.locale || I18n.default_locale

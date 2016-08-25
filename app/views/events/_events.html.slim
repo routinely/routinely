@@ -2,5 +2,5 @@
   .panel-body
     dl.dl-horizontal
       - events.each do |event|
-        dt = event.created_at.to_s(:db)
+        dt = l(event.created_at, format: :short)
         dd = event.kind
