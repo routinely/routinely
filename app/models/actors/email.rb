@@ -16,14 +16,14 @@ module Actors
           rules: [
             {
               t: "set",
-              p: "payload",
+              p: "topic",
               pt: "msg",
               to: payload["subject"],
               tot: "str"
             },
             {
               t: "set",
-              p: "topic",
+              p: "payload",
               pt: "msg",
               to: payload["body"],
               tot: "str"
