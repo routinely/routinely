@@ -8,7 +8,7 @@
           = f.input :target do
             p.form-control-static = callback.target.name
           = f.input :delay
-          = f.input :payload, as: :string
+          == render partial: callback.target, locals: { f: f }
 
         .form-actions
           = f.button :submit

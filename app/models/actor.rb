@@ -8,4 +8,10 @@ class Actor < ActiveRecord::Base
   validates :group, presence: true
 
   scope :callable, -> { all }
+
+  class << self
+    def _to_partial_path
+      name.underscore
+    end
+  end
 end

@@ -1,0 +1,4 @@
+= f.simple_fields_for :payload do |p|
+  = p.input :on, input_html: { value: f.object.payload&.[]("on") }
+  = p.input :bri, input_html: { value: f.object.payload&.[]("bri") }
+  = p.input :rgb, input_html: { value: f.object.payload&.[]("rgb") }

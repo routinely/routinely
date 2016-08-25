@@ -9,7 +9,7 @@
             p.form-control-static = actor.name
           = f.input :target_global_id, value: actor.to_global_id, as: :hidden
           = f.input :delay
-          = f.input :payload, as: :string
+          == render partial: actor, locals: { f: f }
 
         .form-actions
           = f.button :submit

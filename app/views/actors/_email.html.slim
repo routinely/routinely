@@ -1,0 +1,4 @@
+= f.simple_fields_for :payload do |p|
+  = p.input :recipient, input_html: { value: f.object.payload&.[]("recipient") }
+  = p.input :subject, input_html: { value: f.object.payload&.[]("subject") }
+  = p.input :body, input_html: { value: f.object.payload&.[]("body") }
