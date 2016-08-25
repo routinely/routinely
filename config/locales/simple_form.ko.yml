@@ -4,6 +4,8 @@ ko:
   simple_form:
     labels:
       defaults:
+        starts_at: 시작 시각
+        ends_at: 끝 시각
         triggers_at: 시각
         repeats_at: 반복일
         sensor: 센서
@@ -17,3 +19,7 @@ ko:
           thu: 목
           fri: 금
           sat: 토
+    placeholders:
+      defaults:
+        name: 이름
+        description: 설명

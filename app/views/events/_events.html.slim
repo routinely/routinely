@@ -1,0 +1,6 @@
+.panel.panel-default
+  .panel-body
+    dl.dl-horizontal
+      - events.each do |event|
+        dt = event.created_at.to_s(:db)
+        dd = event.kind

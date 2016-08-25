@@ -1,0 +1,22 @@
+h1.header
+  = @routine.name
+  = link_to t("helpers.link.edit"), edit_periodic_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
+p = @routine.description
+p = @routine.repeats_at.to_s
+p = "#{@routine.starts_at.to_s(:time)} - #{@routine.ends_at.to_s(:time)}"
+
+h2 Listeners
+
+.row
+  == render partial: "listeners/listener", collection: @routine.listeners
+  == render partial: "listeners/sensor", collection: current_user.group.sensors - @routine.sensors
+
+h2 On Trigger Callbacks
+
+.row
+  == render partial: "callbacks/callback", collection: @routine.callbacks
+  == render partial: "callbacks/actor", collection: current_user.group.actors - @routine.actors
+
+h2 Events
+
+== render partial: "events/events", collection: @routine.events

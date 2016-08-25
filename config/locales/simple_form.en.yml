@@ -10,3 +10,7 @@ en:
           thu: Thu
           fri: Fri
           sat: Sat
+    placeholders:
+      defaults:
+        name: Name
+        description: Description

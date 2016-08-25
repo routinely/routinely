@@ -5,10 +5,6 @@ ko:
       rule_based_routine: 24시간 규칙
       periodic_routine: 시간 규칙
       dependent_routine: 종속 규칙
-    attributes:
-      name: 이름
-      triggers_at: 시각
-      repeats_at: 요일별 반복
   helpers:
     submit:
       create: "%{model} 만들기"

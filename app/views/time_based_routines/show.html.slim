@@ -13,9 +13,4 @@ h2 On Trigger Callbacks
 
 h2 Events
 
-.panel.panel-default
-  .panel-body
-    dl.dl-horizontal
-      - @routine.events.each do |event|
-        dt = event.created_at.to_s(:db)
-        dd = event.kind
+== render partial: "events/events", collection: @routine.events
