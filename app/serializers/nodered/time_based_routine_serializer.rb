@@ -1,7 +1,5 @@
 module Nodered
   class TimeBasedRoutineSerializer < FlowSerializer
-    include Rails.application.routes.url_helpers
-
     def nodes
       inject_id = SecureRandom.uuid
       event_id = SecureRandom.uuid
@@ -30,50 +28,7 @@ module Nodered
           wires: [actor_ids << event_id]
         },
         *actor_nodes,
-        *event_nodes(event_id, 300, 100)
-      ]
-    end
-
-    private
-
-    def event_nodes(node_id, x, y)
-      http_id = SecureRandom.uuid
-
-      [
-        {
-          id: node_id,
-          x: x,
-          y: y,
-          name: "Set request params",
-          type: "change",
-          rules: [
-            {
-              t: "set",
-              p: "payload",
-              pt: "msg",
-              to: {
-                event: {
-                  kind: "triggered",
-                  routine_type: "TimeBasedRoutine",
-                  routine_id: object.id
-                }
-              }.to_json,
-              tot: "json"
-            }
-          ],
-          wires: [[http_id]]
-        },
-        {
-          id: http_id,
-          x: x += 200,
-          y: y,
-          name: "POST #{api_events_path}",
-          type: "http request",
-          method: "POST",
-          ret: "txt",
-          url: api_events_url,
-          wires: [[]]
-        }
+        *event_nodes("triggered", event_id, 300, 100)
       ]
     end
   end

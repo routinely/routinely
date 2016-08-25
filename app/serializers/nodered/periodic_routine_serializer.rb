@@ -2,29 +2,35 @@ module Nodered
   class PeriodicRoutineSerializer < FlowSerializer
     def nodes
       rx_id = SecureRandom.uuid
+      event_ids = {
+        started: SecureRandom.uuid,
+        triggered: SecureRandom.uuid
+      }
 
       actor_ids, actor_nodes = [], []
 
       object.callbacks.each_with_index do |callback, y|
-        actor_id, nodes = callback.to_nodes(500, 300 + 100 * y)
+        actor_id, nodes = callback.to_nodes(500, 400 + 100 * y)
         actor_ids << actor_id
         actor_nodes += nodes
       end
 
       actor_ids.compact!
 
-      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, object, 300, 100)
+      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, event_ids, object, 300, 200)
 
       [
         {
           id: rx_id,
           x: 100,
-          y: 100,
+          y: 300,
           type: "subflow:#{object.group.rx_subflow}",
           wires: [[listener_id]]
         },
         *listener_nodes,
-        *actor_nodes
+        *actor_nodes,
+        *event_nodes("triggered", event_ids[:triggered], 800, 20),
+        *event_nodes("started", event_ids[:started], 800, 60),
       ]
     end
 
@@ -34,7 +40,7 @@ module Nodered
         @nrf = nrf
       end
 
-      def to_nodes(actor_ids, schedule, x, y)
+      def to_nodes(actor_ids, event_ids, schedule, x, y)
         timefilter_id = SecureRandom.uuid
         timefilter_node = {
           id: timefilter_id,
@@ -52,7 +58,7 @@ module Nodered
           fri: schedule.repeats_at?(:fri),
           sat: schedule.repeats_at?(:sat),
           once: schedule.once?,
-          wires: [[], [], []]
+          wires: [[event_ids[:triggered]], [event_ids[:started]], []]
         }
 
         if @rf.present?
@@ -62,7 +68,7 @@ module Nodered
             rf_node[:wires] = [[timefilter_id]]
             timefilter_node[:x] = x + 200
             timefilter_node[:y] = y
-            timefilter_node[:wires][0] = actor_ids
+            timefilter_node[:wires][0] += actor_ids
             return rf_id, [rf_node, timefilter_node]
           when 1
             nrf_id, nrf_node = @nrf.first.to_node(x + 150, y)
@@ -71,7 +77,7 @@ module Nodered
             rf_node[:wires] = [[nrf_id]]
             timefilter_node[:x] = x + 300
             timefilter_node[:y] = y
-            timefilter_node[:wires][0] = actor_ids
+            timefilter_node[:wires][0] += actor_ids
             return rf_id, [rf_node, nrf_node, timefilter_node]
           when 2
             nrf_1_id, nrf_1_node = @nrf.first.to_node(x + 150, y)
@@ -82,7 +88,7 @@ module Nodered
             rf_node[:wires] = [[nrf_1_id]]
             timefilter_node[:x] = x + 450
             timefilter_node[:y] = y
-            timefilter_node[:wires][0] = actor_ids
+            timefilter_node[:wires][0] += actor_ids
             return rf_id, [rf_node, nrf_1_node, nrf_2_node, timefilter_node]
           end
 
@@ -98,8 +104,8 @@ module Nodered
             sensor_node[:wires] = [[timefilter_id], [else_id]]
             timefilter_node[:x] = x += 150
             timefilter_node[:y] = y - 25
-            timefilter_node[:wires][0] = [if_match_id]
-            timefilter_node[:wires][1] = [else_id]
+            timefilter_node[:wires][0] += [if_match_id]
+            timefilter_node[:wires][1] += [else_id]
             return sensor_id, [
               sensor_node,
               timefilter_node,
@@ -169,8 +175,8 @@ module Nodered
             sensor_2_node[:wires] = [[timefilter_id], [else_id]]
             timefilter_node[:x] = x += 150
             timefilter_node[:y] = y - 50
-            timefilter_node[:wires][0] = [if_match_id]
-            timefilter_node[:wires][1] = [else_id]
+            timefilter_node[:wires][0] += [if_match_id]
+            timefilter_node[:wires][1] += [else_id]
             return sensor_1_id, [
               sensor_1_node,
               sensor_2_node,
