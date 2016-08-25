@@ -1,1 +1,1 @@
-$(".<%= @callback.class.name.underscore.dasherize %>-form[data-<%= @callback.class.name.underscore.dasherize %>-id='<%= @callback.id %>']").replaceWith("<%= j render('actor', { actor: @callback.target }) %>");
+$(".<%= @callback.class.name.underscore.dasherize %>-form[data-<%= @callback.class.name.underscore.dasherize %>-id='<%= @callback.id %>']").remove();
