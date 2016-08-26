@@ -17,18 +17,6 @@ h1.header {
   width: 50px;
 }
 
-.repeats-at {
-  @extend .btn;
-  @extend .btn-default;
-  display: inline-block;
-  text-transform: uppercase;
-  width: 2.5em;
-
-  & + & {
-    margin-left: 3px;
-  }
-
-  &.on {
-    @extend .btn-success;
-  }
+.separator {
+  margin: 0 0.5em
 }
