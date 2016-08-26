@@ -14,7 +14,7 @@ class PeriodicRoutine < ActiveRecord::Base
 
   has_many :callbacks, as: :routine, dependent: :destroy
   has_many :actors, through: :callbacks, source: :target, source_type: "Actor"
-  has_many :dependent_routines, through: :callbacks, source: :target, source_type: "DependentRoutine", dependent: :destroy do
+  has_many :dependent_routines, through: :callbacks, source: :target, source_type: "DependentRoutine" do
     def on_triggers; merge(::Callback.on_triggers); end
     def on_exits; merge(::Callback.on_exits); end
   end
@@ -29,11 +29,19 @@ class PeriodicRoutine < ActiveRecord::Base
 
   delegate :mqtt_broker, to: :group
 
+  before_destroy :destroy_dependents, prepend: true
+
   def mqtt_topic_for(event_type)
     "#{model_name.name}/#{id}/#{event_type}"
   end
 
   def valid_flow?
     (rf_listener.present? || listeners.any?) && (callbacks.any? || dependent_routines.any?)
+  end
+
+  private
+
+  def destroy_dependents
+    dependent_routines.map(&:destroy)
   end
 end
