@@ -3,6 +3,7 @@ module Nodered
     def nodes
       rx_id = SecureRandom.uuid
       dayfilter_id = SecureRandom.uuid
+      event_id = SecureRandom.uuid
 
       actor_ids, actor_nodes = [], []
 
@@ -12,7 +13,7 @@ module Nodered
         actor_nodes += nodes
       end
 
-      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, 300, 200)
+      listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids << event_id, 300, 200)
 
       [
         {
@@ -38,7 +39,8 @@ module Nodered
           wires: [[listener_id]]
         },
         *listener_nodes,
-        *actor_nodes
+        *actor_nodes,
+        *event_nodes("triggered", event_id, 800, 60)
       ]
     end
 

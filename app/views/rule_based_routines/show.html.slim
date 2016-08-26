@@ -15,3 +15,7 @@ h2 On Trigger Callbacks
 .row
   == render partial: "callbacks/callback", collection: @routine.callbacks
   == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnTrigger }
+
+h2 Events
+
+== render partial: "events/events", locals: { events: @routine.events }
