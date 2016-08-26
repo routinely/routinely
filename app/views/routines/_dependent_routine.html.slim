@@ -1,8 +1,11 @@
 tr
   td.col-md-3
+    p.small
+      = routine.leading_routine.name
+      = glyph "chevron-right"
     p.lead = routine.name
-    p = Time.at(routine.duration).utc.to_s(:time)
     p = routine.description
+    p = Time.at(routine.duration).utc.to_s(:time)
   td.col-md-4
     = if routine.rf_sensor.present?
       - image_tag(routine.rf_sensor.icon, class: "sensor-icon", alt: routine.rf_sensor.name)

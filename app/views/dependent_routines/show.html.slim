@@ -1,5 +1,9 @@
 h1.header
-  = @routine.name
+  span
+    small.leading-routine
+      = link_to @routine.leading_routine.name, @routine.leading_routine
+      = glyph "chevron-right"
+    = @routine.name
   = link_to t("helpers.link.edit.generic"), edit_dependent_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
 p = @routine.description
 p = Time.at(@routine.duration).utc.to_s(:time)
