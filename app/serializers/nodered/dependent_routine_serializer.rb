@@ -47,7 +47,7 @@ module Nodered
           wires: [actor_ids << event_ids[:triggered]]
         }
 
-        mqtt_nodes = mqtt_nodes_for(schedule.inverse_callback.type, schedule, x, y - 100)
+        mqtt_nodes = mqtt_nodes_for(schedule.inverse_callback.type, schedule, x - 100, y - 100)
         mqtt_nodes.last[:wires][0] = [event_ids[:started], toggle_id]
 
         if @rf.present?
@@ -249,41 +249,91 @@ module Nodered
       def mqtt_nodes_for(event_type, schedule, x, y)
         change_id = SecureRandom.uuid
 
-        [
-          {
-            id: SecureRandom.uuid,
-            x: x,
-            y: y,
-            type: "mqtt in",
-            topic: schedule.mqtt_topic_for(event_type),
-            broker: schedule.mqtt_broker,
-            wires: [[change_id]]
-          },
-          {
-            id: change_id,
-            x: x += 230,
-            y: y,
-            name: "Set toggle: true",
-            type: "change",
-            rules: [
-              {
-                t: "set",
-                p: "topic",
-                pt: "msg",
-                to: "toggle",
-                tot: "str"
-              },
-              {
-                t: "set",
-                p: "payload",
-                pt: "msg",
-                to: "true",
-                tot: "bool"
-              }
-            ],
-            wires: []
-          }
-        ]
+        if schedule.delay.try(&:positive?)
+          delay_id = SecureRandom.uuid
+
+          [
+            {
+              id: SecureRandom.uuid,
+              x: x,
+              y: y,
+              type: "mqtt in",
+              topic: schedule.mqtt_topic_for(event_type),
+              broker: schedule.mqtt_broker,
+              wires: [[delay_id]]
+            },
+            {
+              id: delay_id,
+              x: x += 230,
+              y: y,
+              type: "delay",
+              pauseType: "delay",
+              timeout: schedule.delay,
+              timeoutUnits: "seconds",
+              wires: [[change_id]]
+            },
+            {
+              id: change_id,
+              x: x += 180,
+              y: y,
+              name: "Set toggle: true",
+              type: "change",
+              rules: [
+                {
+                  t: "set",
+                  p: "topic",
+                  pt: "msg",
+                  to: "toggle",
+                  tot: "str"
+                },
+                {
+                  t: "set",
+                  p: "payload",
+                  pt: "msg",
+                  to: "true",
+                  tot: "bool"
+                }
+              ],
+              wires: []
+            }
+          ]
+        else
+          [
+            {
+              id: SecureRandom.uuid,
+              x: x,
+              y: y,
+              type: "mqtt in",
+              topic: schedule.mqtt_topic_for(event_type),
+              broker: schedule.mqtt_broker,
+              wires: [[change_id]]
+            },
+            {
+              id: change_id,
+              x: x += 230,
+              y: y,
+              name: "Set toggle: true",
+              type: "change",
+              rules: [
+                {
+                  t: "set",
+                  p: "topic",
+                  pt: "msg",
+                  to: "toggle",
+                  tot: "str"
+                },
+                {
+                  t: "set",
+                  p: "payload",
+                  pt: "msg",
+                  to: "true",
+                  tot: "bool"
+                }
+              ],
+              wires: []
+            }
+          ]
+        end
       end
     end
   end

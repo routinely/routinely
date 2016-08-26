@@ -25,6 +25,7 @@ class DependentRoutine < ActiveRecord::Base
   accepts_nested_attributes_for :inverse_callback
 
   delegate :mqtt_broker, to: :group
+  delegate :delay, to: :inverse_callback
 
   def mqtt_topic_for(event_type)
     leading_routine.mqtt_topic_for(event_type)
