@@ -1,0 +1,12 @@
+#rf-listener-form.col-md-3
+  .panel class=(rf_listener.errors.any? ? 'panel-warning' : rf_listener.persisted? ? 'panel-primary' : 'panel-default')
+    .panel-body
+      = simple_form_for(rf_listener, as: :listener, html: { class: "form-horizontal" }, wrapper: :horizontal_form, remote: true) do |f|
+        .form-inputs
+          = f.input :routine_id, as: :hidden, input_html: { value: @routine.to_global_id }
+          = f.association :sensor, collection: current_user.group.sensors.binary
+
+        .form-actions
+          = f.button :submit
+          - if rf_listener.persisted?
+            = link_to t("helpers.submit.destroy"), rf_listener, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true

@@ -4,6 +4,7 @@ class PeriodicRoutinesController < ApplicationController
 
   def show
     @routine = PeriodicRoutine.find(params[:id])
+    @routine.build_rf_listener unless @routine.rf_listener.present?
   end
 
   def new

@@ -4,6 +4,7 @@ class RuleBasedRoutinesController < ApplicationController
 
   def show
     @routine = RuleBasedRoutine.find(params[:id])
+    @routine.build_rf_listener unless @routine.rf_listener.present?
   end
 
   def new

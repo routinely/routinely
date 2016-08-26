@@ -11,8 +11,9 @@ p = Time.at(@routine.duration).utc.to_s(:time)
 h2 = t("helpers.title.list.listeners")
 
 .row
+  == render partial: "listeners/rf_listener", object: @routine.rf_listener
   == render partial: "listeners/listener", collection: @routine.listeners
-  == render partial: "listeners/sensor", collection: current_user.group.sensors - @routine.sensors
+  == render partial: "listeners/sensor", collection: current_user.group.sensors.digital - @routine.sensors
 
 h2 = t("helpers.title.list.callbacks.on_trigger")
 

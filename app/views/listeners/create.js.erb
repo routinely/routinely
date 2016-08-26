@@ -1,5 +1,9 @@
-<% if @listener.persisted? %>
-  $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('listener', { listener: @listener }) %>");
+<% if @listener.digital? %>
+  <% if @listener.persisted? %>
+    $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('listener', { listener: @listener }) %>");
+  <% else %>
+    $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('sensor', { sensor: @listener.sensor }) %>");
+  <% end %>
 <% else %>
-  $(".listener-form[data-sensor-id=<%= @listener.sensor.id %>]").replaceWith("<%= j render('sensor', { sensor: @listener.sensor }) %>");
+  $("#rf-listener-form").replaceWith("<%= j render('rf_listener', { rf_listener: @listener }) %>");
 <% end %>

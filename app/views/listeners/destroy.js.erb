@@ -1,1 +1,5 @@
-$(".listener-form[data-listener-id='<%= @listener.id %>']").replaceWith("<%= j render('sensor', { sensor: @listener.sensor }) %>");
+<% if @listener.digital? %>
+  $(".listener-form[data-listener-id='<%= @listener.id %>']").replaceWith("<%= j render('sensor', { sensor: @listener.sensor }) %>");
+<% else %>
+  $("#rf-listener-form").replaceWith("<%= j render('rf_listener', { rf_listener: @listener }) %>");
+<% end %>
