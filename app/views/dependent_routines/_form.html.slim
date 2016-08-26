@@ -10,7 +10,7 @@
       .col-md-6
         = f.simple_fields_for :inverse_callback do |c|
           = c.association :routine, collection: current_user.group.periodic_routines
-          = c.input :type
+          = c.input :type, collection: [OnTrigger, OnExit], include_blank: false
           = c.input :delay
         = f.input :duration
 
