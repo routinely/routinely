@@ -22,5 +22,11 @@ ko:
       new:
         routine: 새 규칙 만들기
     title:
+      list:
+        listeners: 감지할 센서 선택
+        callbacks:
+          on_trigger: 센서가 감지되었을 때 실행할 액츄에이터 선택
+          on_exit: 센서 감지 없이 규칙이 끝났을 때 실행할 액츄에이터 선택
+        events: 규칙 실행 기록
       new:
         routine: 새 규칙 만들기

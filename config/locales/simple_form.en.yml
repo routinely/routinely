@@ -1,5 +1,9 @@
 en:
   simple_form:
+    labels:
+      dependent_routine:
+        inverse_callback:
+          routine: Leading routine
     options:
       defaults:
         repeats_at:
@@ -14,3 +18,5 @@ en:
       defaults:
         name: Name
         description: Description
+        delay: in seconds
+        duration: in seconds

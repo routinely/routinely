@@ -5,24 +5,24 @@ p = @routine.description
 p = @routine.repeats_at.to_s
 p = "#{@routine.starts_at.to_s(:time)} - #{@routine.ends_at.to_s(:time)}"
 
-h2 Listeners
+h2 = t("helpers.title.list.listeners")
 
 .row
   == render partial: "listeners/listener", collection: @routine.listeners
   == render partial: "listeners/sensor", collection: current_user.group.sensors - @routine.sensors
 
-h2 On Trigger Callbacks
+h2 = t("helpers.title.list.callbacks.on_trigger")
 
 .row
   == render partial: "callbacks/callback", collection: @routine.callbacks.on_triggers
   == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnTrigger }
 
-h2 On Exit Callbacks
+h2 = t("helpers.title.list.callbacks.on_exit")
 
 .row
   == render partial: "callbacks/callback", collection: @routine.callbacks.on_exits
   == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnExit }
 
-h2 Events
+h2 = t("helpers.title.list.events")
 
 == render partial: "events/events", locals: { events: @routine.events }

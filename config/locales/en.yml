@@ -11,5 +11,11 @@ en:
       new:
         routine: New Routine
     title:
+      list:
+        listeners: Choose sensors
+        callbacks:
+          on_trigger: Choose actuators to run when sensors trigger
+          on_exit: Choose actuators to run when routine ends without triggering sensors
+        events: Routine triggers history
       new:
         routine: New Routine

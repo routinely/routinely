@@ -5,12 +5,12 @@ p = @routine.description
 p = @routine.repeats_at.to_s
 p = @routine.triggers_at.to_s(:time)
 
-h2 On Trigger Callbacks
+h2 = t("helpers.title.list.callbacks.on_trigger")
 
 .row
   == render partial: "callbacks/callback", collection: @routine.callbacks
   == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnTrigger }
 
-h2 Events
+h2 = t("helpers.title.list.events")
 
 == render partial: "events/events", locals: { events: @routine.events }
