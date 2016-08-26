@@ -1,4 +1,4 @@
-#rf-listener-form.col-md-3
+#rf-listener-form.col-md-3.item
   .panel class=(rf_listener.errors.any? ? 'panel-warning' : rf_listener.persisted? ? 'panel-primary' : 'panel-default')
     .panel-body
       = simple_form_for(rf_listener, as: :listener, html: { class: "form-horizontal" }, wrapper: :horizontal_form, remote: true) do |f|

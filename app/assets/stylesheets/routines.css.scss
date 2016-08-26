@@ -24,3 +24,29 @@ h1.header {
 .separator {
   margin: 0 0.5em
 }
+
+.items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .item {
+    display: flex;
+
+    .panel {
+      flex: 1;
+    }
+  }
+}
+
+.panel-primary {
+  border-width: 2px;
+  background-color: #f7f7f7;
+}
+
+.form-horizontal {
+  .control-label,
+  .control-input {
+    padding-left: 0;
+  }
+}

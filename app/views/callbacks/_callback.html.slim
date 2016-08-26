@@ -1,4 +1,4 @@
-.col-md-3 class="#{callback.class.name.underscore.dasherize}-form" data={ "#{callback.class.name.underscore}_id" => callback.id }
+.col-md-3.item class="#{callback.class.name.underscore.dasherize}-form" data={ "#{callback.class.name.underscore}_id" => callback.id }
   .panel class=(callback.errors.any? ? 'panel-warning' : 'panel-primary')
     .panel-body
       = simple_form_for(callback, as: :callback, html: { class: "form-horizontal" }, wrapper: :horizontal_form, wrapper_mappings: { boolean: :horizontal_boolean }, remote: true) do |f|

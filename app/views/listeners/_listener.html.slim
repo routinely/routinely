@@ -1,4 +1,4 @@
-.listener-form.col-md-3 data={ listener_id: listener.id }
+.listener-form.col-md-3.item data={ listener_id: listener.id }
   .panel class=(listener.errors.any? ? 'panel-warning' : 'panel-primary')
     .panel-body
       = simple_form_for(listener, as: :listener, html: { class: "form-horizontal" }, wrapper: :horizontal_form, remote: true) do |f|
