@@ -2,6 +2,8 @@ class PeriodicRoutine < ActiveRecord::Base
   include Repeatable
   include Flowable
 
+  has_paper_trail
+
   belongs_to :group
 
   has_one :rf_listener, -> { rf }, as: :routine, class_name: "Listener"

@@ -1,6 +1,8 @@
 class DependentRoutine < ActiveRecord::Base
   include Flowable
 
+  has_paper_trail
+
   belongs_to :group
 
   has_one :inverse_callback, -> { where(target_type: "DependentRoutine") }, foreign_key: :target_id, inverse_of: :target, class_name: "Callback", dependent: :destroy, required: true

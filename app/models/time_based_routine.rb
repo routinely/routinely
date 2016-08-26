@@ -2,6 +2,8 @@ class TimeBasedRoutine < ActiveRecord::Base
   include Repeatable
   include Flowable
 
+  has_paper_trail
+
   belongs_to :group
 
   has_many :callbacks, as: :routine, dependent: :destroy
