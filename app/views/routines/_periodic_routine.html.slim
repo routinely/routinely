@@ -14,6 +14,6 @@ tr
       = image_tag(actor.icon, class: "actor-icon", alt: actor.name)
   td.col-md-4
   td.col-md-1
-    = link_to t("helpers.link.edit"), routine
+    = link_to t("helpers.link.edit.generic"), routine
     span.separator |
     = link_to t("helpers.submit.destroy"), routine, class: "text-danger", data: { confirm: "Are you sure?" }, method: :delete

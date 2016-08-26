@@ -1,6 +1,6 @@
 h1.header
   = @routine.name
-  = link_to t("helpers.link.edit"), edit_time_based_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
+  = link_to t("helpers.link.edit.generic"), edit_time_based_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
 p = @routine.description
 p = @routine.repeats_at.to_s
 p = @routine.triggers_at.to_s(:time)

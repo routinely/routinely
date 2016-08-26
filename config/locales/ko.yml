@@ -16,7 +16,9 @@ ko:
         create: 추가
     link:
       back: 돌아가기
-      edit: 편집
+      edit:
+        generic: 편집
+        dependent: 종속 규칙 편집
       new:
         routine: 새 규칙 만들기
     title:

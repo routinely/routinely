@@ -1,8 +1,8 @@
 h1.header
   = @routine.name
-  = link_to t("helpers.link.edit"), edit_dependent_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
+  = link_to t("helpers.link.edit.generic"), edit_dependent_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
 p = @routine.description
-p = @routine.duration
+p = Time.at(@routine.duration).utc.to_s(:time)
 
 h2 Listeners
 

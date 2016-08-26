@@ -7,9 +7,14 @@
           = f.input :type, as: :hidden, input_html: { value: callback.class.name }
           = f.input :target do
             p.form-control-static = callback.target.name
-          = f.input :delay
-          == render partial: callback.target, locals: { f: f }
+          - if Actor === callback.target
+            = f.input :delay
+            == render partial: callback.target, locals: { f: f }
 
-        .form-actions
-          = f.button :submit
-          = link_to t("helpers.submit.destroy"), callback, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true
+        - case callback.target
+        - when Actor
+          .form-actions
+            = f.button :submit
+            = link_to t("helpers.submit.destroy"), callback, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true
+        - when DependentRoutine
+          = link_to t("helpers.link.edit.dependent"), callback.target, class: "btn btn-default"
