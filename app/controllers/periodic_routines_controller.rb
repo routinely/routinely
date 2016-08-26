@@ -34,8 +34,14 @@ class PeriodicRoutinesController < ApplicationController
   end
 
   def destroy
+    @routine.dependent_routines.each do |dependent_routine|
+      dependent_routine.destroy
+      Flows::SyncService.new(dependent_routine).run!
+    end
+
     @routine.destroy
     Flows::SyncService.new(@routine).run!
+
     redirect_to routines_url, notice: "Routine was successfully destroyed."
   end
 
