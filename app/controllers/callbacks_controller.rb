@@ -49,6 +49,6 @@ class CallbacksController < ApplicationController
 
   def callback_params
     permitted_params = params.require(:callback).permit(:routine_id, :type, :target_global_id, :delay, :once)
-    permitted_params.merge(payload: params[:callback][:payload].to_json)
+    permitted_params.merge(payload: params[:callback][:payload].as_json)
   end
 end
