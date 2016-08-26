@@ -3,6 +3,7 @@ en:
     labels:
       dependent_routine:
         inverse_callback:
+          type: When to trigger
           routine: Leading routine
     options:
       defaults:
@@ -14,6 +15,11 @@ en:
           thu: Thu
           fri: Fri
           sat: Sat
+      dependent_routine:
+        inverse_callback:
+          type:
+            OnTrigger: When sensors trigger for leading routine
+            OnExit: When leading routine ends without triggering sensors
     placeholders:
       defaults:
         name: Name

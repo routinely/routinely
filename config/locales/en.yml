@@ -7,7 +7,9 @@ en:
         create: Add Actor
     link:
       back: Back
-      edit: Edit
+      edit:
+        generic: Edit
+        dependent: Edit dependent routine
       new:
         routine: New Routine
     title:
