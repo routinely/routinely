@@ -1,16 +1,5 @@
 h1.header
   | Routines
-/   = link_to "New Routine", new_routine_path, class: "btn btn-primary btn-lg pull-right"
-
-/ table.table
-/   thead
-/     tr
-/       th Name
-/       th Sensors
-/       th
-
-/   tbody
-/     == render partial: "routine", collection: @scheduled_routines
 
 ul.nav.nav-tabs
   li.active
@@ -35,7 +24,7 @@ ul.nav.nav-tabs
       tbody
         == render partial: "periodic_routine", collection: @periodic_routines, as: :routine
   .tab-pane#list-for-dependent
-    = link_to t("helpers.link.new.routine"), new_routine_path, class: "btn btn-primary btn-lg pull-right"
+    = link_to t("helpers.link.new.routine"), new_dependent_routine_path, class: "btn btn-primary btn-lg pull-right"
     table.table
       thead
         tr

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   end
 
   resources :periodic_routines
+  resources :dependent_routines
   resources :time_based_routines
   resources :rule_based_routines
 

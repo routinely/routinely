@@ -18,7 +18,7 @@ module Nodered
           id: node_id,
           x: x,
           y: y,
-          name: "Set request params",
+          name: event_type,
           type: "change",
           rules: [
             {

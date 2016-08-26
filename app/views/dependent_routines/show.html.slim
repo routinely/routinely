@@ -1,0 +1,21 @@
+h1.header
+  = @routine.name
+  = link_to t("helpers.link.edit"), edit_dependent_routine_path(@routine), class: "btn btn-primary btn-lg pull-right"
+p = @routine.description
+p = @routine.duration
+
+h2 Listeners
+
+.row
+  == render partial: "listeners/listener", collection: @routine.listeners
+  == render partial: "listeners/sensor", collection: current_user.group.sensors - @routine.sensors
+
+h2 On Trigger Callbacks
+
+.row
+  == render partial: "callbacks/callback", collection: @routine.callbacks.on_triggers
+  == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnTrigger }
+
+h2 Events
+
+== render partial: "events/events", locals: { events: @routine.events }
