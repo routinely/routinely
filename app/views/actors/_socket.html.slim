@@ -1,2 +1,2 @@
 = f.simple_fields_for :payload do |p|
-  = p.input :da, input_html: { value: f.object.payload&.[]("da") }
+  = p.input :da, collection: [["On", "0xdadada"], ["Off", "0xdadad2"]], include_blank: false, selected: f.object.payload&.[]("da")
