@@ -20,6 +20,7 @@ class DependentRoutinesController < ApplicationController
     @routine.inverse_callback.routine_type = PeriodicRoutine.name
 
     if @routine.save
+      Flows::SyncService.new(@routine.leading_routine).run!
       redirect_to @routine, notice: "Routine was successfully created."
     else
       render :new
@@ -29,6 +30,12 @@ class DependentRoutinesController < ApplicationController
   def update
     if @routine.update(routine_params)
       Flows::SyncService.new(@routine).run!
+
+      if changed = @routine.inverse_callback.previous_changes[:routine_id]
+        Flows::SyncService.new(PeriodicRoutine.find(changed[0])).run!
+        Flows::SyncService.new(PeriodicRoutine.find(changed[1])).run!
+      end
+
       redirect_to @routine, notice: "Routine was successfully updated."
     else
       render :edit
@@ -37,7 +44,10 @@ class DependentRoutinesController < ApplicationController
 
   def destroy
     @routine.destroy
+
     Flows::SyncService.new(@routine).run!
+    Flows::SyncService.new(@routine.inverse_callback.routine).run!
+
     redirect_to routines_url, notice: "Routine was successfully destroyed."
   end
 
