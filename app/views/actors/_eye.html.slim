@@ -1,5 +1,5 @@
 = f.simple_fields_for :payload do |p|
-  = p.input :da, input_html: { class: "colorpicker-component", value: f.object.payload&.[]("da") }
+  = p.input :da, input_html: { class: "eye-colorpicker", value: f.object.payload&.[]("da") }
 
 coffee:
-  $(".colorpicker-component").colorpicker()
+  $(".eye-colorpicker").colorpicker()

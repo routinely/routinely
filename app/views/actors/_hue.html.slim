@@ -1,4 +1,7 @@
 = f.simple_fields_for :payload do |p|
   = p.input :on, collection: [["On", true], ["Off", false]], selected: f.object.payload&.[]("on"), include_blank: true
-  = p.input :bri, input_html: { value: f.object.payload&.[]("bri") }
-  = p.input :rgb, input_html: { value: f.object.payload&.[]("rgb") }
+  = p.input :bri, as: :integer, input_html: { value: f.object.payload&.[]("bri"), min: 0, max: 255 }
+  = p.input :rgb, input_html: { class: "hue-colorpicker", value: f.object.payload&.[]("rgb") }
+
+coffee:
+  $(".hue-colorpicker").colorpicker({ format: "rgb" })

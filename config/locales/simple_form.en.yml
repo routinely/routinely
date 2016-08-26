@@ -26,3 +26,4 @@ en:
         description: Description
         delay: in seconds
         duration: in seconds
+        bri: 0 - 255

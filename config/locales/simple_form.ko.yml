@@ -42,3 +42,4 @@ ko:
         description: 설명
         delay: 초 단위
         duration: 초 단위
+        bri: 0 - 255
