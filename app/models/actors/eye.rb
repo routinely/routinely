@@ -14,7 +14,7 @@ module Actors
           name: "Set eyes color",
           type: "ninja-send",
           d: "eyes",
-          da: payload["da"],
+          da: payload["da"].scan(/\h{6}/).first,
           wires: [[tx_id]]
         },
         {

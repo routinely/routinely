@@ -20,4 +20,5 @@
 //= require twitter/bootstrap/collapse
 //= require moment
 //= require fullcalendar
+//= require bootstrap-colorpicker
 //= require_tree .

@@ -8,6 +8,7 @@ gem 'therubyracer', platforms: :ruby
 
 # asset pipeline
 gem 'bootstrap-sass'
+gem 'bootstrap-colorpicker-rails'
 gem 'coffee-rails'
 gem 'fullcalendar-rails'
 gem 'jquery-rails'
