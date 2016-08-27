@@ -10,6 +10,9 @@ class Group < ActiveRecord::Base
   has_many :time_based_routines, dependent: :destroy
   has_many :periodic_routines, dependent: :destroy
   has_many :dependent_routines, dependent: :destroy
+  has_many :dependent_routine_events, through: :dependent_routines, source: :events do
+    def on_start; merge(Event.started); end
+  end
 
   validates :name, presence: true, uniqueness: true
 end

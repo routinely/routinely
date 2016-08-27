@@ -14,9 +14,21 @@
 }
 
 .fc-rule-based-routine {
-
+  border-color: #eba12a;
+  background-color: #eba12a;
 }
 
 .fc-periodic-routine {
+  border-color: #2d88bd;
+  background-color: #2d88bd;
+}
 
+.fc-dependent-routine {
+  border-color: #c6e7f9;
+  background-color: #c6e7f9;
+  color: black;
+
+  &:hover {
+    color: black;
+  }
 }

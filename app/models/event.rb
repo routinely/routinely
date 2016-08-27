@@ -6,4 +6,6 @@ class Event < ActiveRecord::Base
   belongs_to :routine, polymorphic: true
 
   validates :routine, presence: true
+
+  scope :during_current_week, -> { where(created_at: Time.now.beginning_of_week(:sunday)..Time.now.end_of_week(:sunday)) }
 end
