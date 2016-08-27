@@ -4,6 +4,12 @@ h1.header
 p = @routine.description
 p = @routine.repeats_at.to_s
 p = "#{@routine.starts_at.to_s(:time)} - #{@routine.ends_at.to_s(:time)}"
+ul.list-unstyled
+  - @routine.dependent_routines.each do |dependent|
+    li
+      small.leading-routine
+        = glyph "chevron-right"
+        = link_to dependent.name, dependent
 
 h2 = t("helpers.title.list.listeners")
 
