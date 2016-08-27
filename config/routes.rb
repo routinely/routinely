@@ -34,10 +34,21 @@ Rails.application.routes.draw do
     resources :on_exits, controller: :callbacks
   end
 
-  resources :periodic_routines
-  resources :dependent_routines
-  resources :time_based_routines
-  resources :rule_based_routines
+  resources :periodic_routines do
+    get :events, on: :member
+  end
+
+  resources :dependent_routines do
+    get :events, on: :member
+  end
+
+  resources :time_based_routines do
+    get :events, on: :member
+  end
+
+  resources :rule_based_routines do
+    get :events, on: :member
+  end
 
   resources :callbacks, only: [:create, :update, :destroy]
   resources :listeners, only: [:create, :update, :destroy]

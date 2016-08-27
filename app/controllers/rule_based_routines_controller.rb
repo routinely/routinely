@@ -1,6 +1,6 @@
 class RuleBasedRoutinesController < ApplicationController
   before_action :require_login
-  before_action :set_routine, only: [:edit, :update, :destroy]
+  before_action :set_routine, only: [:edit, :update, :destroy, :events]
 
   def show
     @routine = RuleBasedRoutine.find(params[:id])
@@ -37,6 +37,14 @@ class RuleBasedRoutinesController < ApplicationController
     @routine.destroy
     Flows::SyncService.new(@routine).run!
     redirect_to routines_url, notice: "Routine was successfully destroyed."
+  end
+
+  def events
+    @events = @routine.events.page(params[:page])
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

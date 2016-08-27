@@ -1,6 +1,5 @@
-.panel.panel-default
-  .panel-body
-    dl.dl-horizontal
-      - events.each do |event|
-        dt = l(event.created_at, format: :short)
-        dd = event.kind
+.row
+  .col-md-6
+    ul.list-group#event-list
+      == render events
+    == render "events/pagination", { events: events }

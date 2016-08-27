@@ -1,0 +1,3 @@
+$("#event-list").empty();
+$("#event-list").append("<%= j render(@events) %>");
+$("#event-nav").replaceWith("<%= j render('events/pagination', { events: @events }) %>");

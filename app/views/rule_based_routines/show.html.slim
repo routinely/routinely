@@ -19,4 +19,4 @@ h2 = t("helpers.title.list.callbacks.on_trigger")
 
 h2 = t("helpers.title.list.events")
 
-== render partial: "events/events", locals: { events: @routine.events }
+== render "events/events", { events: @routine.events.page(1) }
