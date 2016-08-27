@@ -1,5 +1,7 @@
 class RuleBasedRoutineSerializer < ActiveModel::Serializer
-  attributes :id, :title, :allDay, :dow, :class_name
+  include Rails.application.routes.url_helpers
+
+  attributes :id, :title, :allDay, :dow, :url, :class_name
 
   def title
     object.name
@@ -11,6 +13,10 @@ class RuleBasedRoutineSerializer < ActiveModel::Serializer
 
   def dow
     object.repeats_at.to_days_of_week
+  end
+
+  def url
+    url_for object
   end
 
   def class_name
