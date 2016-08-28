@@ -15,8 +15,6 @@ class GroupDashboard < Administrate::BaseDashboard
     rx_subflow: Field::String,
     tx_subflow: Field::String,
     users: Field::HasMany,
-    sensors: Field::HasMany,
-    actors: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -29,6 +27,7 @@ class GroupDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :name,
+    :nodered_host,
     :created_at,
   ]
 

@@ -11,8 +11,11 @@ class UserDashboard < Administrate::BaseDashboard
     id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    group: Field::BelongsTo,
     name: Field::String,
     email: Field::String,
+    password: Field::String,
+    phone: Field::String,
     admin: Field::Boolean,
   }
 
@@ -23,6 +26,7 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :group,
     :name,
     :email,
     :created_at,
@@ -36,8 +40,11 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :group,
     :name,
     :email,
+    :password,
+    :phone,
     :admin,
   ]
 

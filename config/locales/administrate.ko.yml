@@ -1,0 +1,11 @@
+ko:
+  administrate:
+    actions:
+      confirm: 확실합니까?
+    controller:
+      create:
+        success: "%{resource}를 새로 만들었습니다."
+      destroy:
+        success: "%{resource}를 삭제했습니다."
+      update:
+        success: "%{resource}를 수정했습니다."

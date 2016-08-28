@@ -12,9 +12,6 @@ class DashboardManifest
   DASHBOARDS = [
     :groups,
     :users,
-    :routines,
-    :sensors,
-    :actors,
   ]
 
   # `ROOT_DASHBOARD`
