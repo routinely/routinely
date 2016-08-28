@@ -43,7 +43,7 @@ class RuleBasedRoutinesController < ApplicationController
     @events = @routine.events.page(params[:page])
 
     respond_to do |format|
-      format.js
+      format.js { render partial: "events/events" }
     end
   end
 
