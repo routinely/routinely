@@ -1,5 +1,4 @@
-xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
-
+xlsx_package.workbook.add_worksheet(name: PeriodicRoutine.model_name.human) do |sheet|
   sheet.add_row([
     "",
     "",
@@ -8,16 +7,12 @@ xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
     "Description",
     "Starts at",
     "Ends at",
-    "Duration",
     "Repeats at",
-    "Active",
-    "Once",
     "Started",
     "Triggered",
-    "Ended",
   ])
 
-  @routines.each do |routine|
+  @group.periodic_routines.each do |routine|
     previous_version = routine.versions.last
 
     sheet.add_row([
@@ -26,15 +21,11 @@ xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
       routine.id,
       routine.name,
       routine.description,
-      routine.starts_at.try(:to_formatted_s, :time),
-      routine.ends_at.try(:to_formatted_s, :time),
-      routine.duration,
-      routine.repeats_at,
-      routine.active,
-      routine.once,
+      routine.starts_at.to_s(:time),
+      routine.ends_at.to_s(:time),
+      routine.repeats_at.to_s,
       routine.events.started.where("created_at >= ?", previous_version.created_at).count,
       routine.events.triggered.where("created_at >= ?", previous_version.created_at).count,
-      routine.events.ended.where("created_at >= ?", previous_version.created_at).count,
     ])
 
     routine.versions.reverse.each_cons(2) do |to, from|
@@ -46,16 +37,146 @@ xlsx_package.workbook.add_worksheet(name: @group.name) do |sheet|
         routine.id,
         changed.name,
         changed.description,
-        changed.starts_at.try(:to_formatted_s, :time),
-        changed.ends_at.try(:to_formatted_s, :time),
-        changed.duration,
+        changed.starts_at.to_s(:time),
+        changed.ends_at.to_s(:time),
         changed.repeats_at,
-        changed.active,
-        changed.once,
         changed.events.started.where(created_at: from.created_at..to.created_at).count,
         changed.events.triggered.where(created_at: from.created_at..to.created_at).count,
-        changed.events.ended.where(created_at: from.created_at..to.created_at).count,
       ])
     end
+
+    sheet.add_row
+  end
+end
+
+xlsx_package.workbook.add_worksheet(name: DependentRoutine.model_name.human) do |sheet|
+  sheet.add_row([
+    "",
+    "",
+    "",
+    "Name",
+    "Description",
+    "Duration",
+    "Started",
+    "Triggered",
+  ])
+
+  @group.dependent_routines.each do |routine|
+    previous_version = routine.versions.last
+
+    sheet.add_row([
+      previous_version.created_at,
+      previous_version.event,
+      routine.id,
+      routine.name,
+      routine.description,
+      Time.at(routine.duration).utc.to_s(:time),
+      routine.events.started.where("created_at >= ?", previous_version.created_at).count,
+      routine.events.triggered.where("created_at >= ?", previous_version.created_at).count,
+    ])
+
+    routine.versions.reverse.each_cons(2) do |to, from|
+      changed = to.reify
+
+      sheet.add_row([
+        from.created_at,
+        from.event,
+        routine.id,
+        changed.name,
+        changed.description,
+        Time.at(changed.duration).utc.to_s(:time),
+        changed.events.started.where(created_at: from.created_at..to.created_at).count,
+        changed.events.triggered.where(created_at: from.created_at..to.created_at).count,
+      ])
+    end
+
+    sheet.add_row
+  end
+end
+
+xlsx_package.workbook.add_worksheet(name: TimeBasedRoutine.model_name.human) do |sheet|
+  sheet.add_row([
+    "",
+    "",
+    "",
+    "Name",
+    "Description",
+    "Repeats at",
+    "Triggers at",
+    "Triggered",
+  ])
+
+  @group.time_based_routines.each do |routine|
+    previous_version = routine.versions.last
+
+    sheet.add_row([
+      previous_version.created_at,
+      previous_version.event,
+      routine.id,
+      routine.name,
+      routine.description,
+      routine.repeats_at.to_s,
+      routine.triggers_at.to_s(:time),
+      routine.events.triggered.where("created_at >= ?", previous_version.created_at).count,
+    ])
+
+    routine.versions.reverse.each_cons(2) do |to, from|
+      changed = to.reify
+
+      sheet.add_row([
+        from.created_at,
+        from.event,
+        routine.id,
+        changed.name,
+        changed.description,
+        changed.repeats_at.to_s,
+        changed.triggers_at.to_s(:time),
+        changed.events.triggered.where(created_at: from.created_at..to.created_at).count,
+      ])
+    end
+
+    sheet.add_row
+  end
+end
+
+xlsx_package.workbook.add_worksheet(name: RuleBasedRoutine.model_name.human) do |sheet|
+  sheet.add_row([
+    "",
+    "",
+    "",
+    "Name",
+    "Description",
+    "Repeats at",
+    "Triggered",
+  ])
+
+  @group.rule_based_routines.each do |routine|
+    previous_version = routine.versions.last
+
+    sheet.add_row([
+      previous_version.created_at,
+      previous_version.event,
+      routine.id,
+      routine.name,
+      routine.description,
+      routine.repeats_at.to_s,
+      routine.events.triggered.where("created_at >= ?", previous_version.created_at).count,
+    ])
+
+    routine.versions.reverse.each_cons(2) do |to, from|
+      changed = to.reify
+
+      sheet.add_row([
+        from.created_at,
+        from.event,
+        routine.id,
+        changed.name,
+        changed.description,
+        changed.repeats_at.to_s,
+        changed.events.triggered.where(created_at: from.created_at..to.created_at).count,
+      ])
+    end
+
+    sheet.add_row
   end
 end

@@ -18,7 +18,6 @@ module Admin
 
     def history
       @group = Group.find(params[:id])
-      @routines = @group.routines
       render xlsx: "history", filename: "#{@group.name} #{Time.zone.now.to_s(:number)}.xlsx"
     end
   end
