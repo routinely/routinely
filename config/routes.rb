@@ -27,12 +27,7 @@ Rails.application.routes.draw do
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "clearance/users#new", as: "sign_up"
 
-  resources :routines do
-    resources :listeners, only: [:create, :update, :destroy]
-    resources :callbacks, only: [:create, :update, :destroy]
-    resources :on_triggers, controller: :callbacks
-    resources :on_exits, controller: :callbacks
-  end
+  resources :routines, only: [:index]
 
   resources :periodic_routines do
     get :events, on: :member
