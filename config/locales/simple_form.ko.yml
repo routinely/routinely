@@ -1,6 +1,4 @@
 ko:
-  labels:
-    triggers_at: 시각
   simple_form:
     labels:
       defaults:
@@ -17,6 +15,11 @@ ko:
         message: 메세지
         subject: 제목
         body: 내용
+      callback:
+        payload:
+          "on": 전원
+          bri: 밝기
+          rgb: 색상
       dependent_routine:
         inverse_callback:
           type: 실행 시기

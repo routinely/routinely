@@ -1,5 +1,5 @@
 = f.simple_fields_for :payload do |p|
-  = p.input :da, input_html: { class: "eye-colorpicker", value: f.object.payload&.[]("da") }
+  = p.input :da, label: t("simple_form.labels.callback.payload.rgb"), input_html: { class: "eye-colorpicker", value: f.object.payload&.[]("da") }
 
 coffee:
   $(".eye-colorpicker").colorpicker()

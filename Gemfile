@@ -48,6 +48,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
+  # gem 'i18n-debug'
   gem 'meta_request' # https://github.com/dejan/rails_panel
   gem 'pry-rails'
   gem 'quiet_assets'
