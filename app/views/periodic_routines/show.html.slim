@@ -15,19 +15,19 @@ h2 = t("helpers.title.list.listeners")
 
 .row.items
   == render partial: "listeners/rf_listener", object: @routine.rf_listener
-  == render partial: "listeners/listener", collection: @routine.listeners
+  == render partial: "listeners/listener", collection: @routine.listeners.includes(:sensor)
   == render partial: "listeners/sensor", collection: current_user.group.sensors.digital - @routine.sensors
 
 h2 = t("helpers.title.list.callbacks.on_trigger")
 
 .row.items
-  == render partial: "callbacks/callback", collection: @routine.callbacks.on_triggers
+  == render partial: "callbacks/callback", collection: @routine.callbacks.on_triggers.includes(:target)
   == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnTrigger }
 
 h2 = t("helpers.title.list.callbacks.on_exit")
 
 .row.items
-  == render partial: "callbacks/callback", collection: @routine.callbacks.on_exits
+  == render partial: "callbacks/callback", collection: @routine.callbacks.on_exits.includes(:target)
   == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnExit }
 
 h2 = t("helpers.title.list.events")

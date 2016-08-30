@@ -8,7 +8,7 @@ p = @routine.triggers_at.to_s(:time)
 h2 = t("helpers.title.list.callbacks.on_trigger")
 
 .row.items
-  == render partial: "callbacks/callback", collection: @routine.callbacks
+  == render partial: "callbacks/callback", collection: @routine.callbacks.includes(:target)
   == render partial: "callbacks/actor", collection: current_user.group.actors, locals: { callback_class: OnTrigger }
 
 h2 = t("helpers.title.list.events")
