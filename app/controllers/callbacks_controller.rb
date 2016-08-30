@@ -41,10 +41,12 @@ class CallbacksController < ApplicationController
 
   def set_routine
     @routine = GlobalID::Locator.locate(callback_params[:routine_id])
+    authorize @routine, :update?
   end
 
   def set_callback
     @callback = ::Callback.find(params[:id])
+    authorize @callback.routine, :update?
   end
 
   def callback_params

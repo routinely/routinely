@@ -43,10 +43,12 @@ class ListenersController < ApplicationController
 
   def set_routine
     @routine = GlobalID::Locator.locate(listener_params[:routine_id])
+    authorize @routine, :update?
   end
 
   def set_listener
     @listener = Listener.find(params[:id])
+    authorize @listener.routine, :update?
   end
 
   def listener_params

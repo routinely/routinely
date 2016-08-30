@@ -1,5 +1,6 @@
 class DependentRoutine < ActiveRecord::Base
   include Flowable
+  include Policeable
 
   has_paper_trail
 

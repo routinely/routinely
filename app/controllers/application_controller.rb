@@ -1,11 +1,21 @@
 class ApplicationController < ActionController::Base
   include Clearance::Controller
+  include Pundit
+
   around_action :set_timezone, if: :signed_in?
   before_action :set_locale, if: :signed_in?
   before_action :set_paper_trail_whodunnit
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  rescue_from Pundit::NotAuthorizedError do |exception|
+    respond_to do |format|
+      format.html { redirect_to routines_url, alert: "You are not authorized to perform the requested action." }
+      format.js { head :unauthorized }
+    end
+  end
 
   def append_info_to_payload(payload)
     super

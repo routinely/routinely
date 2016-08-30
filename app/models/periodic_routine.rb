@@ -1,6 +1,7 @@
 class PeriodicRoutine < ActiveRecord::Base
   include Repeatable
   include Flowable
+  include Policeable
 
   has_paper_trail
 

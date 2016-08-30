@@ -1,9 +1,8 @@
 class DependentRoutinesController < ApplicationController
   before_action :require_login
-  before_action :set_routine, only: [:edit, :update, :destroy, :events]
+  before_action :set_routine, only: [:show, :edit, :update, :destroy, :events]
 
   def show
-    @routine = DependentRoutine.find(params[:id])
     @routine.build_rf_listener unless @routine.rf_listener.present?
   end
 
@@ -64,6 +63,7 @@ class DependentRoutinesController < ApplicationController
 
   def set_routine
     @routine = DependentRoutine.find(params[:id])
+    authorize @routine
   end
 
   def routine_params
