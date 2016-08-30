@@ -1,6 +1,7 @@
 en:
   helpers:
     submit:
+      confirm: Are you sure?
       listener:
         create: Add Sensor
       callback:

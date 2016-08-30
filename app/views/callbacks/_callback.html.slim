@@ -15,6 +15,6 @@
         - when Actor
           .form-actions
             = f.button :submit
-            = link_to t("helpers.submit.destroy"), callback, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true
+            = link_to t("helpers.submit.destroy"), callback, class: "btn", data: { confirm: t("helpers.submit.confirm") }, method: :delete, remote: true
         - when DependentRoutine
           = link_to t("helpers.link.edit.dependent"), callback.target, class: "btn btn-default"

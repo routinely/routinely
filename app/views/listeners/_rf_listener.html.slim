@@ -9,4 +9,4 @@
         .form-actions
           = f.button :submit
           - if rf_listener.persisted?
-            = link_to t("helpers.submit.destroy"), rf_listener, class: "btn", data: { confirm: "Are you sure?" }, method: :delete, remote: true
+            = link_to t("helpers.submit.destroy"), rf_listener, class: "btn", data: { confirm: t("helpers.submit.confirm") }, method: :delete, remote: true

@@ -14,4 +14,4 @@
   .form-actions
     = f.button :submit, class: "btn btn-primary btn-lg"
     - if @routine.persisted?
-      = link_to t("helpers.submit.destroy"), @routine, class: "btn btn-lg", data: { confirm: "Are you sure?" }, method: :delete
+      = link_to t("helpers.submit.destroy"), @routine, class: "btn btn-lg", data: { confirm: t("helpers.submit.confirm") }, method: :delete

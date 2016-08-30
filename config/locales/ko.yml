@@ -10,6 +10,7 @@ ko:
       create: "%{model} 만들기"
       update: 수정
       destroy: 삭제
+      confirm: 확실합니까?
       listener:
         create: 센서 추가
       callback:

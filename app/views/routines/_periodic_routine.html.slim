@@ -22,4 +22,4 @@ tr
   td.col-md-1
     = link_to t("helpers.link.edit.generic"), routine
     span.separator |
-    = link_to t("helpers.submit.destroy"), routine, class: "text-danger", data: { confirm: "Are you sure?" }, method: :delete
+    = link_to t("helpers.submit.destroy"), routine, class: "text-danger", data: { confirm: t("helpers.submit.confirm") }, method: :delete
