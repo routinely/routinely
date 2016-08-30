@@ -14,6 +14,7 @@ class GroupDashboard < Administrate::BaseDashboard
     mqtt_broker: Field::String,
     rx_subflow: Field::String,
     tx_subflow: Field::String,
+    synced: Field::Boolean,
     users: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -28,6 +29,7 @@ class GroupDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :nodered_host,
+    :synced,
     :created_at,
   ]
 

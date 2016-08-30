@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826062530) do
+ActiveRecord::Schema.define(version: 20160829093707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,11 +74,12 @@ ActiveRecord::Schema.define(version: 20160826062530) do
   add_index "events", ["routine_type", "routine_id"], name: "index_events_on_routine_type_and_routine_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "name",                          null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "nodered_host"
     t.hstore   "nodered_config"
+    t.boolean  "synced",         default: true, null: false
   end
 
   create_table "listeners", force: :cascade do |t|

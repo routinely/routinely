@@ -38,4 +38,23 @@ as well as a link to its edit page.
   <% end %>
   <dt class="attribute-label">History</dt>
   <dd class="attribute-data"><%= link_to "Download", [:history, namespace, page.resource], class: "button" %></dd>
+  <% if page.resource.synced? %>
+    <dt class="attribute-label">Synced</dt>
+    <dd class="attribute-data"><%= link_to(
+      "Unsync",
+      [:unsync, namespace, page.resource],
+      class: "button",
+      method: :post,
+      data: { confirm: t("administrate.actions.confirm") }
+    ) %></dd>
+  <% else %>
+    <dt class="attribute-label">Unsynced</dt>
+    <dd class="attribute-data"><%= link_to(
+      "Resync",
+      [:resync, namespace, page.resource],
+      class: "button",
+      method: :post,
+      data: { confirm: t("administrate.actions.confirm") }
+    ) %></dd>
+  <% end %>
 </dl>

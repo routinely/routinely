@@ -5,6 +5,8 @@ module Flows
     end
 
     def run!
+      return unless @routine.group.synced?
+
       if @routine.persisted?
         if @routine.to_flow.empty?
           client.remove_flow(@routine.flow_id) if @routine.flow_id.present?

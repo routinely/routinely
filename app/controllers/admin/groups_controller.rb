@@ -17,8 +17,17 @@ module Admin
     # for more information
 
     def history
-      @group = Group.find(params[:id])
-      render xlsx: "history", filename: "#{@group.name} #{Time.zone.now.to_s(:number)}.xlsx"
+      render xlsx: "history", filename: "#{requested_resource.name} #{Time.zone.now.to_s(:number)}.xlsx"
+    end
+
+    def unsync
+      Flows::UnsyncService.new(requested_resource).run!
+      redirect_to [namespace, requested_resource], notice: "All routines of #{requested_resource.name} were successfully unsynced."
+    end
+
+    def resync
+      Flows::ResyncService.new(requested_resource).run!
+      redirect_to [namespace, requested_resource], notice: "All routines of #{requested_resource.name} were successfully resynced."
     end
   end
 end

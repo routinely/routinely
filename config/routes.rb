@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
     resources :groups do
       get :history, on: :member
+      post :unsync, on: :member
+      post :resync, on: :member
     end
 
     root controller: DashboardManifest::ROOT_DASHBOARD, action: :index

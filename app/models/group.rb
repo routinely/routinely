@@ -15,4 +15,5 @@ class Group < ActiveRecord::Base
   end
 
   validates :name, presence: true, uniqueness: true
+  validates :synced, inclusion: { in: [true, false] }
 end

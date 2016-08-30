@@ -1,6 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#unsynced-group-notice {
+  @extend .alert-danger;
+  padding: 15px 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
 h1.header {
   display: flex;
   justify-content: space-between;
