@@ -24,7 +24,7 @@ module Nodered
 
     def remove_flow(id)
       self.class.delete("/flow/#{id}").tap do |response|
-        Rollbar.error(NoderedError.new("Failed to remove flow #{id}"), flow: flow) unless response.success?
+        Rollbar.error(NoderedError.new("Failed to remove flow #{id}")) unless response.success?
       end
     end
   end
