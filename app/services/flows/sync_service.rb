@@ -18,7 +18,7 @@ module Flows
           @routine.update(flow_id: response["id"])
         end
       else # if routine.destroyed?
-        client.remove_flow(@routine.flow_id)
+        client.remove_flow(@routine.flow_id) if @routine.flow_id.present?
       end
     end
 
