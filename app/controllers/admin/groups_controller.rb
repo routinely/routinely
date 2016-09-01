@@ -17,6 +17,7 @@ module Admin
     # for more information
 
     def history
+      @group = requested_resource
       render xlsx: "history", filename: "#{requested_resource.name} #{Time.zone.now.to_s(:number)}.xlsx"
     end
 
