@@ -22,6 +22,10 @@ class RoutinePolicy
     routine.group == current_group
   end
 
+  def events?
+    routine.group == current_group
+  end
+
   private
 
   def current_group
