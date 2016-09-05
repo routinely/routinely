@@ -52,7 +52,7 @@ class DependentRoutinesController < ApplicationController
   end
 
   def events
-    @events = @routine.events.page(params[:page])
+    @events = @routine.events.recent.page(params[:page])
 
     respond_to do |format|
       format.js { render partial: "events/events" }
