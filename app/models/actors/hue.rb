@@ -33,6 +33,7 @@ module Actors
           id: hue_id,
           x: x += 200,
           y: y,
+          name: name,
           type: "Hue Set",
           deviceid: device_id,
           serverid: server_id,
