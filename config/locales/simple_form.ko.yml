@@ -23,7 +23,7 @@ ko:
       dependent_routine:
         inverse_callback:
           type: 실행 시기
-          routine: 선도 루틴
+          routine: 선도 규칙
     options:
       defaults:
         repeats_at:
@@ -37,8 +37,8 @@ ko:
       dependent_routine:
         inverse_callback:
           type:
-            OnTrigger: 선도 루틴에서 센서가 감지되었을 때
-            OnExit: 센서 감지 없이 선도 루틴이 끝났을 때
+            OnTrigger: 선도 규칙에서 센서가 감지되었을 때
+            OnExit: 센서 감지 없이 선도 규칙이 끝났을 때
     placeholders:
       defaults:
         name: 이름
