@@ -2,8 +2,9 @@ class PeriodicRoutine < ActiveRecord::Base
   include Repeatable
   include Flowable
   include Policeable
+  include HasEvents
 
-  has_paper_trail
+  has_paper_trail meta: { starts_count: :starts_count, triggers_count: :triggers_count }
 
   belongs_to :group
 
@@ -19,8 +20,6 @@ class PeriodicRoutine < ActiveRecord::Base
     def on_triggers; merge(::Callback.on_triggers); end
     def on_exits; merge(::Callback.on_exits); end
   end
-
-  has_many :events, as: :routine, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :starts_at, presence: true

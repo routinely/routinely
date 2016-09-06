@@ -187,6 +187,8 @@ GEM
       globalid
       paper_trail (>= 3.0.0)
     pg (0.18.4)
+    polyamorous (1.1.0)
+      activerecord (>= 3.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -276,6 +278,10 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    squeel (1.2.3)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      polyamorous (~> 1.1.0)
     sucker_punch (2.0.2)
       concurrent-ruby (~> 1.0.0)
     temple (0.7.6)
@@ -346,6 +352,7 @@ DEPENDENCIES
   simple_form
   slim-rails
   spring
+  squeel
   sucker_punch
   therubyracer
   turbolinks

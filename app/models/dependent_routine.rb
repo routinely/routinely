@@ -1,8 +1,9 @@
 class DependentRoutine < ActiveRecord::Base
   include Flowable
   include Policeable
+  include HasEvents
 
-  has_paper_trail
+  has_paper_trail meta: { starts_count: :starts_count, triggers_count: :triggers_count }
 
   belongs_to :group
 
@@ -17,8 +18,6 @@ class DependentRoutine < ActiveRecord::Base
 
   has_many :callbacks, as: :routine, dependent: :destroy
   has_many :actors, through: :callbacks, source: :target, source_type: "Actor"
-
-  has_many :events, as: :routine, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :group }
   validates :duration, inclusion: { in: 0..24.hours }

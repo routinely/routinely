@@ -36,6 +36,7 @@ gem 'pundit'
 gem 'rollbar'
 gem 'simple_form'
 gem 'searchkick'
+gem 'squeel'
 gem 'sucker_punch'
 gem 'unicorn'
 

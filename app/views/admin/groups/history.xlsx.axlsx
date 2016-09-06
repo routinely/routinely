@@ -47,6 +47,41 @@ xlsx_package.workbook.add_worksheet(name: PeriodicRoutine.model_name.human) do |
 
     sheet.add_row
   end
+
+  PaperTrail::Version.where(item_type: PeriodicRoutine.name)
+    .where { (event == "destroy") & (object =~ "%group_id: #{my{@group}.id}\n%") }
+    .each do |destroyed|
+      sheet.add_row([
+        destroyed.created_at,
+        destroyed.event,
+        destroyed.item_id
+      ])
+
+      from, to = destroyed.previous, destroyed
+
+      loop do
+        break if from.nil?
+
+        changed = to.reify
+
+        sheet.add_row([
+          from.created_at,
+          from.event,
+          changed.id,
+          changed.name,
+          changed.description,
+          changed.starts_at.to_s(:time),
+          changed.ends_at.to_s(:time),
+          changed.repeats_at,
+          to.starts_count - from.starts_count,
+          to.triggers_count - from.triggers_count,
+        ])
+
+        from, to = from.previous, from
+      end
+
+      sheet.add_row
+    end
 end
 
 xlsx_package.workbook.add_worksheet(name: DependentRoutine.model_name.human) do |sheet|
@@ -92,6 +127,39 @@ xlsx_package.workbook.add_worksheet(name: DependentRoutine.model_name.human) do 
 
     sheet.add_row
   end
+
+  PaperTrail::Version.where(item_type: DependentRoutine.name)
+    .where { (event == "destroy") & (object =~ "%group_id: #{my{@group}.id}\n%") }
+    .each do |destroyed|
+      sheet.add_row([
+        destroyed.created_at,
+        destroyed.event,
+        destroyed.item_id
+      ])
+
+      from, to = destroyed.previous, destroyed
+
+      loop do
+        break if from.nil?
+
+        changed = to.reify
+
+        sheet.add_row([
+          from.created_at,
+          from.event,
+          changed.id,
+          changed.name,
+          changed.description,
+          Time.at(changed.duration).utc.to_s(:time),
+          to.starts_count - from.starts_count,
+          to.triggers_count - from.triggers_count,
+        ])
+
+        from, to = from.previous, from
+      end
+
+      sheet.add_row
+    end
 end
 
 xlsx_package.workbook.add_worksheet(name: TimeBasedRoutine.model_name.human) do |sheet|
@@ -137,6 +205,39 @@ xlsx_package.workbook.add_worksheet(name: TimeBasedRoutine.model_name.human) do 
 
     sheet.add_row
   end
+
+  PaperTrail::Version.where(item_type: TimeBasedRoutine.name)
+    .where { (event == "destroy") & (object =~ "%group_id: #{my{@group}.id}\n%") }
+    .each do |destroyed|
+      sheet.add_row([
+        destroyed.created_at,
+        destroyed.event,
+        destroyed.item_id
+      ])
+
+      from, to = destroyed.previous, destroyed
+
+      loop do
+        break if from.nil?
+
+        changed = to.reify
+
+        sheet.add_row([
+          from.created_at,
+          from.event,
+          changed.id,
+          changed.name,
+          changed.description,
+          changed.repeats_at,
+          changed.triggers_at.to_s(:time),
+          to.triggers_count - from.triggers_count,
+        ])
+
+        from, to = from.previous, from
+      end
+
+      sheet.add_row
+    end
 end
 
 xlsx_package.workbook.add_worksheet(name: RuleBasedRoutine.model_name.human) do |sheet|
@@ -179,4 +280,36 @@ xlsx_package.workbook.add_worksheet(name: RuleBasedRoutine.model_name.human) do 
 
     sheet.add_row
   end
+
+  PaperTrail::Version.where(item_type: RuleBasedRoutine.name)
+    .where { (event == "destroy") & (object =~ "%group_id: #{my{@group}.id}\n%") }
+    .each do |destroyed|
+      sheet.add_row([
+        destroyed.created_at,
+        destroyed.event,
+        destroyed.item_id
+      ])
+
+      from, to = destroyed.previous, destroyed
+
+      loop do
+        break if from.nil?
+
+        changed = to.reify
+
+        sheet.add_row([
+          from.created_at,
+          from.event,
+          changed.id,
+          changed.name,
+          changed.description,
+          changed.repeats_at,
+          to.triggers_count - from.triggers_count,
+        ])
+
+        from, to = from.previous, from
+      end
+
+      sheet.add_row
+    end
 end
