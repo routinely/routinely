@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906044111) do
+ActiveRecord::Schema.define(version: 20160907060629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,26 +110,6 @@ ActiveRecord::Schema.define(version: 20160906044111) do
   add_index "periodic_routines", ["group_id"], name: "index_periodic_routines_on_group_id", using: :btree
   add_index "periodic_routines", ["name", "group_id"], name: "index_periodic_routines_on_name_and_group_id", unique: true, using: :btree
 
-  create_table "routines", force: :cascade do |t|
-    t.string   "name",                         null: false
-    t.text     "description"
-    t.time     "starts_at"
-    t.time     "ends_at"
-    t.integer  "duration"
-    t.integer  "repeats_at"
-    t.boolean  "active",       default: true,  null: false
-    t.boolean  "once",         default: false, null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "group_id",                     null: false
-    t.integer  "events_count", default: 0,     null: false
-    t.boolean  "all_day",      default: false, null: false
-    t.string   "flow_id"
-  end
-
-  add_index "routines", ["group_id"], name: "index_routines_on_group_id", using: :btree
-  add_index "routines", ["name", "group_id"], name: "index_routines_on_name_and_group_id", unique: true, using: :btree
-
   create_table "rule_based_routines", force: :cascade do |t|
     t.string   "name",                       null: false
     t.text     "description"
@@ -209,7 +189,6 @@ ActiveRecord::Schema.define(version: 20160906044111) do
   add_foreign_key "dependent_routines", "groups", on_delete: :cascade
   add_foreign_key "listeners", "sensors", on_delete: :cascade
   add_foreign_key "periodic_routines", "groups", on_delete: :cascade
-  add_foreign_key "routines", "groups", on_delete: :cascade
   add_foreign_key "rule_based_routines", "groups", on_delete: :cascade
   add_foreign_key "sensors", "groups", on_delete: :cascade
   add_foreign_key "time_based_routines", "groups", on_delete: :cascade
