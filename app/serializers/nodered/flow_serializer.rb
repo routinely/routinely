@@ -22,6 +22,11 @@ module Nodered
           type: "change",
           rules: [
             {
+              t: "delete",
+              p: "headers",
+              pt: "msg"
+            },
+            {
               t: "set",
               p: "payload",
               pt: "msg",

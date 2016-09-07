@@ -72,16 +72,6 @@ module Nodered
           wires: [[event_ids[:triggered]], [event_ids[:started]], exit_ids]
         }
 
-        shield_id = SecureRandom.uuid
-        shield_node = {
-          id: shield_id,
-          name: "shield",
-          type: "function",
-          func: "if (!('payload' in msg)) return msg;",
-          outputs: 1,
-          wires: [[timefilter_id]]
-        }
-
         if @rf.present?
           trigger_mqtt_nodes = if schedule.dependent_routines.on_triggers.any?
             mqtt_id = SecureRandom.uuid
@@ -98,33 +88,27 @@ module Nodered
           case @nrf.length
           when 0
             rf_id, rf_node = @rf.to_node(x, y)
-            rf_node[:wires] = [[shield_id]]
-            shield_node[:x] = x + 200
-            shield_node[:y] = y - 40
+            rf_node[:wires] = [[timefilter_id]]
             timefilter_node[:x] = x + 200
             timefilter_node[:y] = y
             timefilter_node[:wires][0] += trigger_ids
             return rf_id, [
               rf_node,
-              shield_node,
               timefilter_node,
               *trigger_mqtt_nodes,
               *exit_mqtt_nodes
             ]
           when 1
             nrf_id, nrf_node = @nrf.first.to_node(x + 150, y)
-            nrf_node[:wires] = [[shield_id], []]
+            nrf_node[:wires] = [[timefilter_id], []]
             rf_id, rf_node = @rf.to_node(x, y)
             rf_node[:wires] = [[nrf_id]]
-            shield_node[:x] = x + 300
-            shield_node[:y] = y - 40
             timefilter_node[:x] = x + 300
             timefilter_node[:y] = y
             timefilter_node[:wires][0] += trigger_ids
             return rf_id, [
               rf_node,
               nrf_node,
-              shield_node,
               timefilter_node,
               *trigger_mqtt_nodes,
               *exit_mqtt_nodes
@@ -133,11 +117,9 @@ module Nodered
             nrf_1_id, nrf_1_node = @nrf.first.to_node(x + 150, y)
             nrf_2_id, nrf_2_node = @nrf.second.to_node(x + 300, y)
             nrf_1_node[:wires] = [[nrf_2_id], []]
-            nrf_2_node[:wires] = [[shield_id], []]
+            nrf_2_node[:wires] = [[timefilter_id], []]
             rf_id, rf_node = @rf.to_node(x, y)
             rf_node[:wires] = [[nrf_1_id]]
-            shield_node[:x] = x + 450
-            shield_node[:y] = y - 40
             timefilter_node[:x] = x + 450
             timefilter_node[:y] = y
             timefilter_node[:wires][0] += trigger_ids
@@ -145,7 +127,6 @@ module Nodered
               rf_node,
               nrf_1_node,
               nrf_2_node,
-              shield_node,
               timefilter_node,
               *trigger_mqtt_nodes,
               *exit_mqtt_nodes
@@ -173,16 +154,13 @@ module Nodered
           case @nrf.length
           when 1
             sensor_id, sensor_node = @nrf.first.to_node(x, y)
-            sensor_node[:wires] = [[shield_id], [else_id]]
-            shield_node[:x] = x += 150
-            shield_node[:y] = y - 65
-            timefilter_node[:x] = x
+            sensor_node[:wires] = [[timefilter_id], [else_id]]
+            timefilter_node[:x] = x += 150
             timefilter_node[:y] = y - 25
             timefilter_node[:wires][0] += [if_match_id]
             timefilter_node[:wires][1] += [else_id]
             return sensor_id, [
               sensor_node,
-              shield_node,
               timefilter_node,
               {
                 id: if_match_id,
@@ -249,17 +227,14 @@ module Nodered
             sensor_1_id, sensor_1_node = @nrf.first.to_node(x, y)
             sensor_2_id, sensor_2_node = @nrf.second.to_node(x += 150, y - 25)
             sensor_1_node[:wires] = [[sensor_2_id], [else_id]]
-            sensor_2_node[:wires] = [[shield_id], [else_id]]
-            shield_node[:x] = x += 150
-            shield_node[:y] = y - 90
-            timefilter_node[:x] = x
+            sensor_2_node[:wires] = [[timefilter_id], [else_id]]
+            timefilter_node[:x] = x += 150
             timefilter_node[:y] = y - 50
             timefilter_node[:wires][0] += [if_match_id]
             timefilter_node[:wires][1] += [else_id]
             return sensor_1_id, [
               sensor_1_node,
               sensor_2_node,
-              shield_node,
               timefilter_node,
               {
                 id: if_match_id,
