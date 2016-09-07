@@ -4,7 +4,7 @@ class TimeBasedRoutine < ActiveRecord::Base
   include Policeable
   include HasEvents
 
-  has_paper_trail meta: { triggers_count: :triggers_count }
+  has_paper_trail meta: { triggers_count: :triggers_count }, ignore: [:flow_id]
 
   belongs_to :group
 

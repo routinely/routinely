@@ -4,7 +4,7 @@ class PeriodicRoutine < ActiveRecord::Base
   include Policeable
   include HasEvents
 
-  has_paper_trail meta: { starts_count: :starts_count, triggers_count: :triggers_count }
+  has_paper_trail meta: { starts_count: :starts_count, triggers_count: :triggers_count }, ignore: [:flow_id]
 
   belongs_to :group
 
