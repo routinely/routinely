@@ -10,6 +10,17 @@ module Nodered
 
     protected
 
+    def comment_node(x = 120, y = 40)
+      {
+        id: SecureRandom.uuid,
+        x: x,
+        y: y,
+        name: "#{object.model_name.name}/#{object.id}",
+        type: "comment",
+        wires: []
+      }
+    end
+
     def event_nodes(event_type, node_id, x, y)
       http_id = SecureRandom.uuid
 

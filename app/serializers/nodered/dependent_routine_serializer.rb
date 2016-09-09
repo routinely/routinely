@@ -18,6 +18,7 @@ module Nodered
       listener_id, listener_nodes = Listeners.new(object.rf_listener, object.listeners).to_nodes(actor_ids, event_ids, object, 300, 200)
 
       [
+        comment_node,
         {
           id: rx_id,
           x: 100,

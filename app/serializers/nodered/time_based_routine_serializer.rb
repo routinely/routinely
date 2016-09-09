@@ -13,6 +13,7 @@ module Nodered
       end
 
       [
+        comment_node,
         {
           id: inject_id,
           x: 100,
