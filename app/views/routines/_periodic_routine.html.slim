@@ -1,6 +1,6 @@
 tr
   td.col-md-3
-    p.lead = routine.name
+    p.lead = link_to routine.name, routine
     p = "#{routine.starts_at.to_s(:time)} - #{routine.ends_at.to_s(:time)}"
     p = routine.repeats_at.to_s
     p = routine.description
