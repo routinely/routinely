@@ -3,6 +3,9 @@ class DependentRoutine < ActiveRecord::Base
   include Policeable
   include HasEvents
 
+  audited except: :flow_id
+  has_associated_audits
+
   has_paper_trail meta: { starts_count: :starts_count, triggers_count: :triggers_count }, ignore: [:flow_id]
 
   belongs_to :group

@@ -1,4 +1,6 @@
 class Callback < ActiveRecord::Base
+  audited associated_with: :routine
+
   belongs_to :routine, polymorphic: true
   belongs_to :target, polymorphic: true
 

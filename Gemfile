@@ -22,6 +22,7 @@ gem 'uglifier'
 
 gem 'active_model_serializers'
 gem 'administrate'
+gem 'audited-activerecord'
 gem 'axlsx'
 gem 'axlsx_rails'
 gem 'bitmask_attributes'

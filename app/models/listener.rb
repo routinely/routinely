@@ -1,6 +1,8 @@
 class Listener < ActiveRecord::Base
   store_accessor :conditions, :lt, :gt
 
+  audited associated_with: :routine
+
   belongs_to :routine, polymorphic: true
   belongs_to :sensor
 
