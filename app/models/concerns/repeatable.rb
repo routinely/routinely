@@ -2,7 +2,9 @@ module Repeatable
   extend ActiveSupport::Concern
 
   included do
-    bitmask :repeats_at, as: %i(sun mon tue wed thu fri sat), null: false do
+    DAYS = %i(sun mon tue wed thu fri sat)
+
+    bitmask :repeats_at, as: DAYS, null: false, default: DAYS do
       def to_days_of_week
         days = []
         days << 0 if include? :sun
