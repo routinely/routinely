@@ -28,6 +28,7 @@ gem 'axlsx_rails'
 gem 'bitmask_attributes'
 gem 'clearance'
 gem 'figaro'
+gem 'highline', require: false
 gem 'high_voltage'
 gem 'httparty'
 gem 'kaminari'
