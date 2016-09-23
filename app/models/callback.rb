@@ -6,7 +6,7 @@ class Callback < ActiveRecord::Base
 
   validates :routine, presence: true
   validates :target, presence: true
-  validates :delay, numericality: { greater_than: 0 }, allow_nil: true
+  validates :delay, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   validate :resursive?
 
