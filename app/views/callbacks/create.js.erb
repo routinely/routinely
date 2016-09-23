@@ -2,5 +2,5 @@
   $(".<%= @callback.class.name.underscore.dasherize %>-form[data-target-id]").first().before("<%= j render('callback', { callback: @callback }) %>");
   $(".<%= @callback.class.name.underscore.dasherize %>-form[data-target-id='<%= @callback.target.to_global_id %>'] form").trigger("reset");
 <% else %>
-  $(".<%= @callback.class.name.underscore.dasherize %>-form[data-target-id='<%= @callback.target.to_global_id %>']").replaceWith("<%= j render('actor', { actor: @callback.target }) %>");
+  $(".<%= @callback.class.name.underscore.dasherize %>-form[data-target-id='<%= @callback.target.to_global_id %>']").replaceWith("<%= j render('actor', { actor: @callback.target, callback_class: @callback.class }) %>");
 <% end %>
