@@ -32,6 +32,7 @@ gem 'highline', require: false
 gem 'high_voltage'
 gem 'httparty'
 gem 'kaminari'
+gem 'librato-rails'
 gem 'paper_trail'
 gem 'paper_trail-globalid'
 gem 'pundit'
