@@ -16,6 +16,7 @@ class UserDashboard < Administrate::BaseDashboard
     email: Field::String,
     password: Field::String,
     phone: Field::String,
+    locale: Field::Select.with_options(choices: %w(ko en)),
     admin: Field::Boolean,
   }
 
@@ -45,6 +46,7 @@ class UserDashboard < Administrate::BaseDashboard
     :email,
     :password,
     :phone,
+    :locale,
     :admin,
   ]
 
